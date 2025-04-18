@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	pgx "github.com/jackc/pgx/v5/"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -35,12 +36,12 @@ func Connect(ctx context.Context, dbURL string) (*DB, error) {
 }
 
 // QueryRowContext executes a single row query from the pool.
-func (db *DB) QueryRowContext(ctx context.Context, query string, args ...any) pgxpool.Row {
+func (db *DB) QueryRowContext(ctx context.Context, query string, args ...any) pgx.Row {
 	return db.QueryRow(ctx, query, args...)
 }
 
 // QueryContext executes a query that can return multiple rows from the pool.
-func (db *DB) QueryContext(ctx context.Context, query string, args ...any) (pgxpool.Rows, error) {
+func (db *DB) QueryContext(ctx context.Context, query string, args ...any) (pgx.Rows, error) {
 	return db.Query(ctx, query, args...)
 }
 
