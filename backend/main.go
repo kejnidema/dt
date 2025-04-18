@@ -1,18 +1,19 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
 
-	"backend/internal/database"
-	"backend/internal/routes"
+	"dentaltourism/internal/database"
+	"dentaltourism/internal/routes"
 
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load() // Load .env file for local development
+	err := godotenv.Load()
 	if err != nil {
 		log.Println("Error loading .env file")
 	}
@@ -23,18 +24,19 @@ func main() {
 		return
 	}
 
-	db, err := database.Connect(dbURL)
+	ctx := context.Background() // Create a background context
+	db, err := database.Connect(ctx, dbURL)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 		return
 	}
-	defer db.Close()
+	defer db.Close(ctx) // Note: pgxpool.Pool has a Close() method
 
-	router := routes.SetupRouter(db) // Pass the database connection to your routes
+	router := routes.SetupRouter(db)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080" // Default port
+		port = "8080"
 	}
 
 	log.Printf("Server listening on port %s", port)
