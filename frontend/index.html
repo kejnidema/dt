@@ -4,221 +4,269 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dental Tourism</title>
-    <script
-      src="https://unpkg.com/htmx.org@2.0.4"
-      integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="style/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
     <header>
       <div>DentalTourism Albania</div>
-      <li>
+      <nav>
         <ul>
-          Home
+          <li>Home</li>
+          <li>About Us</li>
+          <li>Our Services</li>
+          <li>Testimonials</li>
+          <li>FAQ</li>
+          <li>Contact</li>
+          <li>Get a Quote</li>
+          <li>Featured Destinations</li>
         </ul>
-        <ul>
-          About Us
-        </ul>
-        <ul>
-          Our Services
-        </ul>
-        <ul>
-          Testimonials
-        </ul>
-        <ul>
-          FAQ
-        </ul>
-        <ul>
-          Contact
-        </ul>
-        <ul>
-          Get a Quote
-        </ul>
-        <ul>
-          Featured Destinations
-        </ul>
-      </li>
+      </nav>
     </header>
-    <div>
-      <h1>Affordable, High-Quality Dental Care in Albania</h1>
-      <h2>
-        Experience top-tier treatment at a fraction of the cost. Personalized
-        case and seamless support from start to finish.
-      </h2>
-      <button>Get Your Free Quote</button>
-      <button>Explore Our Services</button>
-      <button>See Featured Destinations</button>
-      <img />
-    </div>
 
-    <div>
-      <div>
-        <img />
+    <div class="hero">
+      <div class="">
+        <h1>Affordable, High-Quality Dental Care in Albania</h1>
+        <h2>
+          Experience top-tier treatment at a fraction of the cost. Personalized
+          case and seamless support from start to finish.
+        </h2>
+        <button>Get Your Free Quote</button>
+        <button>Explore Our Services</button>
+        <button>See Featured Destinations</button>
       </div>
-      <h3>Consultation & Plan</h3>
-      <h4>
-        Start by requesting a consultation. We'll assess your needs and discuss
-        treatment options.
-      </h4>
+      <img src="public/hero.png" alt="Dental tourism in Albania" />
     </div>
 
-    <div>
-      <div>
-        <img />
+    <section class="container">
+      <div class="card">
+        <img src="public/consultation.jpg" alt="Consultation" />
+        <h3>Consultation & Plan</h3>
+        <h4>
+          Start by requesting a consultation. We'll assess your needs and
+          discuss treatment options.
+        </h4>
       </div>
-      <h3>Personalized Treatment Plan</h3>
-      <h4>
-        Receive a detailed plan based on your needs, with clear pricing and
-        timeline.
-      </h4>
-    </div>
 
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/plan.jpg" alt="Treatment Plan" />
+        <h3>Personalized Treatment Plan</h3>
+        <h4>
+          Receive a detailed plan based on your needs, with clear pricing and
+          timeline.
+        </h4>
       </div>
-      <h3>Book & Travel</h3>
-      <h4>
-        We handle everything for your trip and accomodation. Stress free travel
-        in Albania.
-      </h4>
-    </div>
 
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/travel.jpg" alt="Travel" />
+        <h3>Book & Travel</h3>
+        <h4>
+          We handle everything for your trip and accommodation. Stress-free
+          travel in Albania.
+        </h4>
       </div>
-      <h3>Aftercare</h3>
-      <h4>
-        Receive ongoing support once you're back home. We're always available
-        for follow-up questions
-      </h4>
-    </div>
 
-    <button>Read More About How It Works</button>
-
-    <h2>Comprehensice Dental Services</h2>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/aftercare.jpg" alt="Aftercare" />
+        <h3>Aftercare</h3>
+        <h4>
+          Receive ongoing support once you're back home. We're always available
+          for follow-up questions.
+        </h4>
       </div>
-      <h3>Implants</h3>
-      <h4>
-        Affordable and high-quality dental implants. Long-lasting solution for
-        missig teeth.
-      </h4>
-    </div>
+      <button class="cta">Read More About How It Works</button>
+    </section>
 
-    <div>
-      <div>
-        <img />
+    <section class="container secondary">
+      <h2>Comprehensive Dental Services</h2>
+      <div class="card">
+        <img src="public/implants.jpg" alt="Implants" />
+        <h3>Implants</h3>
+        <h4>
+          Affordable and high-quality dental implants. Long-lasting solution for
+          missing teeth.
+        </h4>
       </div>
-      <h3>Full Mouth Restoration</h3>
-      <h4>
-        Complete transformations to restore your smile. Comprehensive solutions
-        for multiple dental issues.
-      </h4>
-    </div>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/restoration.jpg" alt="Restoration" />
+        <h3>Full Mouth Restoration</h3>
+        <h4>
+          Complete transformations to restore your smile. Comprehensive
+          solutions for multiple dental issues.
+        </h4>
       </div>
-      <h3>Cosmetic Dentistry</h3>
-      <h4>
-        Veneers, crowns, and smile enhancements. Acheive the perfect smile
-        you've always wanted.
-      </h4>
-    </div>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/cosmetic.jpg" alt="Cosmetic" />
+        <h3>Cosmetic Dentistry</h3>
+        <h4>
+          Veneers, crowns, and smile enhancements. Achieve the perfect smile
+          you've always wanted.
+        </h4>
       </div>
-      <h3>Teeth Whitening</h3>
-      <h4>
-        Professional whitening for a brighter smile. Remove stains and
-        discoloration effectively.
-      </h4>
-    </div>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/whitening.jpg" alt="Whitening" />
+        <h3>Teeth Whitening</h3>
+        <h4>
+          Professional whitening for a brighter smile. Remove stains and
+          discoloration effectively.
+        </h4>
       </div>
-      <h3>Consultations & Aftercare</h3>
-      <h4>
-        Personalized consultations in German, with support during and after your
-        treatment.
-      </h4>
-    </div>
-
-    <button>Explore Our Full Range of Services</button>
-
-    <h2>Why Albania? An Ideal Destination for Affordable Dental Care</h2>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/aftercare-consult.jpg" alt="Consultations & Aftercare" />
+        <h3>Consultations & Aftercare</h3>
+        <h4>
+          Personalized consultations in German, with support during and after
+          your treatment.
+        </h4>
       </div>
-      <h3>Albania's Dental Tourism Advantage</h3>
-      <h4>
-        Albania is becoming the top destination for dental care (affordable
-        quality clinics, proximity to Germany, beautiful surroundings, etc.)
-      </h4>
-    </div>
+      <button class="cta">Explore Our Full Range of Services</button>
+    </section>
 
-    <div>
-      <div>
-        <img />
+    <section class="container">
+      <h2>Why Albania? An Ideal Destination for Affordable Dental Care</h2>
+      <div class="card">
+        <img src="public/advantage.jpg" alt="Advantage" />
+        <h3>Albania's Dental Tourism Advantage</h3>
+        <h4>
+          Albania is becoming the top destination for dental care — affordable
+          quality clinics, proximity to Germany, beautiful surroundings, etc.
+        </h4>
       </div>
-      <h3>Albania's Best Cities for Treatment</h3>
-      <h4>
-        Highlighting key cities where dental clinics are located (e.g., Tirana,
-        Shkodra, etc.) with amenities and attractions.
-      </h4>
-    </div>
-
-    <button>Explore Featured Destinations</button>
-
-    <h2>Meet Our Trusted, Experienced Dentists</h2>
-
-    <div>
-      <div>
-        <img />
+      <div class="card">
+        <img src="public/cities.jpg" alt="Cities" />
+        <h3>Albania's Best Cities for Treatment</h3>
+        <h4>
+          Highlighting key cities where dental clinics are located (e.g.,
+          Tirana, Shkodra) with amenities and attractions.
+        </h4>
       </div>
-      <h3>Dr. Elira Kova</h3>
-      <h4>
-        <b>Speciality:</b> Implantology, Cosmetic Dentistry
-        <b>Languages:</b> German, English, Albanian
-        "Patient care is my top priority. I focus on delivering the best results with utmost comfort."
-      </h4>
-    </div>
+      <button class="cta">Explore Featured Destinations</button>
+    </section>
 
-    <div>
-      <div>
-        <img />
+    <section class="container secondary">
+      <h2>Meet Our Trusted, Experienced Dentists</h2>
+      <div class="card">
+        <img src="public/elira.jpg" alt="Dr. Elira Kova" />
+        <h3>Dr. Elira Kova</h3>
+        <h4>
+          <b>Speciality:</b> Implantology, Cosmetic Dentistry<br /><b
+            >Languages:</b
+          >
+          German, English, Albanian<br />"Patient care is my top priority. I
+          focus on delivering the best results with utmost comfort."
+        </h4>
       </div>
-      <h3>Dr. Luan Gashi</h3>
-      <h4>
-        <b>Speciality:</b> Prosthodontics, Full Mouth Restorations
-        <b>Languages:</b> German, English, Albanian
-        "Restoring smiles and confidence is what I do best."
-      </h4>
-    </div>
+      <div class="card">
+        <img src="public/luan.jpg" alt="Dr. Luan Gashi" />
+        <h3>Dr. Luan Gashi</h3>
+        <h4>
+          <b>Speciality:</b> Prosthodontics, Full Mouth Restorations<br /><b
+            >Languages:</b
+          >
+          German, English, Albanian<br />"Restoring smiles and confidence is
+          what I do best."
+        </h4>
+      </div>
+      <div class="card">
+        <img src="public/marko.jpg" alt="Dr. Marko Shkurti" />
+        <h3>Dr. Marko Shkurti</h3>
+        <h4>
+          <b>Speciality:</b> Periodontics, Dental Surgery<br /><b>Languages:</b>
+          German, English, Albanian<br />"I am committed to providing precise,
+          expert dental care."
+        </h4>
+      </div>
+      <button class="cta">Meet All Our Dentists</button>
+    </section>
 
-    <div>
-      <div>
-        <img />
+    <section class="container">
+      <h2>What Our Patients Say About Us</h2>
+      <div class="card">
+        <img src="public/patient1.png" alt="Patient testimonial" />
+        <h4>
+          "I couldn't be happier with my new smile! The quality of care was
+          exceptional, and the price was unbeatable compared to Germany." –
+          Claudia R., Germany
+        </h4>
       </div>
-      <h3>Dr. Marko Shkurti</h3>
-      <h4>
-        <b>Speciality:</b> Periodontics, Dental Surgery
-        <b>Languages:</b> German, English, Albanian
-        "I am commited to providing precise, expert dental care."
-      </h4>
-    </div>
+      <div class="card">
+        <img src="public/patient2.jpg" alt="Patient testimonial" />
+        <h4>
+          "Professional, friendly and everything was well-organized. The clinic
+          was state-of-the-art and I felt comfortable throughout my procedure."
+          – Markus T., Germany
+        </h4>
+      </div>
+      <button class="cta">Read More Patient Testimonials</button>
+    </section>
+
+    <section class="container secondary">
+      <h2>Frequently Asked Questions</h2>
+      <div class="card">
+        <img src="faq1.jpg" alt="FAQ 1" />
+        <h3>Is it safe to travel to Albania for Dental Care?</h3>
+        <h4>
+          Yes, our clinics follow international standards of hygiene and safety.
+          All equipment is modern and sterilized to the highest standards.
+        </h4>
+      </div>
+      <div class="card">
+        <img src="faq2.jpg" alt="FAQ 2" />
+        <h3>How much can I save compared to Germany?</h3>
+        <h4>
+          Most procedures cost 50–70% less than in Germany, without compromising
+          on quality. For example, dental implants can be $1500 cheaper per
+          implant.
+        </h4>
+      </div>
+      <button class="cta">View All FAQs</button>
+    </section>
+
+    <section class="container">
+      <h2>Ready to Start Your Journey to Better Oral Health?</h2>
+      <div class="card">
+        <img src="get-started.jpg" alt="Get started" />
+        <h4>
+          Fill out our simple form to get started. We'll review your needs and
+          provide a personalized quote for your dental treatment in Albania.
+        </h4>
+      </div>
+
+      <form class="container">
+        <div>
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" />
+        </div>
+        <div>
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" name="phone" />
+        </div>
+        <div>
+          <label for="treatment">Treatment Type</label>
+          <input type="text" id="treatment" name="treatment" />
+        </div>
+        <div>
+          <label for="xray">Upload X-ray (optional)</label>
+          <input type="file" id="xray" name="xray" />
+        </div>
+        <button class="cta" type="submit">Get My Quote</button>
+      </form>
+    </section>
+
+    <footer>
+      <div>
+        <div>About Us</div>
+        <div>Services</div>
+        <div>Testimonials</div>
+        <div>FAQ</div>
+        <div>Contact</div>
+        <div>Privacy Policy</div>
+        <div>Terms of Service</div>
+      </div>
+    </footer>
   </body>
 </html>
