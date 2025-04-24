@@ -14,7 +14,6 @@ type DoctorHandler struct {
 }
 
 func (h *ClinicHandler) GetDoctors(w http.ResponseWriter, r *http.Request) {
-	// Example query (replace with your actual logic)
 	rows, err := h.DB.Query(context.Background(), "SELECT doctor_id, first_name, last_name, email, phone_number, created_at FROM doctors")
 	if err != nil {
 		http.Error(w, "Failed to fetch doctors", http.StatusInternalServerError)

@@ -30,7 +30,7 @@ func main() {
 		log.Fatalf("Failed to connect to database: %v", err)
 		return
 	}
-	defer db.Close(ctx) // Note: pgxpool.Pool has a Close() method
+	defer db.Close() // Note: pgxpool.Pool has a Close() method
 
 	router := routes.SetupRouter(db)
 
