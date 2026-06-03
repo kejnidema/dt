@@ -1,96 +1,103 @@
-CREATE DATABASE dt;
-GRANT ALL PRIVILEGES ON DATABASE dt TO dt;
 \c dt;
 
-
--- Table: clinics
-CREATE TABLE clinics (
-    clinic_id SERIAL PRIMARY KEY,
-    clinic_name VARCHAR(255) NOT NULL,
-    address TEXT,
-    city VARCHAR(100),
-    country VARCHAR(100),
-    phone_number VARCHAR(20),
-    email VARCHAR(100),
-    description TEXT,
-    image_url VARCHAR(255),
-    latitude DECIMAL(10, 6),
-    longitude DECIMAL(10, 6)
+-- Treatments (E-Max, Zirconia, Porcelain, etc.)
+CREATE TABLE treatments (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    slug            TEXT NOT NULL UNIQUE,
+    name_de         TEXT NOT NULL,
+    name_en         TEXT NOT NULL,
+    description_de  TEXT,
+    description_en  TEXT,
+    material        TEXT,
+    duration_days   INT DEFAULT 0,
+    lifespan_years  INT DEFAULT 0,
+    advantages      JSONB DEFAULT '[]',
+    pricing         JSONB,
+    sort_order      INT DEFAULT 0,
+    active          BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMPTZ DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Table: services
-CREATE TABLE services (
-    service_id SERIAL PRIMARY KEY,
-    service_name VARCHAR(255) NOT NULL,
-    description TEXT
+-- Before/After gallery cases
+CREATE TABLE gallery_cases (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    treatment_type  TEXT NOT NULL,
+    before_image    TEXT NOT NULL,
+    after_image     TEXT NOT NULL,
+    patient_flag    TEXT,
+    teeth_count     INT DEFAULT 0,
+    days_in_tirana  INT DEFAULT 0,
+    savings_eur     INT DEFAULT 0,
+    sort_order      INT DEFAULT 0,
+    active          BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Table: clinic_services
-CREATE TABLE clinic_services (
-    clinic_service_id SERIAL PRIMARY KEY,
-    clinic_id INTEGER REFERENCES clinics(clinic_id),
-    service_id INTEGER REFERENCES services(service_id),
-    price DECIMAL(10, 2),
-    currency VARCHAR(10)
+-- Pricing: German city reference prices
+CREATE TABLE pricing_cities (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    city_name       TEXT NOT NULL,
+    price_per_tooth INT NOT NULL,
+    sort_order      INT DEFAULT 0
 );
 
--- Table: doctors
-CREATE TABLE doctors (
-    doctor_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    specialization VARCHAR(255),
-    biography TEXT,
-    image_url VARCHAR(255)
+-- Pricing: Albania (Tirana) material prices
+CREATE TABLE pricing_materials (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    key             TEXT NOT NULL UNIQUE,
+    name_de         TEXT NOT NULL,
+    name_en         TEXT NOT NULL,
+    price_per_tooth INT NOT NULL,
+    sort_order      INT DEFAULT 0
 );
 
--- Table: clinic_doctors
-CREATE TABLE clinic_doctors (
-    clinic_doctor_id SERIAL PRIMARY KEY,
-    clinic_id INTEGER REFERENCES clinics(clinic_id),
-    doctor_id INTEGER REFERENCES doctors(doctor_id)
-);
-
--- Table: patients
-CREATE TABLE patients (
-    patient_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    phone_number VARCHAR(20),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Table: appointments
-CREATE TABLE appointments (
-    appointment_id SERIAL PRIMARY KEY,
-    patient_id INTEGER REFERENCES patients(patient_id),
-    clinic_id INTEGER REFERENCES clinics(clinic_id),
-    service_id INTEGER REFERENCES services(service_id),
-    appointment_date DATE NOT NULL,
-    appointment_time TIME WITHOUT TIME ZONE,
-    notes TEXT,
-    status VARCHAR(50),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Table: testimonials
+-- Testimonials / reviews
 CREATE TABLE testimonials (
-    testimonial_id SERIAL PRIMARY KEY,
-    patient_name VARCHAR(255),
-    clinic_id INTEGER REFERENCES clinics(clinic_id),
-    rating INTEGER,
-    testimonial_comment TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    is_approved BOOLEAN DEFAULT FALSE
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    patient_name    TEXT,
+    rating          INT CHECK (rating BETWEEN 1 AND 5),
+    comment_de      TEXT,
+    comment_en      TEXT,
+    patient_flag    TEXT,
+    treatment       TEXT,
+    days_ago        INT,
+    featured        BOOLEAN DEFAULT FALSE,
+    active          BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Table: users
-CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    phone_number VARCHAR(20),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+-- Doctor profiles
+CREATE TABLE doctors (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    first_name      TEXT NOT NULL,
+    last_name       TEXT NOT NULL,
+    specialization  TEXT,
+    biography_de    TEXT,
+    biography_en    TEXT,
+    image_url       TEXT,
+    languages       JSONB DEFAULT '[]',
+    credentials     JSONB DEFAULT '[]',
+    is_lead         BOOLEAN DEFAULT FALSE,
+    sort_order      INT DEFAULT 0,
+    active          BOOLEAN DEFAULT TRUE,
+    created_at      TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Consultation requests (from contact form)
+CREATE TABLE consultations (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    full_name       TEXT NOT NULL,
+    email           TEXT NOT NULL,
+    phone           TEXT NOT NULL,
+    city            TEXT,
+    treatment       TEXT,
+    message         TEXT,
+    status          TEXT DEFAULT 'new',
+    created_at      TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Indexes
+CREATE INDEX idx_gallery_treatment ON gallery_cases(treatment_type);
+CREATE INDEX idx_testimonials_featured ON testimonials(featured) WHERE featured;
+CREATE INDEX idx_consultations_status ON consultations(status);

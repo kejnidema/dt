@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Preisvergleich &amp; Rechner | Veneer Clinic Tirana</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c4c6cf",
+                    "tertiary-fixed-dim": "#76d6d5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1c",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#002323",
+                    "surface-container-highest": "#e2e2e2",
+                    "primary-fixed": "#d4e3ff",
+                    "background": "#f9f9f9",
+                    "primary": "#000613",
+                    "on-secondary-container": "#745c00",
+                    "on-tertiary-container": "#2c9494",
+                    "primary-container": "#001f3f",
+                    "surface-tint": "#476083",
+                    "primary-fixed-dim": "#afc8f0",
+                    "surface-variant": "#e2e2e2",
+                    "tertiary": "#000707",
+                    "inverse-surface": "#2f3131",
+                    "secondary-container": "#fed65b",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-fixed": "#241a00",
+                    "tertiary-fixed": "#93f2f2",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f9f9f9",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "surface-container-low": "#f3f3f3",
+                    "outline": "#74777f",
+                    "surface": "#f9f9f9",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-container": "#6f88ad",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "secondary-fixed": "#ffe088",
+                    "on-primary-fixed": "#001c3a",
+                    "secondary": "#735c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-padding": "80px",
+                    "margin-mobile": "16px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #000613;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #ffe088;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .savings-pulse {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant shadow-sm">
+<div class="max-w-[1200px] mx-auto px-gutter flex justify-between items-center h-20">
+<div class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">
+                Veneer Clinic Tirana
+            </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer" href="#">Treatments</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer" href="#">Veneers</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer" href="#">Before &amp; After</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer" href="#">Why Tirana</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer" href="#">About Us</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-3 font-label-md rounded hover:opacity-90 active:opacity-80 transition-all cursor-pointer">
+                Book Now
+            </button>
+</div>
+</header>
+<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="py-section-padding bg-white overflow-hidden">
+<div class="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<span class="inline-block py-1 px-3 bg-secondary-fixed text-on-secondary-fixed font-label-md text-[12px] rounded-full mb-6 uppercase tracking-widest">Preis-Transparenz</span>
+<h1 class="font-display-lg text-display-lg mb-6 leading-tight">Sparen Sie Tausende von Euro bei Ihren Veneers.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-lg">
+                        Deutsche Qualität, albanische Gastfreundschaft. Erfahren Sie sofort, wie viel Sie im Vergleich zu Ihrer Heimatstadt sparen können, ohne Kompromisse bei der Präzision einzugehen.
+                    </p>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined text-[32px]">verified_user</span>
+<span class="font-label-md">TÜV-zertifizierte Materialien &amp; deutsche Leitung</span>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/5 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform duration-500"></div>
+<img alt="Precision Dentistry" class="relative rounded-xl shadow-xl object-cover h-[450px] w-full" data-alt="A high-end, minimalist dental laboratory setting with clean white surfaces and state-of-the-art digital dental equipment. The lighting is bright and clinical yet inviting, utilizing a soft-key approach to highlight the precision of the medical tools. The overall aesthetic is professional and luxury-boutique, featuring subtle navy and gold accents from the clinic's brand palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANhRu_eSDu_23TWnX_cZfNPinBwonflTH45j_xzSne8STPzT8RPWyOChX-nXOfZKN_98AlzEWpYQlMHznAs4KgdubrulyUmOnMAyOQgkfbYC0U4yBZLQowsegCZqI-cDU6aDUPdj43cw2SL8K5IpmXi7rFK5x25tA_kvikQVeWHIZ9T6nvXkagXYgHYjwFdXVvgC9PCIm7TK2lXYTRcJGdjNOMMfe4xxVf4_MYQMfgd7bGj-g1AmoREjg2m4RxLU31UGFStsP0IMY"/>
+</div>
+</div>
+</section>
+<!-- Pricing Calculator Section -->
+<section class="py-section-padding bg-surface-container-low">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md mb-4 text-primary">Veneer Preisrechner</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Berechnen Sie Ihre Ersparnis basierend auf Material und Standort.</p>
+</div>
+<!-- Calculator Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Input Controls -->
+<div class="lg:col-span-5 bg-white p-8 rounded-xl border border-outline-variant shadow-sm space-y-10">
+<!-- City Dropdown -->
+<div>
+<label class="font-label-md block mb-4 text-on-surface-variant">Referenzstadt in Deutschland</label>
+<select class="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md appearance-none cursor-pointer" id="city-selector">
+<option selected="" value="1200">Berlin</option>
+<option value="1500">München</option>
+<option value="1300">Hamburg</option>
+<option value="1400">Frankfurt</option>
+<option value="1100">Düsseldorf</option>
+</select>
+</div>
+<!-- Material Toggle -->
+<div>
+<label class="font-label-md block mb-4 text-on-surface-variant">Material-Qualität</label>
+<div class="flex p-1 bg-surface-container rounded-lg border border-outline-variant">
+<button class="flex-1 py-3 text-center rounded font-label-md transition-all bg-primary text-white" id="btn-e-max" onclick="setMaterial('e-max', 350)">E-Max Porzellan</button>
+<button class="flex-1 py-3 text-center rounded font-label-md transition-all text-on-surface-variant hover:bg-white/50" id="btn-zirconia" onclick="setMaterial('zirconia', 300)">Zirkonoxid</button>
+</div>
+</div>
+<!-- Tooth Slider -->
+<div>
+<div class="flex justify-between mb-4">
+<label class="font-label-md text-on-surface-variant">Anzahl der Veneers</label>
+<span class="font-headline-sm text-primary" id="tooth-count-display">8</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer slider-thumb" id="tooth-slider" max="24" min="1" type="range" value="8"/>
+<div class="flex justify-between mt-2 text-[12px] text-outline font-label-md">
+<span>1 Zahn</span>
+<span>12 Zähne (Full Smile)</span>
+<span>24 Zähne</span>
+</div>
+</div>
+</div>
+<!-- Result Display -->
+<div class="lg:col-span-7 bg-primary rounded-xl p-10 text-white relative overflow-hidden h-full flex flex-col justify-between">
+<!-- Decorative Pattern -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-fixed/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div class="relative z-10">
+<h3 class="font-label-md text-secondary-fixed uppercase tracking-widest mb-10">Ihre Potenzielle Ersparnis</h3>
+<div class="flex flex-col md:flex-row items-end gap-8 mb-12">
+<div class="savings-pulse">
+<div class="text-[64px] font-bold leading-none text-secondary-fixed" id="total-savings">€ 6.800</div>
+<div class="font-label-md mt-2 opacity-70 italic">* Geschätzter Betrag im Vergleich zu Deutschland</div>
+</div>
+<div class="h-20 w-[1px] bg-white/20 hidden md:block"></div>
+<div>
+<div class="text-headline-sm" id="tirana-price">€ 2.800</div>
+<div class="font-label-md opacity-70">Unser Paketpreis</div>
+</div>
+</div>
+<!-- Visualization Chart (Miniature Bento Grid Style) -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/5 p-4 rounded border border-white/10">
+<div class="font-label-md opacity-60 mb-1">Kosten DE</div>
+<div class="font-headline-sm" id="germany-price">€ 9.600</div>
+<div class="w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-error w-full h-full"></div>
+</div>
+</div>
+<div class="bg-white/5 p-4 rounded border border-white/10">
+<div class="font-label-md opacity-60 mb-1">Kosten Tirana</div>
+<div class="font-headline-sm" id="tirana-price-alt">€ 2.800</div>
+<div class="w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full transition-all duration-500" id="savings-bar" style="width: 29%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 relative z-10">
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed py-5 font-label-md text-lg rounded-lg hover:brightness-110 active:scale-[0.98] transition-all">
+                                Erhalten Sie ein individuelles Angebot
+                            </button>
+<p class="text-center mt-4 font-label-md opacity-50 text-[12px]">Kostenlose Erstberatung inklusive Digital Smile Design</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- What's Included Section -->
+<section class="py-section-padding bg-white">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Was ist im Preis inklusive?</h2>
+<p class="text-on-surface-variant max-w-lg">Keine versteckten Kosten. Wir organisieren Ihren gesamten Aufenthalt für ein stressfreies Erlebnis.</p>
+</div>
+<div class="hidden md:block">
+<span class="material-symbols-outlined text-secondary text-[48px]" style="font-variation-settings: 'FILL' 1;">package_2</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature Card 1 -->
+<div class="group p-8 border border-outline-variant hover:border-primary transition-all duration-300 flex flex-col">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-full mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">airport_shuttle</span>
+</div>
+<h3 class="font-headline-sm mb-4">VIP Transfer</h3>
+<p class="text-on-surface-variant mb-6">Persönlicher Chauffeur vom Flughafen Tirana zum Hotel und zur Klinik während Ihres gesamten Aufenthalts.</p>
+</div>
+<!-- Feature Card 2 -->
+<div class="group p-8 border border-outline-variant hover:border-primary transition-all duration-300 flex flex-col">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-full mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">hotel</span>
+</div>
+<h3 class="font-headline-sm mb-4">4* &amp; 5* Hotels</h3>
+<p class="text-on-surface-variant mb-6">Übernachtung in unseren Partnerhotels direkt im Herzen von Tirana, inklusive Frühstück.</p>
+</div>
+<!-- Feature Card 3 -->
+<div class="group p-8 border border-outline-variant hover:border-primary transition-all duration-300 flex flex-col">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-full mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<h3 class="font-headline-sm mb-4">Treatment Plan</h3>
+<p class="text-on-surface-variant mb-6">Digital Smile Design (DSD), Röntgenaufnahmen, Anästhesie und lebenslange Garantie auf das Material.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-20 bg-primary-container text-on-primary-container">
+<div class="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="flex items-center gap-6">
+<div class="w-20 h-20 rounded-full border-2 border-secondary-fixed flex items-center justify-center overflow-hidden bg-white">
+<img alt="Doctor Portrait" class="w-full h-full object-cover" data-alt="A portrait of a professional dental surgeon with a welcoming, confident smile. The surgeon is dressed in a crisp, clean white medical coat. The background is a softly blurred, high-end dental clinic with a neutral color palette of whites and grays, emphasizing a sterile yet warm environment. Soft natural lighting creates a high-contrast but professional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNJTV6dpY7aRpYwKnJBqVXxqEOjCU7Z_b9UA6vzbcixlu0ZYUbCk3jAbADQCQlTsTBT3jvG6RW_GsrvxTOxMA44RdSEuwyAJ1pgN-zKfjcS0KPNUGKu4eRqcjpYizNlVvjFFz7knGFjXj44ijiaSBZP1W2AViEWFm8LHmtskBeaRnkY3C28vpXiZtr2Bx6o6MAl3GZSyJ6VGM6M3z85RS_kVVgPOuknOeNvfTHhbYspwEnULkQPhGhsd0F-g7kF0r-g_fX4BIjp0s"/>
+</div>
+<div>
+<p class="font-headline-sm text-white">Dr. Arben Hoxha</p>
+<p class="font-label-md opacity-80">Chefarzt &amp; Spezialist für Ästhetik</p>
+</div>
+</div>
+<blockquote class="max-w-xl italic text-body-lg">
+                    "Wir verwenden exakt die gleichen Materialien und Technologien wie Spitzenkliniken in Berlin oder München – nur die Betriebskosten in Tirana ermöglichen diesen Preisvorteil."
+                </blockquote>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-primary border-t border-outline">
+<div class="max-w-[1200px] mx-auto px-gutter py-section-padding grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-6">
+<div class="font-headline-md text-headline-md text-on-primary">Veneer Clinic Tirana</div>
+<p class="text-outline-variant font-body-md">Spezialisten für Hollywood-Lächeln in der Hauptstadt Albaniens.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-secondary-fixed font-bold uppercase tracking-widest">Leistungen</h4>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Veneer Procedure</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Digital Smile Design</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Implantology</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-secondary-fixed font-bold uppercase tracking-widest">Patienten</h4>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Patient Journey</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Cost Comparison</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-secondary-fixed font-bold uppercase tracking-widest">Kontakt</h4>
+<p class="text-outline-variant">Tirana Business Center, 4th Floor</p>
+<p class="text-outline-variant">+355 42 234 567</p>
+<p class="text-outline-variant">info@veneerclinictirana.com</p>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-gutter py-8 border-t border-white/10 text-center text-outline-variant font-label-md">
+            © 2024 Veneer Clinic Tirana. All Rights Reserved. German Quality, Albanian Hospitality.
+        </div>
+</footer>
+<script>
+        let currentMaterialPrice = 350; // E-Max Default
+        
+        const citySelector = document.getElementById('city-selector');
+        const toothSlider = document.getElementById('tooth-slider');
+        const toothCountDisplay = document.getElementById('tooth-count-display');
+        
+        const totalSavingsEl = document.getElementById('total-savings');
+        const tiranaPriceEl = document.getElementById('tirana-price');
+        const tiranaPriceAltEl = document.getElementById('tirana-price-alt');
+        const germanyPriceEl = document.getElementById('germany-price');
+        const savingsBar = document.getElementById('savings-bar');
+
+        const btnEMax = document.getElementById('btn-e-max');
+        const btnZirconia = document.getElementById('btn-zirconia');
+
+        function setMaterial(type, price) {
+            currentMaterialPrice = price;
+            if (type === 'e-max') {
+                btnEMax.classList.add('bg-primary', 'text-white');
+                btnEMax.classList.remove('text-on-surface-variant');
+                btnZirconia.classList.remove('bg-primary', 'text-white');
+                btnZirconia.classList.add('text-on-surface-variant');
+            } else {
+                btnZirconia.classList.add('bg-primary', 'text-white');
+                btnZirconia.classList.remove('text-on-surface-variant');
+                btnEMax.classList.remove('bg-primary', 'text-white');
+                btnEMax.classList.add('text-on-surface-variant');
+            }
+            updateCalculator();
+        }
+
+        function updateCalculator() {
+            const count = parseInt(toothSlider.value);
+            const germanyUnitPrice = parseInt(citySelector.value);
+            
+            const totalGermany = count * germanyUnitPrice;
+            const totalTirana = count * currentMaterialPrice;
+            const savings = totalGermany - totalTirana;
+            
+            const percentage = (totalTirana / totalGermany) * 100;
+
+            toothCountDisplay.innerText = count;
+            totalSavingsEl.innerText = `€ ${savings.toLocaleString('de-DE')}`;
+            tiranaPriceEl.innerText = `€ ${totalTirana.toLocaleString('de-DE')}`;
+            tiranaPriceAltEl.innerText = `€ ${totalTirana.toLocaleString('de-DE')}`;
+            germanyPriceEl.innerText = `€ ${totalGermany.toLocaleString('de-DE')}`;
+            
+            savingsBar.style.width = `${percentage}%`;
+        }
+
+        citySelector.addEventListener('change', updateCalculator);
+        toothSlider.addEventListener('input', updateCalculator);
+
+        // Initial update
+        updateCalculator();
+    </script>
+</body></html>

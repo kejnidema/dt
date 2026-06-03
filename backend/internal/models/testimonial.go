@@ -3,11 +3,15 @@ package models
 import "time"
 
 type Testimonial struct {
-	TestimoialID       int       `json:"testimonial_id"`
-	PatientName        string    `json:"patient_name"`
-	ClinicID           int       `json:"clinic_id"`
-	Rating             int       `json:"rating"`
-	TestimonialComment string    `json:"testimonial_comment"`
-	CreatedAt          time.Time `json:"created_at"`
-	IsApproved         bool      `json:"is_approved"`
+	ID          string    `json:"id"`
+	PatientName string    `json:"patient_name,omitempty"`
+	Rating      int       `json:"rating"`
+	CommentDE   string    `json:"comment_de,omitempty"`
+	CommentEN   string    `json:"comment_en,omitempty"`
+	PatientFlag string    `json:"patient_flag,omitempty"`
+	Treatment   string    `json:"treatment,omitempty"`
+	DaysAgo     int       `json:"days_ago,omitempty"`
+	Featured    bool      `json:"-"`
+	Active      bool      `json:"-"`
+	CreatedAt   time.Time `json:"-"`
 }

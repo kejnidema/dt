@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c4c6cf",
+                    "tertiary-fixed-dim": "#76d6d5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1c",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#002323",
+                    "surface-container-highest": "#e2e2e2",
+                    "primary-fixed": "#d4e3ff",
+                    "background": "#f9f9f9",
+                    "primary": "#000613",
+                    "on-secondary-container": "#745c00",
+                    "on-tertiary-container": "#2c9494",
+                    "primary-container": "#001f3f",
+                    "surface-tint": "#476083",
+                    "primary-fixed-dim": "#afc8f0",
+                    "surface-variant": "#e2e2e2",
+                    "tertiary": "#000707",
+                    "inverse-surface": "#2f3131",
+                    "secondary-container": "#fed65b",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-fixed": "#241a00",
+                    "tertiary-fixed": "#93f2f2",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f9f9f9",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "surface-container-low": "#f3f3f3",
+                    "outline": "#74777f",
+                    "surface": "#f9f9f9",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-container": "#6f88ad",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "secondary-fixed": "#ffe088",
+                    "on-primary-fixed": "#001c3a",
+                    "secondary": "#735c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-padding": "80px",
+                    "margin-mobile": "16px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-line::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            background-color: #c4c6cf;
+            top: 40px;
+            bottom: -40px;
+            left: 50%;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(196, 198, 207, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky bg-surface border-b border-outline-variant shadow-sm z-50">
+<div class="max-w-[1200px] mx-auto px-gutter flex justify-between items-center h-20">
+<div class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">Veneer Clinic Tirana</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Treatments</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Veneers</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Before &amp; After</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Patient Journey</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">About Us</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 font-label-md text-label-md uppercase tracking-wider hover:opacity-90 transition-opacity">Book Now</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative h-[614px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, wide-angle shot of a high-end dental clinical lounge in Tirana. The space features floor-to-ceiling windows overlooking a modern city skyline at sunset. Minimalist white furniture, polished marble floors, and warm, diffused ambient lighting create a sense of luxury and clinical excellence. The atmosphere is calm, sophisticated, and professional, reflecting a premium medical tourism experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjvCuXijihnRrVsQ4MsdVs4pJ2MGLC2uuW7smWhg8RXIjEa4y7tOwdwBPrkmQZywBK6GQQZv0TqZRYaplaweVbR5zotxUZYjrvG16wXhCSGER9yPFhRDSKhMjOijSIWHqzX2BogH6bLaSN-4jQder1W-rMgWfn1IHPv1aj8UwH68A6QnSnXXNfzvU4yq0NBZ96ARSuCU5nnFEtt0NbcDl9Nq4eNFV-5evpQPp5G2NwUAzhKZFjzRa5QzPxccxG88Ap3_AZims7Nxo"/>
+<div class="absolute inset-0 bg-primary/20"></div>
+</div>
+<div class="relative z-10 max-w-[1200px] mx-auto px-gutter w-full">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-white mb-6">Ihre Reise zum neuen Lächeln — Schritt für Schritt.</h1>
+<p class="font-body-lg text-body-lg text-white/90">Von der ersten Beratung in Deutschland bis zum perfekten Hollywood-Lächeln in Tirana. Wir begleiten Sie bei jedem Schritt Ihrer Transformation.</p>
+</div>
+</div>
+</header>
+<!-- Patient Journey Timeline (Alternating Zig-Zag) -->
+<section class="py-section-padding bg-surface-bright">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="text-center mb-20">
+<span class="text-secondary font-label-md uppercase tracking-[0.2em]">Der Prozess</span>
+<h2 class="font-headline-md text-headline-md text-primary mt-2">Ihre 5-Schritte Transformation</h2>
+</div>
+<div class="relative">
+<!-- Step 1: Right -->
+<div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
+<div class="w-full md:w-1/2 flex justify-center md:justify-end">
+<div class="max-w-md text-right">
+<span class="font-display-lg text-display-lg text-outline-variant/30 select-none">01</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Digitale Vorberatung</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Senden Sie uns Fotos Ihres Lächelns bequem per WhatsApp oder E-Mail. Unsere Experten analysieren Ihre Zahnsituation und erstellen einen ersten, unverbindlichen Behandlungsplan sowie einen Kostenvoranschlag – völlig kostenfrei.</p>
+</div>
+</div>
+<div class="hidden md:flex flex-col items-center relative h-full">
+<div class="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center bg-surface-bright z-10">
+<span class="material-symbols-outlined text-primary">videocam</span>
+</div>
+<div class="absolute top-12 bottom-[-96px] w-[1px] bg-outline-variant"></div>
+</div>
+<div class="w-full md:w-1/2">
+<img class="w-full h-80 object-cover rounded shadow-lg" data-alt="A clean, close-up shot of a high-resolution dental scanner screen showing a digital 3D model of a perfect smile. Beside the screen, a dentist's hand holds a premium tablet. The background is a brightly lit, minimalist dental office with white surfaces and subtle grey accents, conveying a high-tech and medical-grade professional environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7rl7IyZWJLxZ9eTJZwvrsQw5XkpGyZupLnegJbK9RbZquCe6Jr0OOFdObNe3v1JkZan9uixgcUU9taq7aCpr6t2ZkTvzviH5KQ76feJWttp4PMBg2iWH6ltMmPovKlsLhUl2P1vjnobU6VONuYNRwnoNbW-Sjwux1IC1Zi9XrI-cltrx3R5KalsUKYLYvkpQgERKHj3trdicfi7kJRfHDAzOz1TzKzNB5tERUXM-4xPnMxrHllie4m4JuW46R0v93VGtNxmX_eNA"/>
+</div>
+</div>
+<!-- Step 2: Left -->
+<div class="flex flex-col md:flex-row-reverse items-center mb-24 gap-12 group">
+<div class="w-full md:w-1/2 flex justify-center md:justify-start">
+<div class="max-w-md text-left">
+<span class="font-display-lg text-display-lg text-outline-variant/30 select-none">02</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Reiseplanung &amp; Ankunft</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Wir unterstützen Sie bei der Flugbuchung ab deutschen Flughäfen (Direktflüge ca. 2 Std.). Bei Ihrer Ankunft in Tirana erwartet Sie unser VIP-Transfer, der Sie direkt in Ihr Partner-Hotel oder in die Klinik bringt.</p>
+</div>
+</div>
+<div class="hidden md:flex flex-col items-center relative">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-bright z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">flight_takeoff</span>
+</div>
+<div class="absolute top-12 bottom-[-96px] w-[1px] bg-outline-variant"></div>
+</div>
+<div class="w-full md:w-1/2">
+<img class="w-full h-80 object-cover rounded shadow-lg" data-alt="A luxury black executive car parked in front of a modern, glass-facade airport terminal at dusk. The lighting is crisp and cool, with city lights reflecting on the car's polished surface. The scene represents a premium, stress-free VIP travel service for medical patients, emphasizing comfort and high-end hospitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBDOnvsEthvhK0uoA4nX1mnRWRdAO_lfm-O4L_aramAVpmx2LXiZaKacgTNM_JILRwiSLN1uGDeq_Bwcf5tXlm0URiruBgW06ak-b3ZXV2wZ9Tx4O7Z7fOjPAur1FsU_VVgvFsRh16r6xiTfSqq9jnYDKbXpdpNLJLC09BRG0tJwm-HH6rtJKmXchvAGs8_VEPATm6PZBLTah0-CjopCBFQN4e_oHgkwVLdzuXgHyEegY4HvGUXIgFx5xluQ088oiF1WgCrd_j3Ws"/>
+</div>
+</div>
+<!-- Step 3: Right -->
+<div class="flex flex-col md:flex-row items-center mb-24 gap-12 group">
+<div class="w-full md:w-1/2 flex justify-center md:justify-end">
+<div class="max-w-md text-right">
+<span class="font-display-lg text-display-lg text-outline-variant/30 select-none">03</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Präzisions-Vorbereitung</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">In unserer Klinik erfolgt die finale Untersuchung und das 'Digital Smile Design'. Wir erstellen hochpräzise Abdrücke. Dank deutscher Standards und modernster Technologie werden Ihre Veneers innerhalb weniger Tage individuell gefertigt.</p>
+</div>
+</div>
+<div class="hidden md:flex flex-col items-center relative">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-bright z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">biotech</span>
+</div>
+<div class="absolute top-12 bottom-[-96px] w-[1px] bg-outline-variant"></div>
+</div>
+<div class="w-full md:w-1/2">
+<img class="w-full h-80 object-cover rounded shadow-lg" data-alt="A macro shot of a dental laboratory where a precision milling machine is crafting a porcelain veneer. The lighting is clinical and bright blue-white, highlighting the intricate details of the ceramic material. The environment is sterile and reflects advanced German engineering standards in dental technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQGq8UxA8C5iqQvMPnE7-sg5I5-cDOBrmbKEJjrv16mOQxdK35k7WPsz4IZ8jWJrH3N9azQ9NnJofVFXBpTQ5Yh_gcTvWWMlAwbXkKG0W5wSnFdPnKicb_55zJkIYxLNlEkR6wl4xdP7pFiN43kiCj9PmexDuaQ-e4geq4scGfd4XR1pr12rlO6vzXMlLS06ZZjPN7ZPTYM4zdKEa8PjTt9wTPHIkZe9RltdEg4iaKYKF_7IcYGJpefbM9rd_SwIVGEKePTgeny9w"/>
+</div>
+</div>
+<!-- Step 4: Left -->
+<div class="flex flex-col md:flex-row-reverse items-center mb-24 gap-12 group">
+<div class="w-full md:w-1/2 flex justify-center md:justify-start">
+<div class="max-w-md text-left">
+<span class="font-display-lg text-display-lg text-outline-variant/30 select-none">04</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Einsetzen der Veneers</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Der entscheidende Moment: Ihre maßgeschneiderten Veneers werden behutsam eingesetzt. Wir achten auf höchste Ästhetik und natürliche Funktionalität. Sie verlassen die Klinik mit Ihrem neuen Selbstbewusstsein.</p>
+</div>
+</div>
+<div class="hidden md:flex flex-col items-center relative">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-bright z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">auto_fix_high</span>
+</div>
+<div class="absolute top-12 bottom-[-96px] w-[1px] bg-outline-variant"></div>
+</div>
+<div class="w-full md:w-1/2">
+<img class="w-full h-80 object-cover rounded shadow-lg" data-alt="An elegant, soft-focus image of a patient looking into a minimalist mirror, showing a wide, radiant, and perfect white smile. The lighting is warm and flattering, like high-end beauty photography. The background is a soft-white clinical space, emphasizing the aesthetic success and emotional joy of the transformation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGP34jT1bB_tIftbCqB45w9MT7MWTDNpE8JYS8JjLRpbJIAFaYhVbK5gKPYWldVVvCMxapCuN2Ur0yRg_1RIbDyHqyAPcjn8Ju5_-ec1W_5tLjVCWa-z0DviKZuVutOcgtzg7oCt4fi93RXj0oLxFEpS2oz0KXLPy-WzVu1s-uzAcOVC-98g2JkrG0WaU5lZja23xh-jQPB4xJK-r3H5ynFlrAVely79r-U2UuNMOTaMz29dxZC41gx-KMksyTF9lt9E_vJGwgtn8"/>
+</div>
+</div>
+<!-- Step 5: Right -->
+<div class="flex flex-col md:flex-row items-center gap-12 group">
+<div class="w-full md:w-1/2 flex justify-center md:justify-end">
+<div class="max-w-md text-right">
+<span class="font-display-lg text-display-lg text-outline-variant/30 select-none">05</span>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Nachsorge &amp; Heimreise</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Nach einer finalen Kontrolle genießen Sie vielleicht noch einen Tag im lebendigen Tirana, bevor wir Sie zurück zum Flughafen bringen. Die Nachsorge erfolgt unkompliziert – wir bleiben Ihr lebenslanger Partner für Ihr Lächeln.</p>
+</div>
+</div>
+<div class="hidden md:flex flex-col items-center relative">
+<div class="w-12 h-12 rounded-full border-2 border-outline-variant flex items-center justify-center bg-surface-bright z-10 group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">verified</span>
+</div>
+</div>
+<div class="w-full md:w-1/2">
+<img class="w-full h-80 object-cover rounded shadow-lg" data-alt="A lifestyle photo of a happy person sitting at a chic outdoor cafe in Skanderbeg Square, Tirana. The morning sun is bright, highlighting the colorful architecture and the person's bright smile. The style is like a luxury travel magazine, blending dental success with a vibrant destination experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8d8LfUEwxV86KhoK5su3bhAtVVNzK6AK6VNCveIMN3isezAMUZhagANoROFYOil6ZQkOh35xMfLkR8NfLNj7bKNHDK-k4O5x3sdWjNGeqiDOVPVfxv3zPlnr0uUVJxG39qG1e0h_DOixyuSiLr1rNnOZzYW2nEswKMgudpOfLyybEv-4AC1ZdfcPaZWG4cOE6rn0AgIZHezzkPSiu9nHUTsZa8POMihuWuyyH5tXm3RBpkoGPVKhejldFkCyD5vz8Fyun8wACPpA"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Travel Information Bento Grid -->
+<section class="py-section-padding bg-background">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="mb-12">
+<h2 class="font-headline-md text-headline-md text-primary">Reiseinformationen für deutsche Patienten</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mt-2">Alles, was Sie für Ihre problemlose Reise von Deutschland nach Albanien wissen müssen.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Flights -->
+<div class="md:col-span-2 glass-card p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">airplane_ticket</span>
+<h4 class="font-headline-sm text-headline-sm">Direktflüge &amp; Flugzeiten</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Tirana ist von fast allen großen deutschen Flughäfen innerhalb von ca. 2 Stunden erreichbar. Lufthansa, Austrian, und Eurowings bieten tägliche Verbindungen an.</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="border-l-2 border-outline-variant pl-4">
+<span class="font-label-md text-primary block">München / Frankfurt</span>
+<span class="text-sm text-on-surface-variant">Täglich direkt</span>
+</div>
+<div class="border-l-2 border-outline-variant pl-4">
+<span class="font-label-md text-primary block">Berlin / Hamburg</span>
+<span class="text-sm text-on-surface-variant">3x wöchentlich</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Visa -->
+<div class="bg-primary text-on-primary p-8 flex flex-col">
+<span class="material-symbols-outlined text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<h4 class="font-headline-sm text-headline-sm mb-2">Visum &amp; Einreise</h4>
+<p class="font-body-md text-body-md opacity-80">Für deutsche Staatsbürger ist die Einreise nach Albanien unkompliziert mit einem gültigen Personalausweis oder Reisepass möglich. Kein Visum erforderlich.</p>
+</div>
+<!-- Partner Hotels -->
+<div class="bg-surface p-8 border border-outline-variant flex flex-col">
+<h4 class="font-headline-sm text-headline-sm mb-4">Partner Hotels</h4>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">star</span>
+<span class="font-body-md">Maritim Hotel Plaza (5*)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">star</span>
+<span class="font-body-md">Rogner Hotel Tirana (5*)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">star</span>
+<span class="font-body-md">The Rooms Boutique (4*)</span>
+</li>
+</ul>
+<button class="mt-auto pt-6 text-primary font-label-md uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all">
+                        Hoteldetails ansehen <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Transfers -->
+<div class="md:col-span-2 glass-card p-8 flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<h4 class="font-headline-sm text-headline-sm mb-4">VIP-Transfer Service</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Vergessen Sie Navigationsstress. Unser privater Fahrer erwartet Sie am Flughafen mit einem Namensschild und bringt Sie sicher zu all Ihren Terminen. Dieser Service ist in Ihrem Premium-Paket enthalten.</p>
+</div>
+<div class="w-full md:w-64 h-40 bg-surface-container rounded overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="A stylized, minimalist map showing the route from Tirana International Airport to the city center and the dental clinic. The map uses a clean palette of whites and greys with a single navy blue line indicating the route, emphasizing ease and accessibility." data-location="Tirana" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGWeOBv2fmH9zWz-V3OoVXdJ26fJRabIETh_euUs6eocux_vdeAor4DRtFYmj-2NP49kWafmy9yDepMWM6Wn9rTnKhKCCielaW8AJ0PFaBf9og97Tyjq1DWhpXlX1REsWUtkHpO-w9W2zoflzcMjBh83RnJfQ0CuN8lbGtuph73UJI4onMH1NmeaU-2mPKS8ICN3mWzsJn0p-_ydAWENJDdc0TdqDBDGeeft4xKpVbvcBLhsm_4fj2hv2QD8RP1GTMIDssylMvZaQ"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-section-padding bg-surface-container-low">
+<div class="max-w-[800px] mx-auto px-gutter">
+<h2 class="font-headline-md text-headline-md text-primary text-center mb-12">Häufig gestellte Fragen</h2>
+<div class="space-y-4">
+<!-- Accordion 1 -->
+<div class="bg-surface border border-outline-variant overflow-hidden">
+<button class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-surface-container transition-colors" onclick="toggleFaq(this)">
+<span class="font-label-md text-primary">Wie lange muss ich für die gesamte Behandlung in Tirana bleiben?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
+<p class="py-4 font-body-md text-on-surface-variant border-t border-outline-variant">Für ein komplettes Set an Veneers (Hollywood Smile) empfehlen wir einen Aufenthalt von 5 bis 7 Werktagen. So haben wir genügend Zeit für die präzise Anfertigung und finale Anpassungen.</p>
+</div>
+</div>
+<!-- Accordion 2 -->
+<div class="bg-surface border border-outline-variant overflow-hidden">
+<button class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-surface-container transition-colors" onclick="toggleFaq(this)">
+<span class="font-label-md text-primary">Ist die Qualität in Albanien wirklich vergleichbar mit Deutschland?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
+<p class="py-4 font-body-md text-on-surface-variant border-t border-outline-variant">Absolut. Unsere leitenden Zahnärzte sind international geschult, oft in Deutschland oder Italien. Wir verwenden ausschließlich CE-zertifizierte Materialien von führenden Herstellern wie Ivoclar Vivadent und modernste CAD/CAM-Technologie.</p>
+</div>
+</div>
+<!-- Accordion 3 -->
+<div class="bg-surface border border-outline-variant overflow-hidden">
+<button class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-surface-container transition-colors" onclick="toggleFaq(this)">
+<span class="font-label-md text-primary">Spricht das Klinikpersonal Deutsch?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
+<p class="py-4 font-body-md text-on-surface-variant border-t border-outline-variant">Ja, wir haben deutschsprachige Koordinatoren, die Sie während Ihres gesamten Aufenthalts begleiten. Auch viele unserer Ärzte sprechen fließend Englisch oder Deutsch, um eine perfekte Kommunikation sicherzustellen.</p>
+</div>
+</div>
+<!-- Accordion 4 -->
+<div class="bg-surface border border-outline-variant overflow-hidden">
+<button class="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-surface-container transition-colors" onclick="toggleFaq(this)">
+<span class="font-label-md text-primary">Welche Zahlungsmöglichkeiten gibt es?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-6">
+<p class="py-4 font-body-md text-on-surface-variant border-t border-outline-variant">Sie können bequem per Kreditkarte (Visa/Mastercard), Banküberweisung vorab oder in bar bezahlen. Wir stellen Ihnen eine detaillierte Rechnung in Euro aus, die Sie für Ihre Steuererklärung oder Versicherung nutzen können.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-primary border-t border-outline">
+<div class="max-w-[1200px] mx-auto px-gutter py-section-padding grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-md text-headline-md text-on-primary mb-4">Veneer Clinic Tirana</div>
+<p class="text-outline-variant font-body-md">Exzellente Zahnmedizin trifft auf albanische Gastfreundschaft.</p>
+</div>
+<div>
+<h5 class="text-on-primary font-label-md mb-4 uppercase">Behandlungen</h5>
+<ul class="space-y-2">
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Veneer Procedure</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Digital Smile Design</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Implantology</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-on-primary font-label-md mb-4 uppercase">Patienten</h5>
+<ul class="space-y-2">
+<li><a class="text-secondary-fixed font-bold underline-offset-4 hover:underline" href="#">Patient Journey</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Cost Comparison</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-on-primary font-label-md mb-4 uppercase">Kontakt</h5>
+<p class="text-outline-variant font-body-md mb-2">Rr. Ibrahim Rugova, Tirana, Albanien</p>
+<p class="text-on-primary font-label-md">+355 69 XX XX XXX</p>
+<p class="text-on-primary font-label-md">info@veneerclinictirana.com</p>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-gutter py-6 border-t border-outline/20">
+<p class="text-outline-variant font-body-md text-sm">© 2024 Veneer Clinic Tirana. All Rights Reserved. German Quality, Albanian Hospitality.</p>
+</div>
+</footer>
+<script>
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.material-symbols-outlined');
+            
+            // Close all others
+            document.querySelectorAll('.max-h-96').forEach(el => {
+                if(el !== content) {
+                    el.classList.remove('max-h-96');
+                    el.classList.add('max-h-0');
+                    el.previousElementSibling.querySelector('.material-symbols-outlined').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Toggle current
+            if (content.classList.contains('max-h-0')) {
+                content.classList.remove('max-h-0');
+                content.classList.add('max-h-96');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.remove('max-h-96');
+                content.classList.add('max-h-0');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body></html>

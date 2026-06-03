@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-body-md antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+  }
+
+  ::selection {
+    @apply bg-secondary-fixed text-on-secondary-fixed;
+  }
+}
+
+@layer components {
+  .soft-elevation {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(196, 198, 207, 0.3);
+  }
+
+  /* Before/After Slider */
+  .before-after-container {
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .before-after-slider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #D4AF37;
+    cursor: ew-resize;
+    z-index: 10;
+  }
+
+  .before-after-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000613;
+    border: 2px solid #D4AF37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D4AF37;
+    z-index: 11;
+  }
+
+  /* Range Slider Thumb */
+  .slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #000613;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #ffe088;
+  }
+
+  /* Savings Pulse Animation */
+  .savings-pulse {
+    animation: pulse-glow 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.02); opacity: 0.95; }
+  }
+
+  /* Mobile Drawer */
+  .drawer-enter {
+    transform: translateX(100%);
+  }
+
+  .drawer-enter-active {
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+  }
+}

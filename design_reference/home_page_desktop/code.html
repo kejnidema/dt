@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c4c6cf",
+                    "tertiary-fixed-dim": "#76d6d5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1a1c1c",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#002323",
+                    "surface-container-highest": "#e2e2e2",
+                    "primary-fixed": "#d4e3ff",
+                    "background": "#f9f9f9",
+                    "primary": "#000613",
+                    "on-secondary-container": "#745c00",
+                    "on-tertiary-container": "#2c9494",
+                    "primary-container": "#001f3f",
+                    "surface-tint": "#476083",
+                    "primary-fixed-dim": "#afc8f0",
+                    "surface-variant": "#e2e2e2",
+                    "tertiary": "#000707",
+                    "inverse-surface": "#2f3131",
+                    "secondary-container": "#fed65b",
+                    "on-tertiary-fixed": "#002020",
+                    "surface-container-high": "#e8e8e8",
+                    "on-secondary-fixed": "#241a00",
+                    "tertiary-fixed": "#93f2f2",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1c",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-dim": "#dadada",
+                    "inverse-primary": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f9f9f9",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container": "#eeeeee",
+                    "secondary-fixed-dim": "#e9c349",
+                    "on-tertiary-fixed-variant": "#004f4f",
+                    "surface-container-low": "#f3f3f3",
+                    "outline": "#74777f",
+                    "surface": "#f9f9f9",
+                    "on-surface-variant": "#43474e",
+                    "on-primary-container": "#6f88ad",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "secondary-fixed": "#ffe088",
+                    "on-primary-fixed": "#001c3a",
+                    "secondary": "#735c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-padding": "80px",
+                    "margin-mobile": "16px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg-mobile": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "42px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .before-after-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+        .before-after-slider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #D4AF37;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        .before-after-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000613;
+            border: 2px solid #D4AF37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            z-index: 11;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface border-b border-outline-variant shadow-sm h-20">
+<div class="max-w-[1200px] mx-auto px-gutter flex justify-between items-center h-full">
+<div class="flex items-center gap-3">
+<img alt="Veneer Clinic Tirana Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ujDyrXD2RJSgjJ_-3VXextDrOue3lccuz8KHdajg7nWU9Xgp2a5noKj7JZEU9P-3kXUiHp8tdSka6fXwDc0onysug2koWvY7j5cNY-eoAtCCE3jAIvyfQ0qMAuDuAB9RYDdtzL2MStGevfmTMfjvmBLzD1STOlaiHnoV7FTAdzNlBvOWY0dqdOjybvaCB8v4GjhSlInl1eLCLb-lDOfKJjB-JTJC_yBbV6w2LI6tfAWCqmOSFL5j_QljOw"/>
+<span class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">Veneer Clinic Tirana</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1 transition-colors duration-200" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Treatments</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Veneers</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Before &amp; After</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Why Tirana</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About Us</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2.5 font-label-md text-label-md rounded-sm hover:opacity-90 active:opacity-80 transition-all">
+                Book Now
+            </button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative bg-surface py-section-padding">
+<div class="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-label-md font-bold uppercase tracking-wider">Premium Zahnästhetik</span>
+</div>
+<h1 class="font-display-lg text-display-lg leading-tight text-primary">
+                        Hollywood-Lächeln ab 350 € — Gleiche Qualität, deutlich günstiger.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Sparen Sie bis zu 70% gegenüber deutschen Preisen bei EU-zertifizierter Qualität. Boutique-Zahnmedizin in Tirana für anspruchsvolle Patienten.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary text-on-primary px-8 py-4 font-label-md text-label-md rounded-sm hover:opacity-95 shadow-md flex items-center gap-2">
+                            Kostenlose Beratung anfragen
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border border-secondary text-secondary px-8 py-4 font-label-md text-label-md rounded-sm hover:bg-secondary/5 transition-colors">
+                            Galerie ansehen
+                        </button>
+</div>
+</div>
+<!-- Before/After Interaction Container -->
+<div class="relative group">
+<div class="before-after-container rounded-xl aspect-[4/5] bg-surface-container-high shadow-2xl relative overflow-hidden">
+<!-- After Image (Always Visible Base) -->
+<div class="absolute inset-0">
+<img alt="After Transformation" class="w-full h-full object-cover" data-alt="A high-end dental photography close-up of a perfect white Hollywood smile featuring premium porcelain veneers. The lighting is clinical yet artistic, highlighting the natural translucency and texture of the veneers against healthy pink gums. The background is a clean, neutral studio setting, evoking a sense of luxury medical excellence and aesthetic perfection in high-contrast light mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuoOMrp97M5-wZacltzExImf3zYfUYq32a_2Rs3PmVD1yd8g_zEiWe_5sXOWcRglYFfR3fTeyn1ligYMzuQdsETw9vOihcvKE2JHNpMOrS4e0ziY5xyyMlCLoEiOVNtnQ9nh5Ggj5bWN40wIq6zFdYHYuNg1RQyo9vw36mKolNWsuRJDZat8xdU-XMdaRmVGeTJLV0qwuovvSt_40k-xMt7y8Trfsx38pJyFNk0vWiKWkcBJg_57rDiudrEOxUtssQGtpSPfkQKsY"/>
+<div class="absolute bottom-4 right-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">NACHHER</div>
+</div>
+<!-- Before Image (Clipped Overlay) -->
+<div class="absolute inset-0 overflow-hidden" id="before-image" style="width: 50%;">
+<img alt="Before Transformation" class="w-[200%] h-full object-cover max-w-none" data-alt="A close-up dental clinical photograph showing discolored, uneven, and slightly worn natural teeth before a cosmetic procedure. The lighting is neutral and clear, intended for medical documentation. The image contrasts sharply with the perfection of the after-shot, emphasizing the significant aesthetic improvement possible through modern cosmetic dentistry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7Mr8VreSJhH7UPMwXZVRRf9SDf-LLj7MfJjxoxttSC3jvsiUqbvNcc1u4wnLd9Sf8N0Puh4igtHXw5Rlvpalh1B2aaexumM1vCYxUKtAtNbMzdiR9B5qFyG1q66JHumeNNdrWBzfYSgLm3sW2L3RIyMKVx9Vzi-jNr0Fr8KsXEs8NMi65jIJmNt1pwA63HkkKXVU8JUNzhPL2t4NPs0Efq38TdVPF63iJxVBy9lxXY0zS-GL3WXRQdOv3TVqVaz6swvUMtmUrDOw"/>
+<div class="absolute bottom-4 left-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">VORHER</div>
+</div>
+<!-- Slider UI -->
+<div class="before-after-slider" id="slider-line" style="left: 50%;">
+<div class="before-after-handle">
+<span class="material-symbols-outlined">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -z-10 -bottom-8 -right-8 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- Trust Bar -->
+<section class="bg-primary py-12">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="flex flex-wrap justify-between items-center gap-12 text-on-primary">
+<div class="flex items-center gap-4 group cursor-default">
+<div class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">verified_user</span>
+</div>
+<div>
+<p class="font-headline-sm text-[18px] leading-tight">ISO-Zertifiziert</p>
+<p class="text-label-md opacity-70">Deutsche Qualitätsstandards</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-default">
+<div class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">star</span>
+</div>
+<div>
+<p class="font-headline-sm text-[18px] leading-tight">4.9/5 Google Reviews</p>
+<p class="text-label-md opacity-70">500+ glückliche Patienten</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-default">
+<div class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">flight_takeoff</span>
+</div>
+<div>
+<p class="font-headline-sm text-[18px] leading-tight">2 Std. von Frankfurt</p>
+<p class="text-label-md opacity-70">Täglich Direktflüge</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-default">
+<div class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">payments</span>
+</div>
+<div>
+<p class="font-headline-sm text-[18px] leading-tight">-70% Kosten</p>
+<p class="text-label-md opacity-70">Beste Preisgarantie</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Veneer Materials Grid -->
+<section class="py-section-padding bg-surface">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="text-center mb-16 space-y-4">
+<h2 class="font-display-lg text-display-lg text-primary">Unsere Premium-Materialien</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                        Wir verwenden ausschließlich Materialien führender deutscher und internationaler Hersteller für langlebige und natürlich schöne Ergebnisse.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- E-Max Card -->
+<div class="bg-surface-container-low border border-outline-variant p-8 rounded-xl flex flex-col hover:shadow-xl transition-all duration-300 group">
+<div class="mb-6 flex justify-between items-start">
+<span class="material-symbols-outlined text-4xl text-primary opacity-30 group-hover:opacity-100 transition-opacity">diamond</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-sm text-label-md font-bold">BESTSELLER</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 text-primary">E-Max Veneers</h3>
+<p class="text-on-surface-variant mb-8 flex-grow">Vollkeramik für höchste Transluzenz und natürliche Ästhetik. Ideal für Frontzähne.</p>
+<div class="border-t border-outline-variant pt-6 mt-auto">
+<p class="text-label-md text-on-surface-variant">Preis pro Zahn</p>
+<p class="font-display-lg text-[32px] text-primary">ab 350 €</p>
+<p class="text-label-md text-secondary font-bold mt-1 line-through opacity-50">DE Preis: ~1.200 €</p>
+</div>
+</div>
+<!-- Zirconia Card -->
+<div class="bg-surface-container-low border border-outline-variant p-8 rounded-xl flex flex-col hover:shadow-xl transition-all duration-300 group">
+<div class="mb-6">
+<span class="material-symbols-outlined text-4xl text-primary opacity-30 group-hover:opacity-100 transition-opacity">shield</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 text-primary">Zirkonia Veneers</h3>
+<p class="text-on-surface-variant mb-8 flex-grow">Extrem belastbar und langlebig. Perfekt für ein strahlend weißes Lächeln.</p>
+<div class="border-t border-outline-variant pt-6 mt-auto">
+<p class="text-label-md text-on-surface-variant">Preis pro Zahn</p>
+<p class="font-display-lg text-[32px] text-primary">ab 400 €</p>
+<p class="text-label-md text-secondary font-bold mt-1 line-through opacity-50">DE Preis: ~1.400 €</p>
+</div>
+</div>
+<!-- Lumineers/No-Prep -->
+<div class="bg-surface-container-low border border-outline-variant p-8 rounded-xl flex flex-col hover:shadow-xl transition-all duration-300 group">
+<div class="mb-6">
+<span class="material-symbols-outlined text-4xl text-primary opacity-30 group-hover:opacity-100 transition-opacity">layers</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 text-primary">No-Prep Veneers</h3>
+<p class="text-on-surface-variant mb-8 flex-grow">Kein Beschleifen der gesunden Zahnsubstanz nötig. Schonend und reversibel.</p>
+<div class="border-t border-outline-variant pt-6 mt-auto">
+<p class="text-label-md text-on-surface-variant">Preis pro Zahn</p>
+<p class="font-display-lg text-[32px] text-primary">ab 450 €</p>
+<p class="text-label-md text-secondary font-bold mt-1 line-through opacity-50">DE Preis: ~1.800 €</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-section-padding overflow-hidden">
+<div class="max-w-[1200px] mx-auto px-gutter">
+<div class="relative bg-primary-container rounded-2xl overflow-hidden min-h-[500px] flex items-center">
+<!-- Background Decoration -->
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 20% 50%, #D4AF37 0%, transparent 50%);"></div>
+</div>
+<div class="relative z-10 p-12 md:p-20 grid md:grid-cols-2 gap-12 items-center">
+<div class="space-y-6">
+<h2 class="font-display-lg text-display-lg text-on-primary">Bereit für Ihr neues Lächeln?</h2>
+<p class="text-body-lg text-on-primary/80">
+                                Senden Sie uns einfach Fotos Ihrer Zähne per WhatsApp für eine unverbindliche erste Einschätzung und einen Kostenvoranschlag innerhalb von 24 Stunden.
+                            </p>
+<div class="flex flex-wrap gap-4">
+<a class="bg-secondary-fixed text-on-secondary-fixed px-8 py-4 font-label-md text-label-md rounded-sm flex items-center gap-3 hover:scale-105 transition-transform" href="https://wa.me/3550000000">
+<span class="material-symbols-outlined">chat</span>
+                                    WhatsApp Beratung
+                                </a>
+<button class="border border-on-primary text-on-primary px-8 py-4 font-label-md text-label-md rounded-sm hover:bg-on-primary/10 transition-colors">
+                                    Termin buchen
+                                </button>
+</div>
+</div>
+<div class="hidden md:flex justify-end">
+<div class="bg-surface p-6 rounded-xl shadow-2xl max-w-sm rotate-2 hover:rotate-0 transition-transform duration-500">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Dr. Arben" class="w-12 h-12 rounded-full object-cover" data-alt="A professional portrait of a senior male dentist with a kind expression, wearing a clean white clinical coat in a bright, modern dental office. He exudes expertise and trustworthiness. The setting is sterile and upscale, featuring high-end medical equipment softly blurred in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoHQELqPJcPtHUSC4b_B_nkmCKkucvZvmxUZNksUAZxZij74z02Lta63FfMUEn5F6PRfrztLi9qTjQZqm5oAWxJBx3sP16QBQnHok7gIpqBwtqd6qaL_v--1lLQhJ96Rh5n0t-E6zPaePUPv3-oWQiN1DVwFnP8XCMZUsLdR07IKQaiajWy5v0nk2mT8VMtq81aOz0mDNZ-aewKbzrtPkXc1oLiI1esymFm19KIGWpsWivhIFW869SAU-OSlRx9qDQ0XFtxSY_hj0"/>
+<div>
+<p class="font-headline-sm text-[16px] text-primary">Dr. Arben Hoxha</p>
+<p class="text-label-md text-on-surface-variant">Chefarzt für Ästhetik</p>
+</div>
+</div>
+<p class="text-body-md text-on-surface italic">"Wir kombinieren deutsche Präzision mit albanischer Gastfreundschaft, um Ihnen ein erstklassiges Erlebnis zu bieten."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary border-t border-outline text-on-primary w-full mt-auto">
+<div class="max-w-[1200px] mx-auto px-gutter py-section-padding grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="space-y-6">
+<div class="flex items-center gap-3">
+<img alt="Veneer Clinic Tirana Logo" class="h-8 w-8 object-contain brightness-0 invert" src="https://lh3.googleusercontent.com/aida/ADBb0ujDyrXD2RJSgjJ_-3VXextDrOue3lccuz8KHdajg7nWU9Xgp2a5noKj7JZEU9P-3kXUiHp8tdSka6fXwDc0onysug2koWvY7j5cNY-eoAtCCE3jAIvyfQ0qMAuDuAB9RYDdtzL2MStGevfmTMfjvmBLzD1STOlaiHnoV7FTAdzNlBvOWY0dqdOjybvaCB8v4GjhSlInl1eLCLb-lDOfKJjB-JTJC_yBbV6w2LI6tfAWCqmOSFL5j_QljOw"/>
+<span class="font-headline-md text-headline-md text-on-primary">Veneer Clinic</span>
+</div>
+<p class="font-body-md text-outline-variant leading-relaxed">
+                    Premium Boutique-Zahnmedizin in Tirana. Spezialisiert auf Veneers und digitale Lächeln-Gestaltung für Patienten aus ganz Europa.
+                </p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed mb-6">Behandlungen</h4>
+<ul class="space-y-4">
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Veneer Procedure</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Digital Smile Design</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Implantology</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed mb-6">Patienten-Service</h4>
+<ul class="space-y-4">
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Patient Journey</a></li>
+<li><a class="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline" href="#">Cost Comparison</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed mb-6">Kontakt</h4>
+<ul class="space-y-4">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span class="text-outline-variant">Rr. Ibrahim Rugova, 1001 Tirana, Albanien</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span class="text-outline-variant">+355 69 00 00 000</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto px-gutter py-8 border-t border-on-primary/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-body-md text-outline-variant text-center md:text-left">
+                © 2024 Veneer Clinic Tirana. All Rights Reserved. German Quality, Albanian Hospitality.
+            </p>
+<div class="flex gap-6">
+<a class="text-outline-variant hover:text-secondary-fixed transition-all" href="#">Privacy Policy</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-all" href="#">Imprint</a>
+</div>
+</div>
+</footer>
+<script>
+        // Before/After Slider Interaction
+        const container = document.querySelector('.before-after-container');
+        const slider = document.querySelector('#slider-line');
+        const beforeImage = document.querySelector('#before-image');
+
+        let isResizing = false;
+
+        const handleMove = (e) => {
+            if (!isResizing) return;
+            
+            const rect = container.getBoundingClientRect();
+            let x = (e.clientX || e.touches[0].clientX) - rect.left;
+            
+            if (x < 0) x = 0;
+            if (x > rect.width) x = rect.width;
+            
+            const percent = (x / rect.width) * 100;
+            slider.style.left = `${percent}%`;
+            beforeImage.style.width = `${percent}%`;
+        };
+
+        const startResizing = () => isResizing = true;
+        const stopResizing = () => isResizing = false;
+
+        slider.addEventListener('mousedown', startResizing);
+        window.addEventListener('mouseup', stopResizing);
+        window.addEventListener('mousemove', handleMove);
+
+        slider.addEventListener('touchstart', startResizing);
+        window.addEventListener('touchend', stopResizing);
+        window.addEventListener('touchmove', handleMove);
+
+        // Click to jump
+        container.addEventListener('click', (e) => {
+            if (e.target === slider || slider.contains(e.target)) return;
+            isResizing = true;
+            handleMove(e);
+            isResizing = false;
+        });
+    </script>
+</body></html>
