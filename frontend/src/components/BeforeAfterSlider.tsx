@@ -4,6 +4,9 @@ interface Props {
   beforeImage: string;
   afterImage: string;
   aspectRatio?: 'tall' | 'square' | 'wide';
+  beforeLabel?: string;
+  afterLabel?: string;
+  initialPosition?: number;
 }
 
 const aspectClasses = {
@@ -16,10 +19,12 @@ export default function BeforeAfterSlider({
   beforeImage,
   afterImage,
   aspectRatio = 'tall',
+  beforeLabel = 'VORHER',
+  afterLabel = 'NACHHER',
+  initialPosition = 50,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState(initialPosition);
 
   const handleMove = useCallback((clientX: number) => {
     const ref = containerRef.current;
@@ -31,21 +36,13 @@ export default function BeforeAfterSlider({
     setPosition((x / rect.width) * 100);
   }, []);
 
-  const onMouseDown = () => setIsDragging(true);
-  const onMouseUp = () => setIsDragging(false);
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (isDragging) handleMove(e.clientX);
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    handleMove(e.clientX);
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    if (touch) handleMove(touch.clientX);
-  };
-
-  const onClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      handleMove(e.clientX);
-    }
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.buttons === 1) handleMove(e.clientX);
   };
 
   return (
@@ -53,13 +50,8 @@ export default function BeforeAfterSlider({
       <div
         ref={containerRef}
         className={`before-after-container rounded-xl ${aspectClasses[aspectRatio]} bg-surface-container-high shadow-2xl relative overflow-hidden cursor-ew-resize`}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-        onTouchStart={onMouseDown}
-        onTouchEnd={onMouseUp}
-        onTouchMove={onTouchMove}
-        onClick={onClick}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
       >
         {/* After Image (Always Visible Base) */}
         <div className="absolute inset-0">
@@ -69,23 +61,23 @@ export default function BeforeAfterSlider({
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-4 right-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
-            NACHHER
+            {afterLabel}
           </div>
         </div>
 
         {/* Before Image (Clipped Overlay) */}
         <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${position}%` }}
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
           <img
             src={beforeImage}
             alt="Before"
-            className="w-[200%] h-full object-cover max-w-none"
-            style={{ maxWidth: 'none' }}
+            className="w-full h-full object-cover"
+            draggable={false}
           />
           <div className="absolute bottom-4 left-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
-            VORHER
+            {beforeLabel}
           </div>
         </div>
 

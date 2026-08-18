@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
+import { galleryPairs, images } from '@/lib/images';
 
 export default function TreatmentsPage() {
   const { lang } = useI18n();
@@ -13,13 +14,15 @@ export default function TreatmentsPage() {
             description: 'Ultradünne Keramikschalen für ein perfektes Lächeln. E-Max, Zirkonia und No-Prep.',
             link: '/veneers',
             price: 'ab 350 €',
+            image: images.heroAfter,
           },
           {
             icon: 'construction',
-            title: 'Implantate',
-            description: 'Titan-Implantate mit Keramikkrone. Natürlicher Ersatz für fehlende Zähne.',
-            link: '/treatments',
+            title: 'Implantate & All-on-X',
+            description: 'Titan-Implantate, feste Brücken und All-on-4/All-on-6 Komplettpakete.',
+            link: '/treatments/all-on-x',
             price: 'ab 800 €',
+            image: images.clinic,
           },
           {
             icon: 'palette',
@@ -27,6 +30,7 @@ export default function TreatmentsPage() {
             description: '3D-Visualisierung Ihres neuen Lächelns vor der Behandlung.',
             link: '/treatments',
             price: 'ab 200 €',
+            image: images.emaxAfter,
           },
           {
             icon: 'cleaning_services',
@@ -34,6 +38,7 @@ export default function TreatmentsPage() {
             description: 'Professionelle Bleaching-Behandlung für strahlend weiße Zähne.',
             link: '/treatments',
             price: 'ab 250 €',
+            image: galleryPairs[0][1],
           },
         ]
       : [
@@ -43,13 +48,15 @@ export default function TreatmentsPage() {
             description: 'Ultra-thin ceramic shells for a perfect smile. E-Max, Zirconia and No-Prep.',
             link: '/veneers',
             price: 'from €350',
+            image: images.heroAfter,
           },
           {
             icon: 'construction',
-            title: 'Implants',
-            description: 'Titanium implants with ceramic crown. Natural replacement for missing teeth.',
-            link: '/treatments',
+            title: 'Implants & All-on-X',
+            description: 'Titanium implants, fixed bridges and All-on-4/All-on-6 packages.',
+            link: '/treatments/all-on-x',
             price: 'from €800',
+            image: images.clinic,
           },
           {
             icon: 'palette',
@@ -57,6 +64,7 @@ export default function TreatmentsPage() {
             description: '3D visualization of your new smile before treatment.',
             link: '/treatments',
             price: 'from €200',
+            image: images.emaxAfter,
           },
           {
             icon: 'cleaning_services',
@@ -64,6 +72,7 @@ export default function TreatmentsPage() {
             description: 'Professional bleaching treatment for brilliantly white teeth.',
             link: '/treatments',
             price: 'from €250',
+            image: galleryPairs[0][1],
           },
         ];
 
@@ -91,8 +100,12 @@ export default function TreatmentsPage() {
               <Link
                 key={t.title}
                 to={t.link}
-                className="bg-white border border-outline-variant rounded-xl p-8 hover:shadow-xl hover:border-primary transition-all duration-300 group flex flex-col"
+                className="bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl hover:border-primary transition-all duration-300 group flex flex-col"
               >
+                <div className="h-56 overflow-hidden bg-surface-container">
+                  <img src={t.image} alt={t.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-8 flex flex-col flex-grow">
                 <div className="flex items-start justify-between mb-6">
                   <span className="material-symbols-outlined text-4xl text-primary opacity-30 group-hover:opacity-100 transition-opacity">
                     {t.icon}
@@ -104,6 +117,7 @@ export default function TreatmentsPage() {
                 <div className="mt-6 flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all">
                   {lang === 'de' ? 'Mehr erfahren' : 'Learn More'}
                   <span className="material-symbols-outlined">arrow_forward</span>
+                </div>
                 </div>
               </Link>
             ))}

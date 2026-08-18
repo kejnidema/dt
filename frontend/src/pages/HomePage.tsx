@@ -4,6 +4,7 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import MaterialCard from '@/components/MaterialCard';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import TrustBar from '@/components/TrustBar';
+import { images } from '@/lib/images';
 
 export default function HomePage() {
   const { lang } = useI18n();
@@ -88,8 +89,8 @@ export default function HomePage() {
           </div>
 
           <BeforeAfterSlider
-            beforeImage="/images/before-after/before-1.jpg"
-            afterImage="/images/before-after/after-1.jpg"
+            beforeImage={images.heroBefore}
+            afterImage={images.heroAfter}
             aspectRatio="tall"
           />
         </div>
@@ -187,9 +188,7 @@ export default function HomePage() {
               <div className="hidden md:flex justify-end">
                 <div className="bg-surface p-6 rounded-xl shadow-2xl max-w-sm rotate-2 hover:rotate-0 transition-transform duration-500">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">
-                      MH
-                    </div>
+                    <img src={images.doctor} alt={t.doctorName} className="w-14 h-14 rounded-full object-cover" />
                     <div>
                       <p className="font-headline-sm text-[16px] text-primary">{t.doctorName}</p>
                       <p className="text-label-md text-on-surface-variant">{t.doctorTitle}</p>

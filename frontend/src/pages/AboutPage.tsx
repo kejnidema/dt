@@ -1,5 +1,6 @@
 import { useI18n } from '@/lib/i18n';
 import DoctorCard from '@/components/DoctorCard';
+import { images } from '@/lib/images';
 
 export default function AboutPage() {
   const { lang } = useI18n();
@@ -16,6 +17,7 @@ export default function AboutPage() {
         { title: 'Dr. med. dent.', institution: 'Universität Tirana', year: 2008 },
         { title: 'Master Aesthetic Dentistry', institution: 'Universität Mailand', year: 2012 },
       ],
+      imageUrl: images.doctor,
       isLead: true,
     },
     {
@@ -28,6 +30,7 @@ export default function AboutPage() {
       credentials: [
         { title: 'Dr. med. dent.', institution: 'Universität Tirana', year: 2010 },
       ],
+      imageUrl: images.doctorFemale,
       isLead: false,
     },
   ];

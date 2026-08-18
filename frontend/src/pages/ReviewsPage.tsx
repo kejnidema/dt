@@ -1,4 +1,5 @@
 import { useI18n } from '@/lib/i18n';
+import { images } from '@/lib/images';
 
 export default function ReviewsPage() {
   const { lang } = useI18n();
@@ -12,6 +13,7 @@ export default function ReviewsPage() {
       commentEn: 'Absolutely fantastic result! My E-Max veneers look perfect.',
       treatment: 'E-Max Veneers',
       daysAgo: 14,
+      photo: images.patients[0] ?? images.doctor,
     },
     {
       name: 'Thomas K.',
@@ -21,6 +23,7 @@ export default function ReviewsPage() {
       commentEn: 'The cost savings compared to Germany are enormous.',
       treatment: 'E-Max Veneers',
       daysAgo: 30,
+      photo: images.patients[1] ?? images.doctor,
     },
     {
       name: 'Anna W.',
@@ -30,6 +33,7 @@ export default function ReviewsPage() {
       commentEn: 'I was skeptical, but the result exceeded all expectations.',
       treatment: 'Zirconia',
       daysAgo: 45,
+      photo: images.patients[2] ?? images.doctorFemale,
     },
     {
       name: 'Peter M.',
@@ -38,6 +42,7 @@ export default function ReviewsPage() {
       commentDe: 'Die Reise nach Tirana war es absolut wert. Ich werde wiederkommen!',
       commentEn: 'The trip to Tirana was absolutely worth it. I will come back!',
       daysAgo: 60,
+      photo: images.patients[3] ?? images.doctor,
     },
     {
       name: 'Sandra L.',
@@ -47,6 +52,7 @@ export default function ReviewsPage() {
       commentEn: 'Professional team, top-class results. I can only recommend!',
       treatment: 'E-Max Veneers',
       daysAgo: 90,
+      photo: images.patients[4] ?? images.doctorFemale,
     },
     {
       name: 'Michael R.',
@@ -55,6 +61,7 @@ export default function ReviewsPage() {
       commentDe: 'Sehr gute Erfahrung. Die Kommunikation war immer auf Deutsch.',
       commentEn: 'Very good experience. Communication was always in German.',
       daysAgo: 120,
+      photo: images.patients[5] ?? images.doctor,
     },
   ];
 
@@ -97,8 +104,8 @@ export default function ReviewsPage() {
             {reviews.map((review, i) => (
               <div key={i} className="bg-white border border-outline-variant rounded-xl p-6 hover:shadow-lg transition-all">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
-                    {review.name.charAt(0)}
+                  <div className="w-12 h-12 rounded-full bg-primary overflow-hidden flex items-center justify-center text-on-primary font-bold text-sm">
+                    <img src={review.photo} alt={review.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p className="font-label-md text-primary">{review.name}</p>

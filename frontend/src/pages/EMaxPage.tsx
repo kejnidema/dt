@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import PricingTable from '@/components/PricingTable';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import { images } from '@/lib/images';
 
 export default function EMaxPage() {
   const { lang } = useI18n();
@@ -127,8 +128,8 @@ export default function EMaxPage() {
           <div className="relative">
             <div className="aspect-[4/5] rounded-xl overflow-hidden soft-elevation bg-surface-container">
               <BeforeAfterSlider
-                beforeImage="/images/before-after/before-2.jpg"
-                afterImage="/images/before-after/after-2.jpg"
+                beforeImage={images.emaxBefore}
+                afterImage={images.emaxAfter}
                 aspectRatio="tall"
               />
             </div>

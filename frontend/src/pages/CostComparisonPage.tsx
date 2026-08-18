@@ -1,5 +1,6 @@
 import Calculator from '@/components/Calculator';
 import { useI18n } from '@/lib/i18n';
+import { images } from '@/lib/images';
 
 export default function CostComparisonPage() {
   const { lang } = useI18n();
@@ -65,8 +66,13 @@ export default function CostComparisonPage() {
           </div>
           <div className="relative group">
             <div className="absolute inset-0 bg-primary/5 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform duration-500" />
-            <div className="relative rounded-xl shadow-xl bg-surface-container h-[450px] flex items-center justify-center">
-              <span className="material-symbols-outlined text-8xl text-outline-variant">tooth</span>
+            <div className="relative rounded-xl shadow-xl bg-surface-container h-[450px] overflow-hidden">
+              <img src={images.clinic} alt="Modern dental clinic in Tirana" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur rounded-lg p-5">
+                <p className="text-primary font-headline-sm">{lang === 'de' ? 'Bis zu 70% günstiger als Deutschland' : 'Up to 70% less than Germany'}</p>
+                <p className="text-on-surface-variant text-sm mt-1">E-Max · Zirkonia · Digital Smile Design</p>
+              </div>
             </div>
           </div>
         </div>
@@ -115,8 +121,8 @@ export default function CostComparisonPage() {
       <section className="py-20 bg-primary-container text-on-primary-container">
         <div className="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="flex items-center gap-6">
-            <div className="w-20 h-20 rounded-full border-2 border-secondary-fixed flex items-center justify-center overflow-hidden bg-white">
-              <span className="material-symbols-outlined text-4xl text-primary">person</span>
+            <div className="w-20 h-20 rounded-full border-2 border-secondary-fixed overflow-hidden bg-white">
+              <img src={images.doctor} alt={t.doctorName} className="w-full h-full object-cover" />
             </div>
             <div>
               <p className="font-headline-sm text-white">{t.doctorName}</p>

@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 
 const navItems = [
   { labelDe: 'Behandlungen', labelEn: 'Treatments', path: '/treatments' },
+  { labelDe: 'Preise', labelEn: 'Pricing', path: '/pricing' },
   { labelDe: 'Veneers', labelEn: 'Veneers', path: '/veneers' },
-  { labelDe: 'Vorher & Nachher', labelEn: 'Before & After', path: '/veneers/gallery' },
-  { labelDe: 'Warum Tirana', labelEn: 'Why Tirana', path: '/journey' },
+  { labelDe: 'Galerie', labelEn: 'Gallery', path: '/veneers/gallery' },
+  { labelDe: 'Reise', labelEn: 'Travel', path: '/journey' },
   { labelDe: 'Über uns', labelEn: 'About Us', path: '/about' },
 ];
+
+function isNavActive(pathname: string, itemPath: string) {
+  const matchesItem = pathname === itemPath || pathname.startsWith(`${itemPath}/`);
+  if (!matchesItem) return false;
+
+  // If another nav item is a more specific match, only underline that one.
+  return !navItems.some(
+    (other) =>
+      other.path !== itemPath &&
+      other.path.startsWith(`${itemPath}/`) &&
+      (pathname === other.path || pathname.startsWith(`${other.path}/`)),
+  );
+}
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,11 +34,12 @@ export default function Header() {
   const closeMenu = () => setMenuOpen(false);
 
   // Shadow on scroll
-  useState(() => {
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  });
+  }, []);
 
   return (
     <header
@@ -46,7 +61,7 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const isActive = isNavActive(location.pathname, item.path);
             const label = lang === 'de' ? item.labelDe : item.labelEn;
             return (
               <Link
@@ -100,7 +115,7 @@ export default function Header() {
         <div className="lg:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant shadow-lg">
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
+              const isActive = isNavActive(location.pathname, item.path);
               const label = lang === 'de' ? item.labelDe : item.labelEn;
               return (
                 <Link

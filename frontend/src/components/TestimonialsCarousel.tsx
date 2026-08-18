@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/lib/i18n';
+import { images } from '@/lib/images';
 
 interface Testimonial {
   id: string;
@@ -10,6 +11,7 @@ interface Testimonial {
   patientFlag?: string;
   treatment?: string;
   daysAgo?: number;
+  photoUrl?: string;
 }
 
 const defaultTestimonials: Testimonial[] = [
@@ -22,6 +24,7 @@ const defaultTestimonials: Testimonial[] = [
     patientFlag: 'DE',
     treatment: 'e-max',
     daysAgo: 14,
+    photoUrl: images.patients[0] ?? images.doctor,
   },
   {
     id: '2',
@@ -32,6 +35,7 @@ const defaultTestimonials: Testimonial[] = [
     patientFlag: 'DE',
     treatment: 'e-max',
     daysAgo: 30,
+    photoUrl: images.patients[1] ?? images.doctor,
   },
   {
     id: '3',
@@ -42,6 +46,7 @@ const defaultTestimonials: Testimonial[] = [
     patientFlag: 'DE',
     treatment: 'zirconia',
     daysAgo: 45,
+    photoUrl: images.patients[2] ?? images.doctorFemale,
   },
   {
     id: '4',
@@ -51,6 +56,7 @@ const defaultTestimonials: Testimonial[] = [
     commentEn: 'The trip to Tirana was absolutely worth it. I will come again!',
     patientFlag: 'DE',
     daysAgo: 60,
+    photoUrl: images.patients[3] ?? images.doctor,
   },
 ];
 
@@ -101,8 +107,12 @@ export default function TestimonialsCarousel() {
 
             {/* Author */}
             <div className="flex items-center justify-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">
-                {current.patientName.charAt(0)}
+              <div className="w-12 h-12 rounded-full bg-primary overflow-hidden flex items-center justify-center text-on-primary font-bold text-sm">
+                {current.photoUrl ? (
+                  <img src={current.photoUrl} alt={current.patientName} className="w-full h-full object-cover" />
+                ) : (
+                  current.patientName.charAt(0)
+                )}
               </div>
               <div className="text-left">
                 <p className="font-label-md text-primary">{current.patientName}</p>

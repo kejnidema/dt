@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import FaqAccordion from '@/components/FaqAccordion';
 import PricingTable from '@/components/PricingTable';
+import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import { images } from '@/lib/images';
 
 export default function VeneersHubPage() {
   const { lang } = useI18n();
@@ -136,9 +138,11 @@ export default function VeneersHubPage() {
               ))}
             </ul>
           </div>
-          <div className="aspect-square bg-surface-container rounded-xl flex items-center justify-center">
-            <span className="material-symbols-outlined text-8xl text-outline-variant">tooth</span>
-          </div>
+          <BeforeAfterSlider
+            beforeImage={images.heroBefore}
+            afterImage={images.heroAfter}
+            aspectRatio="square"
+          />
         </div>
       </section>
 

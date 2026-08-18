@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useI18n } from '@/lib/i18n';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import { galleryPairs } from '@/lib/images';
 
 export default function GalleryPage() {
   const { lang } = useI18n();
@@ -79,11 +80,13 @@ export default function GalleryPage() {
       <section className="py-section-padding">
         <div className="max-w-[1200px] mx-auto px-gutter">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filtered.map((caseItem, i) => (
+            {filtered.map((caseItem, i) => {
+              const pair = galleryPairs[i % galleryPairs.length] ?? galleryPairs[0];
+              return (
               <div key={i} className="bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all">
                 <BeforeAfterSlider
-                  beforeImage={`/images/before-after/before-${i + 1}.jpg`}
-                  afterImage={`/images/before-after/after-${i + 1}.jpg`}
+                  beforeImage={pair[0]}
+                  afterImage={pair[1]}
                   aspectRatio="square"
                 />
                 <div className="p-6 space-y-3">
@@ -109,7 +112,8 @@ export default function GalleryPage() {
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

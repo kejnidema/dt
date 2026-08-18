@@ -1,6 +1,7 @@
 import FaqAccordion from '@/components/FaqAccordion';
 import Timeline, { TimelineStep } from '@/components/Timeline';
 import { useI18n } from '@/lib/i18n';
+import { images } from '@/lib/images';
 
 export default function JourneyPage() {
   const { lang } = useI18n();
@@ -87,11 +88,11 @@ export default function JourneyPage() {
   }[lang];
 
   const steps: TimelineStep[] = [
-    { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc },
-    { number: 2, icon: 'flight_takeoff', title: t.step2Title, description: t.step2Desc },
-    { number: 3, icon: 'biotech', title: t.step3Title, description: t.step3Desc },
-    { number: 4, icon: 'auto_fix_high', title: t.step4Title, description: t.step4Desc },
-    { number: 5, icon: 'verified', title: t.step5Title, description: t.step5Desc },
+    { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc, imageUrl: images.heroAfter },
+    { number: 2, icon: 'flight_takeoff', title: t.step2Title, description: t.step2Desc, imageUrl: images.tirana },
+    { number: 3, icon: 'biotech', title: t.step3Title, description: t.step3Desc, imageUrl: images.clinic },
+    { number: 4, icon: 'auto_fix_high', title: t.step4Title, description: t.step4Desc, imageUrl: images.emaxAfter },
+    { number: 5, icon: 'verified', title: t.step5Title, description: t.step5Desc, imageUrl: images.doctor },
   ];
 
   const faqItems =
@@ -114,6 +115,7 @@ export default function JourneyPage() {
       {/* Hero */}
       <header className="relative h-[500px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-primary">
+          <img src={images.journey} alt="Tirana travel" className="w-full h-full object-cover opacity-35" />
           <div className="absolute inset-0 bg-primary/80" />
         </div>
         <div className="relative z-10 max-w-[1200px] mx-auto px-gutter w-full">
@@ -193,8 +195,8 @@ export default function JourneyPage() {
                 <h4 className="font-headline-sm text-headline-sm mb-4">{t.transferTitle}</h4>
                 <p className="font-body-md text-body-md text-on-surface-variant">{t.transferDesc}</p>
               </div>
-              <div className="w-full md:w-64 h-40 bg-surface-container rounded overflow-hidden flex items-center justify-center">
-                <span className="material-symbols-outlined text-6xl text-outline-variant">map</span>
+              <div className="w-full md:w-64 h-40 bg-surface-container rounded overflow-hidden">
+                <img src={images.clinic} alt="Clinic transfer destination" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import ContactForm from '@/components/ContactForm';
 import { useI18n } from '@/lib/i18n';
+import { images } from '@/lib/images';
 
 export default function ContactPage() {
   const { lang } = useI18n();
@@ -109,11 +110,25 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Placeholder */}
-      <section className="h-80 bg-surface-container flex items-center justify-center">
-        <div className="text-center">
-          <span className="material-symbols-outlined text-6xl text-outline-variant block mb-4">map</span>
-          <p className="text-on-surface-variant">{lang === 'de' ? 'Kartenansicht' : 'Map View'}</p>
+      {/* Location */}
+      <section className="relative h-96 bg-surface-container overflow-hidden">
+        <img src={images.tirana} alt="Tirana city center" className="absolute inset-0 w-full h-full object-cover opacity-75" />
+        <div className="absolute inset-0 bg-primary/35" />
+        <div className="relative z-10 h-full max-w-[1200px] mx-auto px-gutter flex items-center">
+          <div className="bg-white/95 backdrop-blur rounded-xl shadow-xl p-8 max-w-md">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="material-symbols-outlined text-secondary text-4xl">location_on</span>
+              <h2 className="font-headline-sm text-headline-sm text-primary">
+                {lang === 'de' ? 'Im Herzen von Tirana' : 'In the Heart of Tirana'}
+              </h2>
+            </div>
+            <p className="text-on-surface-variant mb-4">Rr. Ibrahim Rugova, 1001 Tirana, Albanien</p>
+            <p className="text-sm text-on-surface-variant">
+              {lang === 'de'
+                ? 'Ca. 25 Minuten vom internationalen Flughafen Tirana. VIP-Transfer inklusive.'
+                : 'Approx. 25 minutes from Tirana International Airport. VIP transfer included.'}
+            </p>
+          </div>
         </div>
       </section>
     </>
