@@ -8,7 +8,7 @@ interface DoctorCardProps {
   languages: string[];
   credentials: { title: string; institution: string; year: number }[];
   isLead?: boolean;
-  lang: 'de' | 'en';
+  lang: 'de' | 'en' | 'it' | 'sq';
 }
 
 export default function DoctorCard({

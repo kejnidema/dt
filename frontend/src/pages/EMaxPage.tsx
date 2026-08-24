@@ -86,7 +86,7 @@ export default function EMaxPage() {
       email: 'Email Inquiry',
       galleryTitle: 'Before & After',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   const pricingRows =
     lang === 'de'

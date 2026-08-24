@@ -1,15 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useI18n } from '@/lib/i18n';
+import { useI18n, type Lang } from '@/lib/i18n';
 
 const navItems = [
-  { labelDe: 'Behandlungen', labelEn: 'Treatments', path: '/treatments' },
-  { labelDe: 'Preise', labelEn: 'Pricing', path: '/pricing' },
-  { labelDe: 'Veneers', labelEn: 'Veneers', path: '/veneers' },
-  { labelDe: 'Galerie', labelEn: 'Gallery', path: '/veneers/gallery' },
-  { labelDe: 'Reise', labelEn: 'Travel', path: '/journey' },
-  { labelDe: 'Über uns', labelEn: 'About Us', path: '/about' },
+  { labelDe: 'Behandlungen', labelEn: 'Treatments', labelIt: 'Trattamenti', labelSq: 'Trajtimet', path: '/treatments' },
+  { labelDe: 'Preise', labelEn: 'Pricing', labelIt: 'Prezzi', labelSq: 'Çmimet', path: '/pricing' },
+  { labelDe: 'Veneers', labelEn: 'Veneers', labelIt: 'Faccette', labelSq: 'Fasetat', path: '/veneers' },
+  { labelDe: 'Galerie', labelEn: 'Gallery', labelIt: 'Galleria', labelSq: 'Galeria', path: '/veneers/gallery' },
+  { labelDe: 'Reise', labelEn: 'Travel', labelIt: 'Viaggio', labelSq: 'Udhëtimi', path: '/journey' },
+  { labelDe: 'Über uns', labelEn: 'About Us', labelIt: 'Chi siamo', labelSq: 'Rreth nesh', path: '/about' },
 ];
+
+const languageOptions: Lang[] = ['de', 'en', 'it', 'sq'];
+
+const labelFor = (lang: Lang, item: (typeof navItems)[number]) =>
+  lang === 'de' ? item.labelDe : lang === 'it' ? item.labelIt : lang === 'sq' ? item.labelSq : item.labelEn;
+
+const bookNowLabel = (lang: Lang) =>
+  lang === 'de' ? 'Termin buchen' : lang === 'it' ? 'Prenota ora' : lang === 'sq' ? 'Rezervo tani' : 'Book Now';
 
 function isNavActive(pathname: string, itemPath: string) {
   const matchesItem = pathname === itemPath || pathname.startsWith(`${itemPath}/`);
@@ -62,7 +70,7 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => {
             const isActive = isNavActive(location.pathname, item.path);
-            const label = lang === 'de' ? item.labelDe : item.labelEn;
+            const label = labelFor(lang, item);
             return (
               <Link
                 key={item.path}
@@ -81,20 +89,28 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          {/* Language Toggle */}
-          <button
-            onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-            className="hidden sm:flex font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors px-3 py-1.5 border border-outline-variant rounded-sm"
-          >
-            {lang === 'de' ? 'EN' : 'DE'}
-          </button>
+          {/* Language Switcher */}
+          <div className="hidden sm:flex border border-outline-variant rounded-sm overflow-hidden" aria-label="Language selector">
+            {languageOptions.map((code) => (
+              <button
+                key={code}
+                type="button"
+                onClick={() => setLang(code)}
+                className={`font-label-md text-label-md px-3 py-1.5 transition-colors ${
+                  lang === code ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:text-primary'
+                }`}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
+          </div>
 
           {/* Book Now */}
           <Link
             to="/contact"
             className="bg-primary text-on-primary px-6 py-2.5 font-label-md text-label-md rounded-sm hover:opacity-90 active:opacity-80 transition-all"
           >
-            {lang === 'de' ? 'Termin buchen' : 'Book Now'}
+            {bookNowLabel(lang)}
           </Link>
 
           {/* Mobile Hamburger */}
@@ -116,7 +132,7 @@ export default function Header() {
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => {
               const isActive = isNavActive(location.pathname, item.path);
-              const label = lang === 'de' ? item.labelDe : item.labelEn;
+              const label = labelFor(lang, item);
               return (
                 <Link
                   key={item.path}
@@ -133,18 +149,26 @@ export default function Header() {
               );
             })}
             <div className="flex items-center gap-3 pt-4 border-t border-outline-variant">
-              <button
-                onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
-                className="font-label-md text-label-md text-on-surface-variant hover:text-primary px-3 py-1.5 border border-outline-variant rounded-sm"
-              >
-                {lang === 'de' ? 'EN' : 'DE'}
-              </button>
+              <div className="flex border border-outline-variant rounded-sm overflow-hidden" aria-label="Language selector">
+                {languageOptions.map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    onClick={() => setLang(code)}
+                    className={`font-label-md text-label-md px-3 py-1.5 ${
+                      lang === code ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:text-primary'
+                    }`}
+                  >
+                    {code.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               <Link
                 to="/contact"
                 onClick={closeMenu}
                 className="bg-primary text-on-primary px-6 py-3 font-label-md rounded-sm w-full text-center"
               >
-                {lang === 'de' ? 'Termin buchen' : 'Book Now'}
+                {bookNowLabel(lang)}
               </Link>
             </div>
           </nav>

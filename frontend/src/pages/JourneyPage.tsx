@@ -85,7 +85,7 @@ export default function JourneyPage() {
         'Our private driver meets you at the airport and takes you safely to all appointments.',
       faqTitle: 'Frequently Asked Questions',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   const steps: TimelineStep[] = [
     { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc, imageUrl: images.heroAfter },

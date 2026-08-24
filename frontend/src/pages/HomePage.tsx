@@ -50,7 +50,7 @@ export default function HomePage() {
       doctorQuote:
         'We combine German precision with Albanian hospitality to offer you a first-class experience.',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   return (
     <>

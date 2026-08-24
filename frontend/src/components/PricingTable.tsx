@@ -7,7 +7,7 @@ interface PricingRow {
 
 interface PricingTableProps {
   rows: PricingRow[];
-  lang: 'de' | 'en';
+  lang: 'de' | 'en' | 'it' | 'sq';
 }
 
 export default function PricingTable({ rows, lang }: PricingTableProps) {

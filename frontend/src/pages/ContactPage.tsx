@@ -30,7 +30,7 @@ export default function ContactPage() {
       whatsapp: 'WhatsApp Chat',
       formTitle: 'Request Free Consultation',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   return (
     <>

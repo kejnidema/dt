@@ -61,7 +61,7 @@ export default function VeneersHubPage() {
       ctaText: 'Get a free consultation.',
       ctaButton: 'Free Consultation',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   const pricingRows =
     lang === 'de'

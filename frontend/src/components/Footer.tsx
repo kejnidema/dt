@@ -41,7 +41,7 @@ export default function Footer() {
       email: 'info@veneerclinictirana.com',
       copyright: '© 2024 Veneer Clinic Tirana. All Rights Reserved. German Quality, Albanian Hospitality.',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   return (
     <footer className="bg-primary text-on-primary w-full mt-auto">

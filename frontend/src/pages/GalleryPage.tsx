@@ -27,7 +27,7 @@ export default function GalleryPage() {
       days: 'Days in Tirana',
       savings: 'Savings vs DE',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   const cases = [
     { treatment: 'e-max', teeth: 10, days: 5, savings: 9200 },

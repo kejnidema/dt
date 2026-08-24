@@ -44,7 +44,7 @@ export default function CostComparisonPage() {
       doctorQuote:
         'We use exactly the same materials and technologies as top clinics in Berlin or Munich — only the operating costs in Tirana enable this price advantage.',
     },
-  }[lang];
+  }[lang === 'de' ? 'de' : 'en'];
 
   return (
     <>
