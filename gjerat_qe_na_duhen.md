@@ -23,11 +23,14 @@ testimonials per pacientet e huaj vecanterisht
 
 (per te gjitha fotot JO TE EDITUARA, mos fut fotot njera brenda tjetres sic ishin te google drive me pare) do prezantohen para dhe pas ne elementin e UI me slider
 
-4-6 shembuj para pas per veneer dhe implante, dhe tranjtime te tjera
-- te organizuara sipas trajtimit
+- 4-6 shembuj para pas per veneer dhe implante, dhe tranjtime te tjera te organizuara sipas trajtimit
 - foto te ambjentit
-- foto te stafit nqs duan
+- foto te stafit 
 - foto te pajisjeve dentare
+
+## video klienteve
+- review
+- shiko rezultatin para pas
 
 # ecuria e trajtimit me pacientet e huaj
 - vecanterisht pjesa e logjistikes
@@ -73,3 +76,4 @@ Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE123456789
 
 # per ne me vone
 - upload grafine
+- skriptet
