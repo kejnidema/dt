@@ -1,3 +1,8 @@
+# sherbimet
+- lista e sherbimeve
+- lista e cmimeve
+- foto per sherbimet
+
 # kredenciale
 - qualifikime te dentisteve
 - certifikata
@@ -64,3 +69,7 @@ HRB 123456 B
 
 Umsatzsteuer-ID:
 Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE123456789
+
+
+# per ne me vone
+- upload grafine
