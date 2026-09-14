@@ -9,6 +9,7 @@ import ScrollMemory from '@/components/ScrollMemory';
 
 import HomePage from '@/pages/HomePage';
 import TreatmentsPage from '@/pages/TreatmentsPage';
+import TreatmentDetailPage from '@/pages/TreatmentDetailPage';
 import VeneersHubPage from '@/pages/VeneersHubPage';
 import EMaxPage from '@/pages/EMaxPage';
 import GalleryPage from '@/pages/GalleryPage';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/treatments" element={<TreatmentsPage />} />
             <Route path="/treatments/all-on-x" element={<AllOnXPage />} />
+            <Route path="/treatments/:slug" element={<TreatmentDetailPage />} />
             <Route path="/veneers" element={<VeneersHubPage />} />
             <Route path="/veneers/emax" element={<EMaxPage />} />
             <Route path="/veneers/porcelain" element={<EMaxPage />} />

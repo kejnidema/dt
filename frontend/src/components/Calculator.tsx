@@ -160,53 +160,65 @@ export default function Calculator() {
 
             <div className='relative z-10'>
               <h3 className='font-label-md text-secondary-fixed uppercase tracking-widest mb-10'>
-                {lang === 'de' ? 'Kosten Tirana' : 'Cost Tirana'}
+                {lang === 'de' ? 'Ihr Preisvergleich' : 'Your Price Comparison'}
               </h3>
 
-              <div className='flex flex-col md:flex-row items-end gap-8 mb-12'>
-                <div className='savings-pulse'>
-                  <div className='text-[64px] font-bold leading-none text-secondary-fixed'>
+              <div className='grid grid-cols-1 md:grid-cols-[1fr_240px] gap-6 mb-10'>
+                <div className='savings-pulse bg-secondary-fixed text-on-secondary-fixed rounded-2xl p-8 shadow-xl'>
+                  <div className='font-label-md uppercase tracking-widest opacity-70 mb-3'>
+                    {lang === 'de' ? 'Tirana Preis' : 'Tirana Price'}
+                  </div>
+                  <div className='text-[64px] font-bold leading-none'>
                     {formatEuro(tirana)}
                   </div>
-                  <div className='font-label-md mt-2 opacity-70 italic'>
+                  <div className='font-label-md mt-3 opacity-80'>
+                    {toothCount} {lang === 'de' ? 'Veneers' : 'veneers'} ·{' '}
                     {lang === 'de'
-                      ? '* Geschätzter Betrag im Vergleich zu Deutschland'
-                      : '* Estimated vs Germany'}
+                      ? config.materials[materialIndex]?.name_de
+                      : config.materials[materialIndex]?.name_en}
                   </div>
                 </div>
 
-                <div className='h-20 w-[1px] bg-white/20 hidden md:block' />
-
-                <div>
-                  <div className='text-headline-sm'>{formatEuro(tirana)}</div>
-                  <div className='font-label-md opacity-70'>
-                    {lang === 'de' ? 'Unser Paketpreis' : 'Our Package Price'}
+                <aside className='bg-white/10 border border-white/15 rounded-2xl p-6 flex flex-col justify-center'>
+                  <div className='font-label-md opacity-70 mb-2'>
+                    {lang === 'de'
+                      ? 'Ihre Ersparnis'
+                      : 'Your Savings'}
                   </div>
-                </div>
+                  <div className='text-4xl font-bold text-secondary-fixed'>
+                    {formatEuro(savings)}
+                  </div>
+                  <div className='mt-2 inline-flex w-fit items-center rounded-full bg-secondary-fixed/15 px-3 py-1 text-secondary-fixed font-label-md'>
+                    -{pct}%
+                  </div>
+                  <p className='mt-4 text-sm opacity-70'>
+                    {lang === 'de'
+                      ? 'gegenüber dem ausgewählten deutschen Referenzpreis'
+                      : 'compared with the selected German reference price'}
+                  </p>
+                </aside>
               </div>
 
               {/* Bar Chart */}
-              <div className='grid grid-cols-2 gap-4'>
-                <div className='bg-white/5 p-4 rounded border border-white/10'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <div className='bg-white/5 p-5 rounded border border-white/10'>
                   <div className='font-label-md opacity-60 mb-1'>
                     {lang === 'de' ? 'Kosten DE' : 'Cost DE'}
                   </div>
                   <div className='font-headline-sm'>{formatEuro(germany)}</div>
-                  <div className='w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden'>
+                  <div className='w-full bg-white/10 h-2 mt-4 rounded-full overflow-hidden'>
                     <div className='bg-error w-full h-full' />
                   </div>
                 </div>
-                <div className='bg-white/5 p-4 rounded border border-white/10'>
-                  <div className='font-label-md opacity-60 mb-1'>
-                    {lang === 'de'
-                      ? 'Ihre Potenzielle Ersparnis'
-                      : 'Your Potential Savings'}
+                <div className='bg-white/10 p-5 rounded border border-secondary-fixed/40'>
+                  <div className='font-label-md text-secondary-fixed mb-1'>
+                    {lang === 'de' ? 'Kosten Tirana' : 'Cost Tirana'}
                   </div>
-                  <div className='font-headline-sm'>{formatEuro(savings)}</div>
-                  <div className='w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden'>
+                  <div className='font-headline-sm text-secondary-fixed'>{formatEuro(tirana)}</div>
+                  <div className='w-full bg-white/10 h-2 mt-4 rounded-full overflow-hidden'>
                     <div
                       className='bg-secondary-fixed h-full transition-all duration-500'
-                      style={{ width: `${100 - pct}%` }}
+                      style={{ width: `${Math.max(8, 100 - pct)}%` }}
                     />
                   </div>
                 </div>

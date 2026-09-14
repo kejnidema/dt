@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
+import { treatments } from '@/pages/TreatmentsPage';
 
 const navItems = [
-  { labelDe: 'Behandlungen', labelEn: 'Treatments', labelIt: 'Trattamenti', labelSq: 'Trajtimet', path: '/treatments' },
+  { labelDe: 'Behandlungen', labelEn: 'Treatments', labelIt: 'Trattamenti', labelSq: 'Trajtimet', path: '/treatments', children: treatments },
   { labelDe: 'Preise', labelEn: 'Pricing', labelIt: 'Prezzi', labelSq: 'Çmimet', path: '/pricing' },
-  { labelDe: 'Veneers', labelEn: 'Veneers', labelIt: 'Faccette', labelSq: 'Fasetat', path: '/veneers' },
   { labelDe: 'Galerie', labelEn: 'Gallery', labelIt: 'Galleria', labelSq: 'Galeria', path: '/veneers/gallery' },
   { labelDe: 'Reise', labelEn: 'Travel', labelIt: 'Viaggio', labelSq: 'Udhëtimi', path: '/journey' },
   { labelDe: 'Über uns', labelEn: 'About Us', labelIt: 'Chi siamo', labelSq: 'Rreth nesh', path: '/about' },
@@ -13,23 +13,25 @@ const navItems = [
 
 const languageOptions: Lang[] = ['de', 'en', 'it', 'sq'];
 
-const labelFor = (lang: Lang, item: (typeof navItems)[number]) =>
+const labelFor = (lang: Lang, item: { labelDe: string; labelEn: string; labelIt: string; labelSq: string }) =>
   lang === 'de' ? item.labelDe : lang === 'it' ? item.labelIt : lang === 'sq' ? item.labelSq : item.labelEn;
 
 const bookNowLabel = (lang: Lang) =>
   lang === 'de' ? 'Termin buchen' : lang === 'it' ? 'Prenota ora' : lang === 'sq' ? 'Rezervo tani' : 'Book Now';
 
-function isNavActive(pathname: string, itemPath: string) {
-  const matchesItem = pathname === itemPath || pathname.startsWith(`${itemPath}/`);
-  if (!matchesItem) return false;
+function pathMatches(pathname: string, itemPath: string) {
+  return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
+}
 
-  // If another nav item is a more specific match, only underline that one.
-  return !navItems.some(
-    (other) =>
-      other.path !== itemPath &&
-      other.path.startsWith(`${itemPath}/`) &&
-      (pathname === other.path || pathname.startsWith(`${other.path}/`)),
+function isNavActive(pathname: string, item: (typeof navItems)[number]) {
+  if (pathMatches(pathname, item.path)) return true;
+
+  const anotherTopLevelItemMatches = navItems.some(
+    (other) => other.path !== item.path && pathMatches(pathname, other.path),
   );
+  if (anotherTopLevelItemMatches) return false;
+
+  return item.children?.some((child) => pathMatches(pathname, child.link)) ?? false;
 }
 
 export default function Header() {
@@ -69,8 +71,40 @@ export default function Header() {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => {
-            const isActive = isNavActive(location.pathname, item.path);
+            const isActive = isNavActive(location.pathname, item);
             const label = labelFor(lang, item);
+
+            if (item.children) {
+              return (
+                <div key={item.path} className="relative group h-20 flex items-center">
+                  <Link
+                    to={item.path}
+                    className={`font-label-md text-label-md transition-colors duration-200 flex items-center gap-1 ${
+                      isActive
+                        ? 'text-primary border-b-2 border-primary pb-1'
+                        : 'text-on-surface-variant hover:text-primary'
+                    }`}
+                  >
+                    {label}
+                    <span className="material-symbols-outlined text-[18px]">expand_more</span>
+                  </Link>
+
+                  <div className="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 focus-within:visible focus-within:opacity-100 focus-within:translate-y-0 transition-all duration-200 absolute left-0 top-full w-72 bg-white border border-outline-variant rounded-xl shadow-xl p-3">
+                    {item.children.map((child) => (
+                      <Link
+                        key={`${child.link}-${child.title}`}
+                        to={child.link}
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-secondary">{child.icon}</span>
+                        <span className="font-label-md text-label-md">{child.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={item.path}
@@ -131,8 +165,41 @@ export default function Header() {
         <div className="lg:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant shadow-lg">
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => {
-              const isActive = isNavActive(location.pathname, item.path);
+              const isActive = isNavActive(location.pathname, item);
               const label = labelFor(lang, item);
+
+              if (item.children) {
+                return (
+                  <div key={item.path} className="space-y-2">
+                    <Link
+                      to={item.path}
+                      onClick={closeMenu}
+                      className={`font-label-md text-label-md py-2 flex items-center justify-between ${
+                        isActive
+                          ? 'text-primary font-bold'
+                          : 'text-on-surface-variant hover:text-primary'
+                      }`}
+                    >
+                      {label}
+                      <span className="material-symbols-outlined text-[18px]">expand_more</span>
+                    </Link>
+                    <div className="pl-4 border-l border-outline-variant flex flex-col gap-1">
+                      {item.children.map((child) => (
+                        <Link
+                          key={`${child.link}-${child.title}`}
+                          to={child.link}
+                          onClick={closeMenu}
+                          className="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary"
+                        >
+                          <span className="material-symbols-outlined text-secondary text-[20px]">{child.icon}</span>
+                          <span className="font-label-md text-label-md">{child.title}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.path}
