@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
-import { galleryPairs, images } from '@/lib/images';
+import { images } from '@/lib/images';
 
 export default function TreatmentsPage() {
   const { lang } = useI18n();
@@ -30,7 +30,7 @@ export default function TreatmentsPage() {
             description: '3D-Visualisierung Ihres neuen Lächelns vor der Behandlung.',
             link: '/treatments',
             price: 'ab 200 €',
-            image: images.emaxAfter,
+            image: images.team,
           },
           {
             icon: 'cleaning_services',
@@ -38,7 +38,7 @@ export default function TreatmentsPage() {
             description: 'Professionelle Bleaching-Behandlung für strahlend weiße Zähne.',
             link: '/treatments',
             price: 'ab 250 €',
-            image: galleryPairs[0][1],
+            image: images.emaxAfter,
           },
         ]
       : [
@@ -64,7 +64,7 @@ export default function TreatmentsPage() {
             description: '3D visualization of your new smile before treatment.',
             link: '/treatments',
             price: 'from €200',
-            image: images.emaxAfter,
+            image: images.team,
           },
           {
             icon: 'cleaning_services',
@@ -72,7 +72,7 @@ export default function TreatmentsPage() {
             description: 'Professional bleaching treatment for brilliantly white teeth.',
             link: '/treatments',
             price: 'from €250',
-            image: galleryPairs[0][1],
+            image: images.emaxAfter,
           },
         ];
 

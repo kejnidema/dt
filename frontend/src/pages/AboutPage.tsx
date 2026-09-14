@@ -7,8 +7,8 @@ export default function AboutPage() {
 
   const doctors = [
     {
-      firstName: 'Marko',
-      lastName: 'Hoxha',
+      firstName: 'Besnik',
+      lastName: 'Skenderi',
       specialization: lang === 'de' ? 'Zahnästhetik & Veneers' : 'Dental Aesthetics & Veneers',
       biographyDe: 'Spezialist für ästhetische Zahnmedizin mit über 15 Jahren Erfahrung. Master in Aesthetic Dentistry von der Universität Mailand.',
       biographyEn: 'Specialist in aesthetic dentistry with over 15 years of experience. Master in Aesthetic Dentistry from University of Milan.',
@@ -19,19 +19,6 @@ export default function AboutPage() {
       ],
       imageUrl: images.doctor,
       isLead: true,
-    },
-    {
-      firstName: 'Elira',
-      lastName: 'Krasniqi',
-      specialization: lang === 'de' ? 'Prothetik & Implantologie' : 'Prosthodontics & Implantology',
-      biographyDe: 'Experte für zahnärztliche Prothetik und Implantologie mit Schwerpunkt auf minimal-invasiven Techniken.',
-      biographyEn: 'Expert in dental prosthodontics and implantology with a focus on minimally invasive techniques.',
-      languages: ['Deutsch', 'English', 'Shqip'],
-      credentials: [
-        { title: 'Dr. med. dent.', institution: 'Universität Tirana', year: 2010 },
-      ],
-      imageUrl: images.doctorFemale,
-      isLead: false,
     },
   ];
 
