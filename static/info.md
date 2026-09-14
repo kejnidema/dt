@@ -1,7 +1,3 @@
-dentist besim ske:nderi (albanian e with 2 dots)
-msc stomatology
-specialisation cirurgic maskalio-faciale
-
 treatments, price in euro
 tartar clean, 30
 professional teeth whitening, 150

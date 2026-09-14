@@ -64,25 +64,18 @@ export const images = {
   ],
   patientPhotosIRL: patients,
   results: [
-    [patient('smile0.jpeg'), patient('smile01.jpeg')],
+    [patient('smile0.jpeg'), patient('smile01.jpeg'), patient('smile02.jpeg')],
     [
       patient('smile1.jpeg'),
       patient('smile11.jpeg'),
       patient('smile12.jpeg'),
-      patient('smile13.jpeg'),
       patient('smile14.jpeg'),
-      patient('smile15.jpeg'),
     ],
     [
       patient('smile2.jpeg'),
       patient('smile21.jpeg'),
-      patient('smile22.jpeg'),
-      patient('smile23.jpeg'),
-      patient('smile24.jpeg'),
       patient('smile25.jpeg'),
       patient('smile26.jpeg'),
-      patient('smile27.jpeg'),
-      patient('smile28.jpeg'),
     ],
     [
       patient('smile3.jpeg'),
