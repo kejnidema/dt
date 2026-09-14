@@ -1,65 +1,137 @@
 import { useState, useCallback } from 'react';
 import { useI18n } from '@/lib/i18n';
 
-interface CityPricing {
-  name: string;
-  price_eur_per_tooth: number;
-}
-
-interface MaterialPrice {
+interface TreatmentPrice {
   key: string;
   name_de: string;
   name_en: string;
-  price_eur_per_tooth: number;
+  unit_de: string;
+  unit_en: string;
+  tirana_price_eur: number;
+  germany_price_eur: number;
+  max_quantity: number;
 }
 
-interface PricingConfig {
-  german_cities: CityPricing[];
-  materials: MaterialPrice[];
-}
-
-const PRICING_CONFIG: PricingConfig = {
-  german_cities: [
-    { name: 'Berlin', price_eur_per_tooth: 1200 },
-    { name: 'München', price_eur_per_tooth: 1500 },
-    { name: 'Hamburg', price_eur_per_tooth: 1300 },
-    { name: 'Frankfurt', price_eur_per_tooth: 1400 },
-    { name: 'Düsseldorf', price_eur_per_tooth: 1100 },
-  ],
-  materials: [
-    {
-      key: 'e-max',
-      name_de: 'E-Max Porzellan',
-      name_en: 'E-Max Porcelain',
-      price_eur_per_tooth: 350,
-    },
-    {
-      key: 'zirconia',
-      name_de: 'Zirkonoxid',
-      name_en: 'Zirconia',
-      price_eur_per_tooth: 400,
-    },
-  ],
-};
+const TREATMENT_PRICING: TreatmentPrice[] = [
+  {
+    key: 'tartar-clean',
+    name_de: 'Zahnsteinreinigung',
+    name_en: 'Tartar Clean',
+    unit_de: 'Behandlung',
+    unit_en: 'treatment',
+    tirana_price_eur: 30,
+    germany_price_eur: 100,
+    max_quantity: 4,
+  },
+  {
+    key: 'whitening',
+    name_de: 'Professionelle Zahnaufhellung',
+    name_en: 'Professional Teeth Whitening',
+    unit_de: 'Behandlung',
+    unit_en: 'treatment',
+    tirana_price_eur: 150,
+    germany_price_eur: 400,
+    max_quantity: 4,
+  },
+  {
+    key: 'implant',
+    name_de: 'MegaGen-Titanium Implantat',
+    name_en: 'MegaGen-Titanium Implant',
+    unit_de: 'Implantat',
+    unit_en: 'implant',
+    tirana_price_eur: 500,
+    germany_price_eur: 1500,
+    max_quantity: 12,
+  },
+  {
+    key: 'filling-grade-2',
+    name_de: 'Füllung Grad 2',
+    name_en: 'Filling Grade 2',
+    unit_de: 'Füllung',
+    unit_en: 'filling',
+    tirana_price_eur: 50,
+    germany_price_eur: 150,
+    max_quantity: 12,
+  },
+  {
+    key: 'filling-grade-3',
+    name_de: 'Füllung Grad 3',
+    name_en: 'Filling Grade 3',
+    unit_de: 'Füllung',
+    unit_en: 'filling',
+    tirana_price_eur: 70,
+    germany_price_eur: 200,
+    max_quantity: 12,
+  },
+  {
+    key: 'porcelain-crown',
+    name_de: 'Porzellankrone Made in Germany',
+    name_en: 'Porcelain Crown Made in Germany',
+    unit_de: 'Krone',
+    unit_en: 'crown',
+    tirana_price_eur: 100,
+    germany_price_eur: 700,
+    max_quantity: 24,
+  },
+  {
+    key: 'zirconia-crown',
+    name_de: 'Zirkonia-Krone Made in Germany',
+    name_en: 'Zirkonia Crown Made in Germany',
+    unit_de: 'Krone',
+    unit_en: 'crown',
+    tirana_price_eur: 200,
+    germany_price_eur: 900,
+    max_quantity: 24,
+  },
+  {
+    key: 'emax-crown-veneer',
+    name_de: 'E-Max Krone/Veneer Made in Germany',
+    name_en: 'E-Max Crown and Veneer Made in Germany',
+    unit_de: 'Zahn',
+    unit_en: 'tooth',
+    tirana_price_eur: 300,
+    germany_price_eur: 2350,
+    max_quantity: 24,
+  },
+  {
+    key: 'removable-prosthetic',
+    name_de: 'Herausnehmbare Prothese',
+    name_en: 'Removable Prosthetic',
+    unit_de: 'Kiefer',
+    unit_en: 'jaw',
+    tirana_price_eur: 600,
+    germany_price_eur: 1200,
+    max_quantity: 2,
+  },
+  {
+    key: 'surgery',
+    name_de: 'Chirurgie',
+    name_en: 'Surgery',
+    unit_de: 'Eingriff',
+    unit_en: 'procedure',
+    tirana_price_eur: 200,
+    germany_price_eur: 600,
+    max_quantity: 4,
+  },
+];
 
 export default function Calculator() {
   const { lang } = useI18n();
-  const config = PRICING_CONFIG;
-  const [cityIndex, setCityIndex] = useState(0);
-  const [materialIndex, setMaterialIndex] = useState(0);
-  const [toothCount, setToothCount] = useState(8);
+  const [treatmentIndex, setTreatmentIndex] = useState(7);
+  const selectedTreatment = TREATMENT_PRICING[treatmentIndex] ?? TREATMENT_PRICING[0]!;
+  const [quantity, setQuantity] = useState(8);
 
   const calculate = useCallback(() => {
-    const city = config.german_cities[cityIndex];
-    const material = config.materials[materialIndex];
-    const germany = toothCount * (city?.price_eur_per_tooth ?? 0);
-    const tirana = toothCount * (material?.price_eur_per_tooth ?? 0);
+    const germany = quantity * selectedTreatment.germany_price_eur;
+    const tirana = quantity * selectedTreatment.tirana_price_eur;
     const savings = germany - tirana;
     const pct = germany > 0 ? Math.round((savings / germany) * 100) : 0;
     return { germany, tirana, savings, pct };
-  }, [config, cityIndex, materialIndex, toothCount]);
+  }, [selectedTreatment, quantity]);
 
   const { germany, tirana, savings, pct } = calculate();
+  const treatmentName = lang === 'de' ? selectedTreatment.name_de : selectedTreatment.name_en;
+  const unitName = lang === 'de' ? selectedTreatment.unit_de : selectedTreatment.unit_en;
 
   const formatEuro = (n: number) =>
     new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US', {
@@ -73,82 +145,78 @@ export default function Calculator() {
       <div className='max-w-[1200px] mx-auto px-gutter'>
         <div className='text-center mb-16'>
           <h2 className='font-headline-md text-headline-md mb-4 text-primary'>
-            {lang === 'de' ? 'Veneer Preisrechner' : 'Veneer Price Calculator'}
+            {lang === 'de' ? 'Behandlung Preisrechner' : 'Treatment Price Calculator'}
           </h2>
           <p className='text-on-surface-variant max-w-xl mx-auto'>
             {lang === 'de'
-              ? 'Berechnen Sie Ihre Ersparnis basierend auf Material und Standort.'
-              : 'Calculate your savings based on material and location.'}
+              ? 'Wählen Sie eine Behandlung und berechnen Sie Ihre Ersparnis gegenüber Deutschland.'
+              : 'Choose a treatment and calculate your savings compared with Germany.'}
           </p>
         </div>
 
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start'>
           {/* Input Controls */}
           <div className='lg:col-span-5 bg-white p-8 rounded-xl border border-outline-variant shadow-sm space-y-10'>
-            {/* City */}
+            {/* Treatment */}
             <div>
               <label className='font-label-md block mb-4 text-on-surface-variant'>
-                {lang === 'de'
-                  ? 'Referenzstadt in Deutschland'
-                  : 'Reference City in Germany'}
+                {lang === 'de' ? 'Behandlung' : 'Treatment'}
               </label>
               <select
-                className='w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md appearance-none cursor-pointer'
-                value={cityIndex}
-                onChange={(e) => setCityIndex(Number(e.target.value))}
+                className='w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md appearance-none cursor-pointer outline-none'
+                value={treatmentIndex}
+                onChange={(e) => {
+                  const nextIndex = Number(e.target.value);
+                  const nextTreatment = TREATMENT_PRICING[nextIndex] ?? TREATMENT_PRICING[0]!;
+                  setTreatmentIndex(nextIndex);
+                  setQuantity((current) => Math.min(current, nextTreatment.max_quantity));
+                }}
               >
-                {config.german_cities.map((city, i) => (
-                  <option key={i} value={i}>
-                    {city.name}
+                {TREATMENT_PRICING.map((treatment, i) => (
+                  <option key={treatment.key} value={i}>
+                    {lang === 'de' ? treatment.name_de : treatment.name_en}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Material Toggle */}
-            <div>
-              <label className='font-label-md block mb-4 text-on-surface-variant'>
-                {lang === 'de' ? 'Material-Qualität' : 'Material Quality'}
-              </label>
-              <div className='flex p-1 bg-surface-container rounded-lg border border-outline-variant'>
-                {config.materials.map((m, i) => (
-                  <button
-                    key={m.key}
-                    onClick={() => setMaterialIndex(i)}
-                    className={`flex-1 py-3 text-center rounded font-label-md transition-all ${
-                      materialIndex === i
-                        ? 'bg-primary text-white'
-                        : 'text-on-surface-variant hover:bg-white/50'
-                    }`}
-                  >
-                    {lang === 'de' ? m.name_de : m.name_en}
-                  </button>
-                ))}
+            {/* Unit Prices */}
+            <div className='grid grid-cols-2 gap-4'>
+              <div className='bg-surface-container-low rounded-lg border border-outline-variant p-4'>
+                <p className='font-label-md text-on-surface-variant mb-1'>
+                  {lang === 'de' ? 'Tirana / Einheit' : 'Tirana / Unit'}
+                </p>
+                <p className='font-headline-sm text-primary'>{formatEuro(selectedTreatment.tirana_price_eur)}</p>
+              </div>
+              <div className='bg-surface-container-low rounded-lg border border-outline-variant p-4'>
+                <p className='font-label-md text-on-surface-variant mb-1'>
+                  {lang === 'de' ? 'DE / Einheit' : 'DE / Unit'}
+                </p>
+                <p className='font-headline-sm text-error'>{formatEuro(selectedTreatment.germany_price_eur)}</p>
               </div>
             </div>
 
-            {/* Tooth Slider */}
+            {/* Quantity Slider */}
             <div>
               <div className='flex justify-between mb-4'>
                 <label className='font-label-md text-on-surface-variant'>
-                  {lang === 'de' ? 'Anzahl der Veneers' : 'Number of Veneers'}
+                  {lang === 'de' ? `Anzahl ${unitName}` : `Number of ${unitName}s`}
                 </label>
                 <span className='font-headline-sm text-primary'>
-                  {toothCount}
+                  {quantity}
                 </span>
               </div>
               <input
                 type='range'
                 min={1}
-                max={24}
-                value={toothCount}
-                onChange={(e) => setToothCount(Number(e.target.value))}
+                max={selectedTreatment.max_quantity}
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
                 className='w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer slider-thumb'
               />
               <div className='flex justify-between mt-2 text-[12px] text-outline font-label-md'>
                 <span>1</span>
-                <span>12</span>
-                <span>24</span>
+                <span>{selectedTreatment.max_quantity}</span>
               </div>
             </div>
           </div>
@@ -172,10 +240,7 @@ export default function Calculator() {
                     {formatEuro(tirana)}
                   </div>
                   <div className='font-label-md mt-3 opacity-80'>
-                    {toothCount} {lang === 'de' ? 'Veneers' : 'veneers'} ·{' '}
-                    {lang === 'de'
-                      ? config.materials[materialIndex]?.name_de
-                      : config.materials[materialIndex]?.name_en}
+                    {quantity} × {treatmentName}
                   </div>
                 </div>
 
@@ -193,8 +258,8 @@ export default function Calculator() {
                   </div>
                   <p className='mt-4 text-sm opacity-70'>
                     {lang === 'de'
-                      ? 'gegenüber dem ausgewählten deutschen Referenzpreis'
-                      : 'compared with the selected German reference price'}
+                      ? 'gegenüber einem durchschnittlichen deutschen Referenzpreis'
+                      : 'compared with an average German reference price'}
                   </p>
                 </aside>
               </div>
