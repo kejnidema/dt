@@ -13,6 +13,7 @@
         "./src/components/MaterialCard.tsx",
         "./src/components/PricingTable.tsx",
         "./src/components/ScrollMemory.tsx",
+        "./src/components/ScrollingGallery.tsx",
         "./src/components/StructuredData.tsx",
         "./src/components/TestimonialsCarousel.tsx",
         "./src/components/Timeline.tsx",
