@@ -37,7 +37,7 @@ export const images = {
       after: [patient('after0.jpg'), patient('after0.jpg')],
     },
     {
-      before: [patient('before20.jpeg')],
+      before: [patient('before20.jpeg'), patient('before21.jpeg')],
       after: [
         patient('after21.jpeg'),
         patient('after22.jpeg'),
@@ -92,7 +92,7 @@ export const images = {
       patient('smile34.jpeg'),
     ],
     [patient('smile4.jpeg')],
-    [patient('smile5.jpeg'), patient('smile50.jpeg')],
+    [patient('smile5.jpeg')],
     [patient('smile6.jpeg')],
     [patient('smile8.jpeg')],
     [patient('smile9.jpeg')],
