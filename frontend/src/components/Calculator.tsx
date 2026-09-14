@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useI18n } from '@/lib/i18n';
-import { get } from '@/lib/api';
 
 interface CityPricing {
   name: string;
@@ -19,36 +18,28 @@ interface PricingConfig {
   materials: MaterialPrice[];
 }
 
+const PRICING_CONFIG: PricingConfig = {
+  german_cities: [
+    { name: 'Berlin', price_eur_per_tooth: 1200 },
+    { name: 'München', price_eur_per_tooth: 1500 },
+    { name: 'Hamburg', price_eur_per_tooth: 1300 },
+    { name: 'Frankfurt', price_eur_per_tooth: 1400 },
+    { name: 'Düsseldorf', price_eur_per_tooth: 1100 },
+  ],
+  materials: [
+    { key: 'e-max', name_de: 'E-Max Porzellan', name_en: 'E-Max Porcelain', price_eur_per_tooth: 350 },
+    { key: 'zirconia', name_de: 'Zirkonoxid', name_en: 'Zirconia', price_eur_per_tooth: 400 },
+  ],
+};
+
 export default function Calculator() {
   const { lang } = useI18n();
-  const [config, setConfig] = useState<PricingConfig | null>(null);
+  const config = PRICING_CONFIG;
   const [cityIndex, setCityIndex] = useState(0);
   const [materialIndex, setMaterialIndex] = useState(0);
   const [toothCount, setToothCount] = useState(8);
 
-  useEffect(() => {
-    get<PricingConfig>('/pricing-config')
-      .then(setConfig)
-      .catch(() => {
-        // Fallback data
-        setConfig({
-          german_cities: [
-            { name: 'Berlin', price_eur_per_tooth: 1200 },
-            { name: 'München', price_eur_per_tooth: 1500 },
-            { name: 'Hamburg', price_eur_per_tooth: 1300 },
-            { name: 'Frankfurt', price_eur_per_tooth: 1400 },
-            { name: 'Düsseldorf', price_eur_per_tooth: 1100 },
-          ],
-          materials: [
-            { key: 'e-max', name_de: 'E-Max Porzellan', name_en: 'E-Max Porcelain', price_eur_per_tooth: 350 },
-            { key: 'zirconia', name_de: 'Zirkonoxid', name_en: 'Zirconia', price_eur_per_tooth: 400 },
-          ],
-        });
-      });
-  }, []);
-
   const calculate = useCallback(() => {
-    if (!config) return { germany: 0, tirana: 0, savings: 0, pct: 0 };
     const city = config.german_cities[cityIndex];
     const material = config.materials[materialIndex];
     const germany = toothCount * (city?.price_eur_per_tooth ?? 0);
@@ -66,8 +57,6 @@ export default function Calculator() {
       currency: 'EUR',
       maximumFractionDigits: 0,
     }).format(n);
-
-  if (!config) return null;
 
   return (
     <section className="py-section-padding bg-surface-container-low">

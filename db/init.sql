@@ -1,103 +1,70 @@
-\c dt;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
--- Treatments (E-Max, Zirconia, Porcelain, etc.)
-CREATE TABLE treatments (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    slug            TEXT NOT NULL UNIQUE,
-    name_de         TEXT NOT NULL,
-    name_en         TEXT NOT NULL,
-    description_de  TEXT,
-    description_en  TEXT,
-    material        TEXT,
-    duration_days   INT DEFAULT 0,
-    lifespan_years  INT DEFAULT 0,
-    advantages      JSONB DEFAULT '[]',
-    pricing         JSONB,
-    sort_order      INT DEFAULT 0,
-    active          BOOLEAN DEFAULT TRUE,
-    created_at      TIMESTAMPTZ DEFAULT NOW(),
-    updated_at      TIMESTAMPTZ DEFAULT NOW()
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- People/leads. Treatment-specific requests live in consultations.
+CREATE TABLE patients (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    country TEXT,
+    city TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT patients_email_not_blank CHECK (length(trim(email)) > 0),
+    CONSTRAINT patients_phone_not_blank CHECK (length(trim(phone)) > 0),
+    CONSTRAINT patients_email_unique UNIQUE (email)
 );
 
--- Before/After gallery cases
-CREATE TABLE gallery_cases (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    treatment_type  TEXT NOT NULL,
-    before_image    TEXT NOT NULL,
-    after_image     TEXT NOT NULL,
-    patient_flag    TEXT,
-    teeth_count     INT DEFAULT 0,
-    days_in_tirana  INT DEFAULT 0,
-    savings_eur     INT DEFAULT 0,
-    sort_order      INT DEFAULT 0,
-    active          BOOLEAN DEFAULT TRUE,
-    created_at      TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Pricing: German city reference prices
-CREATE TABLE pricing_cities (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    city_name       TEXT NOT NULL,
-    price_per_tooth INT NOT NULL,
-    sort_order      INT DEFAULT 0
-);
-
--- Pricing: Albania (Tirana) material prices
-CREATE TABLE pricing_materials (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    key             TEXT NOT NULL UNIQUE,
-    name_de         TEXT NOT NULL,
-    name_en         TEXT NOT NULL,
-    price_per_tooth INT NOT NULL,
-    sort_order      INT DEFAULT 0
-);
-
--- Testimonials / reviews
-CREATE TABLE testimonials (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    patient_name    TEXT,
-    rating          INT CHECK (rating BETWEEN 1 AND 5),
-    comment_de      TEXT,
-    comment_en      TEXT,
-    patient_flag    TEXT,
-    treatment       TEXT,
-    days_ago        INT,
-    featured        BOOLEAN DEFAULT FALSE,
-    active          BOOLEAN DEFAULT TRUE,
-    created_at      TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Doctor profiles
-CREATE TABLE doctors (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    first_name      TEXT NOT NULL,
-    last_name       TEXT NOT NULL,
-    specialization  TEXT,
-    biography_de    TEXT,
-    biography_en    TEXT,
-    image_url       TEXT,
-    languages       JSONB DEFAULT '[]',
-    credentials     JSONB DEFAULT '[]',
-    is_lead         BOOLEAN DEFAULT FALSE,
-    sort_order      INT DEFAULT 0,
-    active          BOOLEAN DEFAULT TRUE,
-    created_at      TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Consultation requests (from contact form)
+-- Consultation requests from contact/landing-page forms.
 CREATE TABLE consultations (
-    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    full_name       TEXT NOT NULL,
-    email           TEXT NOT NULL,
-    phone           TEXT NOT NULL,
-    city            TEXT,
-    treatment       TEXT,
-    message         TEXT,
-    status          TEXT DEFAULT 'new',
-    created_at      TIMESTAMPTZ DEFAULT NOW()
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    patient_id UUID REFERENCES patients (id) ON DELETE SET NULL,
+    treatment_id UUID REFERENCES treatments (id) ON DELETE SET NULL,
+    full_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    country TEXT,
+    city TEXT,
+    message TEXT,
+    panoramic_xray_url TEXT,
+    status TEXT NOT NULL DEFAULT 'new' CHECK (
+        status IN ('new', 'contacted', 'qualified', 'booked', 'closed', 'spam')
+    ),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT consultations_email_not_blank CHECK (length(trim(email)) > 0),
+    CONSTRAINT consultations_phone_not_blank CHECK (length(trim(phone)) > 0)
 );
 
--- Indexes
-CREATE INDEX idx_gallery_treatment ON gallery_cases(treatment_type);
-CREATE INDEX idx_testimonials_featured ON testimonials(featured) WHERE featured;
-CREATE INDEX idx_consultations_status ON consultations(status);
+
+-- Testimonials/reviews.
+CREATE TABLE testimonials (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    patient_id UUID REFERENCES patients (id) ON DELETE SET NULL,
+    treatment_id UUID REFERENCES treatments (id) ON DELETE SET NULL,
+    patient_name TEXT,
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    comment_en TEXT,
+    patient_flag TEXT,
+    days_ago INT CHECK (days_ago IS NULL OR days_ago >= 0),
+    consent_given BOOLEAN NOT NULL DEFAULT FALSE,
+    consent_given_at TIMESTAMPTZ,
+    anonymized BOOLEAN NOT NULL DEFAULT TRUE,
+    featured BOOLEAN NOT NULL DEFAULT FALSE,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT testimonials_consent_timestamp CHECK (
+        (consent_given = FALSE AND consent_given_at IS NULL)
+        OR (consent_given = TRUE AND consent_given_at IS NOT NULL)
+    )
+);
+

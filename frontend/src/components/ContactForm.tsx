@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { useI18n } from '@/lib/i18n';
-import { post } from '@/lib/api';
 
 export default function ContactForm() {
   const { lang } = useI18n();
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     full_name: '',
@@ -14,6 +12,7 @@ export default function ContactForm() {
     city: '',
     treatment: '',
     message: '',
+    panoramic_xray_url: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -22,21 +21,12 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
-    try {
-      await post('/consultation', form);
-      setSubmitted(true);
-    } catch {
-      setError(
-        lang === 'de'
-          ? 'Fehler beim Senden. Bitte versuchen Sie es erneut.'
-          : 'Error sending. Please try again.'
-      );
-    } finally {
-      setLoading(false);
-    }
+    // Static site: no backend request is made.
+    console.info('Consultation request:', form);
+    setSubmitted(true);
+    setLoading(false);
   };
 
   if (submitted) {
@@ -142,6 +132,21 @@ export default function ContactForm() {
         </select>
       </div>
 
+      {/* Panoramic X-ray */}
+      <div>
+        <label className="font-label-md block mb-2 text-on-surface-variant">
+          {label('Panorama-Röntgenbild (optional)', 'Panoramic X-ray (optional)')}
+        </label>
+        <input
+          type="url"
+          name="panoramic_xray_url"
+          value={form.panoramic_xray_url}
+          onChange={handleChange}
+          className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
+          placeholder={label('Link zu Ihrem Panorama-Röntgenbild', 'Link to your panoramic X-ray')}
+        />
+      </div>
+
       {/* Message */}
       <div>
         <label className="font-label-md block mb-2 text-on-surface-variant">
@@ -156,10 +161,6 @@ export default function ContactForm() {
           placeholder={label('Ihre Nachricht...', 'Your message...')}
         />
       </div>
-
-      {error && (
-        <p className="text-error font-label-md">{error}</p>
-      )}
 
       <button
         type="submit"
