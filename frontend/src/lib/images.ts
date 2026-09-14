@@ -84,11 +84,11 @@ export const images = {
       patient('smile33.jpeg'),
       patient('smile34.jpeg'),
     ],
-    [patient('smile4.jpeg')],
     [patient('smile5.jpeg')],
     [patient('smile6.jpeg')],
     [patient('smile8.jpeg')],
     [patient('smile9.jpeg')],
+    [patient('smile4.jpeg')],
   ],
 };
 
