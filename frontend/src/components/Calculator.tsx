@@ -20,7 +20,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Implantat',
     unit_en: 'implant',
     tirana_price_eur: 500,
-    germany_price_eur: 1500,
+    germany_price_eur: 1800,
     max_quantity: 12,
   },
   {
@@ -30,7 +30,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Krone',
     unit_en: 'crown',
     tirana_price_eur: 100,
-    germany_price_eur: 700,
+    germany_price_eur: 850,
     max_quantity: 24,
   },
   {
@@ -40,7 +40,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Krone',
     unit_en: 'crown',
     tirana_price_eur: 200,
-    germany_price_eur: 900,
+    germany_price_eur: 850,
     max_quantity: 24,
   },
   {
@@ -50,7 +50,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Zahn',
     unit_en: 'tooth',
     tirana_price_eur: 300,
-    germany_price_eur: 2350,
+    germany_price_eur: 1000,
     max_quantity: 24,
   },
   {
@@ -70,7 +70,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Behandlung',
     unit_en: 'treatment',
     tirana_price_eur: 30,
-    germany_price_eur: 100,
+    germany_price_eur: 115,
     max_quantity: 1,
   },
   {
@@ -80,7 +80,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Behandlung',
     unit_en: 'treatment',
     tirana_price_eur: 150,
-    germany_price_eur: 400,
+    germany_price_eur: 600,
     max_quantity: 1,
   },
   {
@@ -90,7 +90,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Füllung',
     unit_en: 'filling',
     tirana_price_eur: 50,
-    germany_price_eur: 150,
+    germany_price_eur: 120,
     max_quantity: 12,
   },
   {
@@ -100,7 +100,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Füllung',
     unit_en: 'filling',
     tirana_price_eur: 70,
-    germany_price_eur: 200,
+    germany_price_eur: 160,
     max_quantity: 12,
   },
   {
@@ -110,7 +110,7 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_de: 'Eingriff',
     unit_en: 'procedure',
     tirana_price_eur: 200,
-    germany_price_eur: 600,
+    germany_price_eur: 300,
     max_quantity: 1,
   },
 ];
