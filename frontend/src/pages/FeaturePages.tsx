@@ -196,7 +196,7 @@ export function BlogPage() {
         <div className="max-w-[1200px] mx-auto px-gutter grid md:grid-cols-3 gap-8">
           {posts.map((post, i) => (
             <article key={post} className="bg-white border border-outline-variant rounded-xl overflow-hidden">
-              <img src={[images.heroAfter, images.clinic, images.journey][i]} className="h-44 w-full object-cover" />
+              <img src={[images.emaxAfter, images.surgery[2] ?? images.clinic, images.journey][i]} className="h-44 w-full object-cover" />
               <div className="p-6">
                 <p className="text-label-md text-secondary mb-2">Guide</p>
                 <h2 className="font-headline-sm text-headline-sm text-primary mb-4">{post}</h2>

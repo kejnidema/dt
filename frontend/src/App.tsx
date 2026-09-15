@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { I18nProvider } from '@/lib/i18n';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import CookieConsent from '@/components/CookieConsent';
 import StructuredData from '@/components/StructuredData';
 import ScrollMemory from '@/components/ScrollMemory';
 
@@ -22,6 +22,15 @@ import AboutPage from '@/pages/AboutPage';
 import { AftercarePage, AllOnXPage, BlogPage, FacilityPage, PricingPage, StayPage } from '@/pages/FeaturePages';
 
 function App() {
+  useEffect(() => {
+    const preventImageDrag = (event: DragEvent) => {
+      if (event.target instanceof HTMLImageElement) event.preventDefault();
+    };
+
+    document.addEventListener('dragstart', preventImageDrag);
+    return () => document.removeEventListener('dragstart', preventImageDrag);
+  }, []);
+
   return (
     <I18nProvider>
       <StructuredData />
@@ -56,7 +65,6 @@ function App() {
         </main>
         <Footer />
         <WhatsAppButton />
-        <CookieConsent />
       </div>
     </I18nProvider>
   );

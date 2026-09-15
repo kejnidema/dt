@@ -9,7 +9,7 @@ export const treatments = [
     description: '',
     link: '/treatments/porcelain-crown',
     price: 'from €100',
-    image: images.heroAfter,
+    image: images.clinic,
   },
   {
     icon: 'tooth',
@@ -17,7 +17,7 @@ export const treatments = [
     description: '',
     link: '/treatments/zirconia-crown',
     price: 'from €200',
-    image: images.heroAfter,
+    image: images.surgery[2] ?? images.clinic,
   },
   {
     icon: 'tooth',
@@ -26,7 +26,7 @@ export const treatments = [
     link: '/treatments/emax-crown-veneer',
     price: 'from €300',
     state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
-    image: images.heroAfter,
+    image: images.emaxAfter,
   },
   {
     icon: 'tooth',
@@ -34,7 +34,7 @@ export const treatments = [
     description: '',
     link: '/treatments/megagen-implant',
     price: 'from €500',
-    image: images.heroAfter,
+    image: images.surgery[4] ?? images.clinic,
   },
   {
     icon: 'tooth',
@@ -42,7 +42,7 @@ export const treatments = [
     description: '',
     link: '/treatments/whitening',
     price: 'from €150',
-    image: images.heroAfter,
+    image: images.beforeAfterEdited[1] ?? images.heroAfter,
   },
   {
     icon: 'tooth',
@@ -50,7 +50,7 @@ export const treatments = [
     description: '',
     link: '/treatments/removable-prosthetic',
     price: 'from €600',
-    image: images.heroAfter,
+    image: images.surgery[6] ?? images.clinic,
   },
   {
     icon: 'tooth',
@@ -59,7 +59,7 @@ export const treatments = [
       'Remove tartar buildup and polish your teeth for a healthier, fresher smile.',
     link: '/treatments/tartar-clean',
     price: 'from €30',
-    image: images.heroAfter,
+    image: images.clinicGallery[1] ?? images.clinic,
   },
   {
     icon: 'tooth',
@@ -67,7 +67,7 @@ export const treatments = [
     description: 'Tooth-colored restorative fillings for cavities and minor damage.',
     link: '/services',
     price: 'from €40',
-    image: images.heroAfter,
+    image: images.beforeAfterEdited[0] ?? images.heroAfter,
   },
 ];
 
@@ -79,7 +79,7 @@ export const treatmentGroups = [
     link: '/veneers',
     state: { selectedTreatment: 'emax' },
     price: 'from €350',
-    image: images.heroAfter,
+    image: images.emaxAfter,
   },
   {
     icon: 'precision_manufacturing',
@@ -88,7 +88,7 @@ export const treatmentGroups = [
     link: '/treatments/emax-crown-veneer',
     state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
     price: 'from €100',
-    image: images.heroAfter,
+    image: images.clinic,
   },
   {
     icon: 'settings_accessibility',
@@ -97,7 +97,7 @@ export const treatmentGroups = [
     link: '/treatments/megagen-implant',
     state: { selectedTreatment: 'megagen-implant' },
     price: 'from €500',
-    image: images.heroAfter,
+    image: images.surgery[4] ?? images.clinic,
   },
   {
     icon: 'list_alt',
@@ -105,7 +105,7 @@ export const treatmentGroups = [
     description: 'See every service price including cleaning, whitening and fillings.',
     link: '/services',
     price: 'view prices',
-    image: images.heroAfter,
+    image: images.clinicGallery[1] ?? images.clinic,
   },
 ];
 

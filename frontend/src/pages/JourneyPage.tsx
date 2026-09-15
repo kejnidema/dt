@@ -88,11 +88,11 @@ export default function JourneyPage() {
   });
 
   const steps: TimelineStep[] = [
-    { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc, imageUrl: images.heroAfter },
+    { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc, imageUrl: images.team },
     { number: 2, icon: 'flight_takeoff', title: t.step2Title, description: t.step2Desc, imageUrl: images.tirana },
-    { number: 3, icon: 'biotech', title: t.step3Title, description: t.step3Desc, imageUrl: images.clinic },
+    { number: 3, icon: 'biotech', title: t.step3Title, description: t.step3Desc, imageUrl: images.surgery[1] ?? images.clinic },
     { number: 4, icon: 'auto_fix_high', title: t.step4Title, description: t.step4Desc, imageUrl: images.emaxAfter },
-    { number: 5, icon: 'verified', title: t.step5Title, description: t.step5Desc, imageUrl: images.doctor },
+    { number: 5, icon: 'verified', title: t.step5Title, description: t.step5Desc, imageUrl: images.patients[0] ?? images.doctor },
   ];
 
   const faqItems = localized({
@@ -196,7 +196,7 @@ export default function JourneyPage() {
                 <p className="font-body-md text-body-md text-on-surface-variant">{t.transferDesc}</p>
               </div>
               <div className="w-full md:w-64 h-40 bg-surface-container rounded overflow-hidden">
-                <img src={images.clinic} alt="Clinic transfer destination" className="w-full h-full object-cover" />
+                <img src={images.surgery[3] ?? images.clinic} alt="Clinic transfer destination" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
