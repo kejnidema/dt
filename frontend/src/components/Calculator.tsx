@@ -203,28 +203,30 @@ export default function Calculator() {
             </div>
 
             {/* Quantity Slider */}
-            <div>
-              <div className='flex justify-between mb-4'>
-                <label className='font-label-md text-on-surface-variant'>
-                  {t('Number of')} {unitName}{localized({ de: '', en: 's' })}
-                </label>
-                <span className='font-headline-sm text-primary'>
-                  {quantity}
-                </span>
+            {selectedTreatment.max_quantity > 1 && (
+              <div>
+                <div className='flex justify-between mb-4'>
+                  <label className='font-label-md text-on-surface-variant'>
+                    {t('Number of')} {unitName}{localized({ de: '', en: 's' })}
+                  </label>
+                  <span className='font-headline-sm text-primary'>
+                    {quantity}
+                  </span>
+                </div>
+                <input
+                  type='range'
+                  min={1}
+                  max={selectedTreatment.max_quantity}
+                  value={quantity}
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  className='w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer slider-thumb'
+                />
+                <div className='flex justify-between mt-2 text-[12px] text-outline font-label-md'>
+                  <span>1</span>
+                  <span>{selectedTreatment.max_quantity}</span>
+                </div>
               </div>
-              <input
-                type='range'
-                min={1}
-                max={selectedTreatment.max_quantity}
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className='w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer slider-thumb'
-              />
-              <div className='flex justify-between mt-2 text-[12px] text-outline font-label-md'>
-                <span>1</span>
-                <span>{selectedTreatment.max_quantity}</span>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Result Display */}

@@ -25,15 +25,16 @@ export default function ServicesPage() {
               <Link
                 key={t.title}
                 to={t.link}
+                state={t.state}
                 className={`flex items-center justify-between gap-6 px-6 py-5 hover:bg-surface-container-low transition-colors ${
                   index !== treatments.length - 1 ? 'border-b border-outline-variant' : ''
                 }`}
               >
                 <span className="font-headline-sm text-headline-sm text-primary">
-                  {t.title}
+                  {tr(t.title)}
                 </span>
                 <span className="font-headline-sm text-headline-sm text-secondary whitespace-nowrap">
-                  {t.price}
+                  {tr(t.price)}
                 </span>
               </Link>
             ))}

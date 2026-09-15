@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import FaqAccordion from '@/components/FaqAccordion';
 import PricingTable from '@/components/PricingTable';
@@ -7,6 +8,10 @@ import { images } from '@/lib/images';
 
 export default function VeneersHubPage() {
   const { localized, t: tr } = useI18n();
+  const location = useLocation();
+  const initialSelected =
+    (location.state as { selectedTreatment?: string } | null)?.selectedTreatment ?? 'emax';
+  const [selectedMaterial, setSelectedMaterial] = useState(initialSelected);
 
   const t = localized({
     de: {
@@ -38,7 +43,7 @@ export default function VeneersHubPage() {
     en: {
       headline: 'Veneers: Your Path to the Perfect Smile',
       subtitle:
-        'Veneers are ultra-thin shells of ceramic or composite bonded to the front of your teeth to correct color, length, shape, or size.',
+        'Veneers are ultra-thin ceramic restorations bonded to the front of your teeth to correct color, length, shape, or size.',
       whatTitle: 'What are Veneers?',
       whatText:
         'Veneers are one of the most popular methods in cosmetic dentistry. They can solve various dental issues in a single treatment — from discoloration to gaps to irregular shapes.',
@@ -65,33 +70,49 @@ export default function VeneersHubPage() {
 
   const pricingRows = localized({
     de: [
-        { property: 'Lebensdauer', composite: '3-5 Jahre', emax: '15-20+ Jahre', zirconia: '15-20+ Jahre' },
-        { property: 'Verfärbungsresistenz', composite: 'Gering', emax: 'Hervorragend', zirconia: 'Hervorragend' },
-        { property: 'Natürlichkeit', composite: 'Befriedigend', emax: 'Exzellent', zirconia: 'Sehr Gut' },
-        { property: 'Widerstandsfähigkeit', composite: 'Mittel', emax: 'Sehr Hoch', zirconia: 'Extrem Hoch' },
-        { property: 'Preis/Zahn', composite: 'ab 200 €', emax: 'ab 350 €', zirconia: 'ab 400 €' },
-      ],
+      { property: 'Idealer Einsatz', porcelain: 'Natürliche Versorgung zum Einstiegspreis', zirconia: 'Sehr starke und helle Kronen', emax: 'Premium-Ästhetik für Krone oder Veneer' },
+      { property: 'Ästhetik', porcelain: 'Natürlich', zirconia: 'Hell und gleichmäßig', emax: 'Höchste Transluzenz' },
+      { property: 'Stärke', porcelain: 'Gut', zirconia: 'Extrem hoch', emax: 'Sehr hoch' },
+      { property: 'Herstellung', porcelain: 'Made in Germany', zirconia: 'Made in Germany', emax: 'Made in Germany' },
+      { property: 'Preis/Zahn', porcelain: 'ab 100 €', zirconia: 'ab 200 €', emax: 'ab 300 €' },
+    ],
     en: [
-        { property: 'Lifespan', composite: '3-5 years', emax: '15-20+ years', zirconia: '15-20+ years' },
-        { property: 'Stain Resistance', composite: 'Low', emax: 'Excellent', zirconia: 'Excellent' },
-        { property: 'Natural Look', composite: 'Fair', emax: 'Excellent', zirconia: 'Very Good' },
-        { property: 'Durability', composite: 'Medium', emax: 'Very High', zirconia: 'Extremely High' },
-        { property: 'Price/Tooth', composite: 'from €200', emax: 'from €350', zirconia: 'from €400' },
-      ],
+      { property: 'Best for', porcelain: 'Natural restoration at entry price', zirconia: 'Very strong and bright crowns', emax: 'Premium aesthetics for crown or veneer' },
+      { property: 'Aesthetics', porcelain: 'Natural', zirconia: 'Bright and uniform', emax: 'Highest translucency' },
+      { property: 'Strength', porcelain: 'Good', zirconia: 'Extremely high', emax: 'Very high' },
+      { property: 'Production', porcelain: 'Made in Germany', zirconia: 'Made in Germany', emax: 'Made in Germany' },
+      { property: 'Price/Tooth', porcelain: 'from €100', zirconia: 'from €200', emax: 'from €300' },
+    ],
   });
+
+  const materialOptions = localized({
+    de: [
+      { key: 'emax', title: 'E-Max Crown and Veneer Made in Germany', price: 'ab 300 €', desc: 'Premium-Keramik mit natürlicher Transluzenz für Kronen und Veneers.' },
+      { key: 'porcelain', title: 'Porcelain Crown Made in Germany', price: 'ab 100 €', desc: 'Natürliche keramische Versorgung zum Einstiegspreis.' },
+      { key: 'zirconia', title: 'Zirkonia Crown Made in Germany', price: 'ab 200 €', desc: 'Sehr widerstandsfähig und langlebig für ein helles, stabiles Ergebnis.' },
+    ],
+    en: [
+      { key: 'emax', title: 'E-Max Crown and Veneer Made in Germany', price: 'from €300', desc: 'Premium ceramic with natural translucency for crowns and veneers.' },
+      { key: 'porcelain', title: 'Porcelain Crown Made in Germany', price: 'from €100', desc: 'Natural ceramic restoration at an entry price.' },
+      { key: 'zirconia', title: 'Zirkonia Crown Made in Germany', price: 'from €200', desc: 'Highly durable and long-lasting for a bright, stable result.' },
+    ],
+  });
+  const activeMaterial =
+    materialOptions.find((item) => item.key === selectedMaterial) ??
+    { key: 'emax', title: 'E-Max Crown and Veneer Made in Germany', price: 'from €300', desc: 'Premium ceramic with natural translucency.' };
 
   const faqItems = localized({
     de: [
         { question: 'Schmerzt die Veneer-Behandlung?', answer: 'Nein. Die Behandlung wird unter lokaler Betäubung durchgeführt. Nach der Behandlung können leichte Empfindlichkeiten auftreten, die innerhalb weniger Tage abklingen.' },
-        { question: 'Wie lange halten Veneers?', answer: 'Bei richtiger Pflege halten E-Max Veneers 15-20+ Jahre. Zirkonia-Veneers sind noch langlebiger.' },
-        { question: 'Wie viele Veneers brauche ich?', answer: 'Das hängt von Ihren Zielen ab. Ein "Hollywood Smile" umfasst typischerweise 8-10 Veneers (vordere Zähne). Einzelne Veneers sind auch möglich.' },
-        { question: 'Was kostet die Behandlung in Tirana?', answer: 'E-Max Veneers ab 350 € pro Zahn, Zirkonia ab 400 € pro Zahn. Das ist bis zu 70% günstiger als in Deutschland.' },
+        { question: 'Wie lange halten Veneers?', answer: 'Bei richtiger Pflege halten E-Max Kronen und Veneers viele Jahre. Die genaue Haltbarkeit hängt von Pflege, Biss und Material ab.' },
+        { question: 'Wie viele Veneers brauche ich?', answer: 'Das hängt von Ihren Zielen ab. Ein "Hollywood Smile" umfasst typischerweise 8-10 sichtbare Frontzähne. Einzelne Veneers sind auch möglich.' },
+        { question: 'Was kostet die Behandlung in Tirana?', answer: 'E-Max Krone und Veneer ab 300 €, Zirkonia-Krone ab 200 € und Porzellankrone ab 100 € pro Zahn.' },
       ],
     en: [
         { question: 'Does the veneer procedure hurt?', answer: 'No. The procedure is performed under local anesthesia. Mild sensitivity may occur after treatment, resolving within a few days.' },
-        { question: 'How long do veneers last?', answer: 'With proper care, E-Max veneers last 15-20+ years. Zirconia veneers are even more durable.' },
-        { question: 'How many veneers do I need?', answer: 'It depends on your goals. A "Hollywood Smile" typically includes 8-10 veneers (front teeth). Individual veneers are also possible.' },
-        { question: 'How much does treatment cost in Tirana?', answer: 'E-Max veneers from €350 per tooth, Zirconia from €400 per tooth. Up to 70% cheaper than in Germany.' },
+        { question: 'How long do veneers last?', answer: 'With proper care, E-Max crowns and veneers last for many years. Exact longevity depends on care, bite and material.' },
+        { question: 'How many veneers do I need?', answer: 'It depends on your goals. A "Hollywood Smile" typically includes 8-10 visible front teeth. Individual veneers are also possible.' },
+        { question: 'How much does treatment cost in Tirana?', answer: 'E-Max crown and veneer from €300, Zirconia crown from €200 and Porcelain crown from €100 per tooth.' },
       ],
   });
 
@@ -173,7 +194,39 @@ export default function VeneersHubPage() {
       {/* Comparison Table */}
       <section className="py-section-padding bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <h2 className="font-headline-md text-headline-md text-primary mb-8">{t.comparisonTitle}</h2>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
+            <div>
+              <h2 className="font-headline-md text-headline-md text-primary mb-3">{t.comparisonTitle}</h2>
+              <p className="text-on-surface-variant max-w-2xl">
+                {tr('Choose a veneer material to compare options and prices.')}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {materialOptions.map((option) => (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => setSelectedMaterial(option.key)}
+                  className={`px-5 py-3 rounded-full border font-label-md transition-colors ${
+                    selectedMaterial === option.key
+                      ? 'bg-primary text-on-primary border-primary'
+                      : 'bg-white text-on-surface-variant border-outline-variant hover:text-primary hover:border-primary'
+                  }`}
+                >
+                  {option.title}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white border border-outline-variant rounded-xl p-6 mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-sm">
+            <div>
+              <h3 className="font-headline-sm text-headline-sm text-primary">{activeMaterial.title}</h3>
+              <p className="text-on-surface-variant mt-1">{activeMaterial.desc}</p>
+            </div>
+            <p className="font-headline-md text-headline-md text-secondary whitespace-nowrap">{activeMaterial.price}</p>
+          </div>
+
           <PricingTable rows={pricingRows} />
         </div>
       </section>

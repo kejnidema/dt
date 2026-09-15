@@ -184,6 +184,15 @@ Object.assign(de, {
   'Next image': 'Nächstes Bild',
   'Show image': 'Bild anzeigen',
   'View All Service Prices': 'Alle Servicepreise ansehen',
+  'Crowns': 'Kronen',
+  'Implants': 'Implantate',
+  'All Services': 'Alle Services',
+  'Fillings': 'Füllungen',
+  'view prices': 'Preise ansehen',
+  'Choose a veneer material to compare options and prices.': 'Wählen Sie ein Veneer-Material, um Optionen und Preise zu vergleichen.',
+  'No-Prep Veneers': 'No-Prep Veneers',
+  'E-Max Veneers': 'E-Max Veneers',
+  'Zirconia Veneers': 'Zirkonia Veneers',
 });
 
 export const it: Record<string, string> = {
@@ -549,7 +558,16 @@ Object.assign(it, {
   'Previous image': 'Immagine precedente',
   'Next image': 'Immagine successiva',
   'Show image': 'Mostra immagine',
-  'View All Service Prices': 'Vedi tutti i prezzi dei servizi'
+  'View All Service Prices': 'Vedi tutti i prezzi dei servizi',
+  'Crowns': 'Corone',
+  'Implants': 'Impianti',
+  'All Services': 'Tutti i servizi',
+  'Fillings': 'Otturazioni',
+  'view prices': 'vedi prezzi',
+  'Choose a veneer material to compare options and prices.': 'Scegli un materiale per faccette per confrontare opzioni e prezzi.',
+  'No-Prep Veneers': 'Faccette No-Prep',
+  'E-Max Veneers': 'Faccette E-Max',
+  'Zirconia Veneers': 'Faccette in zirconia'
 });
 
 Object.assign(sq, {
@@ -606,7 +624,16 @@ Object.assign(sq, {
   'Previous image': 'Imazhi i mëparshëm',
   'Next image': 'Imazhi tjetër',
   'Show image': 'Shfaq imazhin',
-  'View All Service Prices': 'Shiko të gjitha çmimet e shërbimeve'
+  'View All Service Prices': 'Shiko të gjitha çmimet e shërbimeve',
+  'Crowns': 'Kurora',
+  'Implants': 'Implante',
+  'All Services': 'Të gjitha shërbimet',
+  'Fillings': 'Mbushje',
+  'view prices': 'shiko çmimet',
+  'Choose a veneer material to compare options and prices.': 'Zgjidhni një material fasetash për të krahasuar opsionet dhe çmimet.',
+  'No-Prep Veneers': 'Faseta No-Prep',
+  'E-Max Veneers': 'Faseta E-Max',
+  'Zirconia Veneers': 'Faseta zirkoni'
 });
 
 export const dictionaries: Partial<Record<Lang, Record<string, string>>> = { de, it, sq };

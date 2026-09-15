@@ -123,9 +123,14 @@ export default function ContactForm() {
           className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md appearance-none cursor-pointer outline-none"
         >
           <option value="">--</option>
-          <option value="e-max">E-Max Veneers</option>
-          <option value="porcelain">Porcelain Veneers</option>
-          <option value="zirconia">Zirconia Veneers</option>
+          <option value="emax-crown-veneer">{tr('E-Max Crown and Veneer Made in Germany')}</option>
+          <option value="porcelain-crown">{tr('Porcelain Crown Made in Germany')}</option>
+          <option value="zirconia-crown">{tr('Zirkonia Crown Made in Germany')}</option>
+          <option value="megagen-implant">{tr('MegaGen-Titanium Implant')}</option>
+          <option value="whitening">{tr('Professional Teeth Whitening')}</option>
+          <option value="removable-prosthetic">{tr('Removable Prosthetic')}</option>
+          <option value="tartar-clean">{tr('Tartar Clean')}</option>
+          <option value="fillings">{tr('Fillings')}</option>
           <option value="other">{label('Sonstiges', 'Other')}</option>
         </select>
       </div>

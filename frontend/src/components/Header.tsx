@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
-import { treatments } from '@/pages/TreatmentsPage';
+import { treatmentGroups } from '@/pages/TreatmentsPage';
 
 const navItems = [
-  { label: 'Treatments', path: '/treatments', children: treatments },
+  { label: 'Treatments', path: '/treatments', children: treatmentGroups },
   { label: 'Pricing', path: '/pricing' },
   { label: 'Gallery', path: '/veneers/gallery' },
   { label: 'Travel', path: '/journey' },
@@ -102,6 +102,7 @@ export default function Header() {
                       <Link
                         key={`${child.link}-${child.title}`}
                         to={child.link}
+                        state={child.state}
                         className="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors"
                       >
                         <span className="material-symbols-outlined text-secondary">{child.icon}</span>
@@ -213,6 +214,7 @@ export default function Header() {
                         <Link
                           key={`${child.link}-${child.title}`}
                           to={child.link}
+                          state={child.state}
                           onClick={closeMenu}
                           className="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary"
                         >

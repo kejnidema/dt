@@ -25,6 +25,7 @@ export const treatments = [
     description: '',
     link: '/treatments/emax-crown-veneer',
     price: 'from €300',
+    state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
     image: images.heroAfter,
   },
   {
@@ -60,6 +61,52 @@ export const treatments = [
     price: 'from €30',
     image: images.heroAfter,
   },
+  {
+    icon: 'tooth',
+    title: 'Fillings',
+    description: 'Tooth-colored restorative fillings for cavities and minor damage.',
+    link: '/services',
+    price: 'from €40',
+    image: images.heroAfter,
+  },
+];
+
+export const treatmentGroups = [
+  {
+    icon: 'diamond',
+    title: 'Veneers',
+    description: 'E-Max crown and veneer options made in Germany for a natural smile upgrade.',
+    link: '/veneers',
+    state: { selectedTreatment: 'emax' },
+    price: 'from €350',
+    image: images.heroAfter,
+  },
+  {
+    icon: 'precision_manufacturing',
+    title: 'Crowns',
+    description: 'Porcelain, Zirconia and E-Max crowns made in Germany.',
+    link: '/treatments/emax-crown-veneer',
+    state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
+    price: 'from €100',
+    image: images.heroAfter,
+  },
+  {
+    icon: 'settings_accessibility',
+    title: 'Implants',
+    description: 'Titanium implant systems for stable long-term tooth replacement.',
+    link: '/treatments/megagen-implant',
+    state: { selectedTreatment: 'megagen-implant' },
+    price: 'from €500',
+    image: images.heroAfter,
+  },
+  {
+    icon: 'list_alt',
+    title: 'All Services',
+    description: 'See every service price including cleaning, whitening and fillings.',
+    link: '/services',
+    price: 'view prices',
+    image: images.heroAfter,
+  },
 ];
 
 export default function TreatmentsPage() {
@@ -83,16 +130,17 @@ export default function TreatmentsPage() {
       <section className='py-section-padding bg-surface-container-low'>
         <div className='max-w-[1200px] mx-auto px-gutter'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-            {treatments.map((t) => (
+            {treatmentGroups.map((t) => (
               <Link
                 key={t.title}
                 to={t.link}
+                state={t.state}
                 className='bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl hover:border-primary transition-all duration-300 group flex flex-col'
               >
                 <div className='h-56 overflow-hidden bg-surface-container'>
                   <img
                     src={t.image}
-                    alt={t.title}
+                    alt={tr(t.title)}
                     className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
                   />
                 </div>
@@ -102,14 +150,14 @@ export default function TreatmentsPage() {
                       {t.icon}
                     </span>
                     <span className='font-headline-sm text-primary font-bold'>
-                      {t.price}
+                      {tr(t.price)}
                     </span>
                   </div>
                   <h3 className='font-headline-md text-headline-md text-primary mb-3'>
-                    {t.title}
+                    {tr(t.title)}
                   </h3>
                   <p className='text-on-surface-variant flex-grow'>
-                    {t.description}
+                    {tr(t.description)}
                   </p>
                   <div className='mt-6 flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all'>
                     {tr('Learn More')}

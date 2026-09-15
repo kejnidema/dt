@@ -112,34 +112,34 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <MaterialCard
               icon="diamond"
-              title="E-Max Veneers"
+              title={tr('E-Max Crown and Veneer Made in Germany')}
               description={
                 tr('Full ceramic for highest translucency and natural aesthetics. Ideal for front teeth.')
               }
-              priceFrom="ab 350 €"
+              priceFrom="ab 300 €"
               germanyPrice="DE: ~1.200 €"
               badge="BESTSELLER"
-              linkTo="/veneers/emax"
+              linkTo="/treatments/emax-crown-veneer"
             />
             <MaterialCard
               icon="shield"
-              title="Zirkonia Veneers"
+              title={tr('Zirkonia Crown Made in Germany')}
               description={
                 tr('Extremely durable and long-lasting. Perfect for a radiant white smile.')
               }
-              priceFrom="ab 400 €"
+              priceFrom="ab 200 €"
               germanyPrice="DE: ~1.400 €"
-              linkTo="/veneers/zirconia"
+              linkTo="/treatments/zirconia-crown"
             />
             <MaterialCard
               icon="layers"
-              title="No-Prep Veneers"
+              title={tr('Porcelain Crown Made in Germany')}
               description={
-                tr('No grinding of healthy tooth substance required. Gentle and reversible.')
+                tr('Natural ceramic restoration made in Germany.')
               }
-              priceFrom="ab 450 €"
-              germanyPrice="DE: ~1.800 €"
-              linkTo="/veneers/porcelain"
+              priceFrom="ab 100 €"
+              germanyPrice="DE: ~800 €"
+              linkTo="/treatments/porcelain-crown"
             />
           </div>
         </div>

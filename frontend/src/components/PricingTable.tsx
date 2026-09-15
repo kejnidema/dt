@@ -2,9 +2,9 @@ import { useI18n } from '@/lib/i18n';
 
 interface PricingRow {
   property: string;
-  composite: string;
-  emax: string;
+  porcelain: string;
   zirconia: string;
+  emax: string;
 }
 
 interface PricingTableProps {
@@ -13,7 +13,7 @@ interface PricingTableProps {
 
 export default function PricingTable({ rows }: PricingTableProps) {
   const { t } = useI18n();
-  const headers = [t('Property'), t('Composite'), t('E-Max Veneer'), t('Zirconia')];
+  const headers = [t('Property'), t('Porcelain Crown Made in Germany'), t('Zirkonia Crown Made in Germany'), t('E-Max Crown and Veneer Made in Germany')];
 
   return (
     <div className="overflow-x-auto">
@@ -24,7 +24,7 @@ export default function PricingTable({ rows }: PricingTableProps) {
               <th
                 key={i}
                 className={`p-4 text-left font-label-md uppercase tracking-wider ${
-                  i === 2 ? 'bg-secondary-container text-on-secondary-container' : ''
+                  i === 3 ? 'bg-secondary-container text-on-secondary-container' : ''
                 }`}
               >
                 {h}
@@ -36,9 +36,9 @@ export default function PricingTable({ rows }: PricingTableProps) {
           {rows.map((row, i) => (
             <tr key={i}>
               <td className="p-4 font-semibold">{row.property}</td>
-              <td className="p-4">{row.composite}</td>
-              <td className="p-4 font-bold text-primary">{row.emax}</td>
+              <td className="p-4">{row.porcelain}</td>
               <td className="p-4">{row.zirconia}</td>
+              <td className="p-4 font-bold text-primary">{row.emax}</td>
             </tr>
           ))}
         </tbody>

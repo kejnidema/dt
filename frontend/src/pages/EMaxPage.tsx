@@ -90,17 +90,17 @@ export default function EMaxPage() {
 
   const pricingRows = localized({
     de: [
-        { property: 'Lebensdauer', composite: '3-5 Jahre', emax: '15-20+ Jahre', zirconia: '15-20+ Jahre' },
-        { property: 'Verfärbungsresistenz', composite: 'Gering', emax: 'Hervorragend', zirconia: 'Hervorragend' },
-        { property: 'Natürlichkeit', composite: 'Befriedigend', emax: 'Exzellent', zirconia: 'Sehr Gut' },
-        { property: 'Widerstandsfähigkeit', composite: 'Mittel', emax: 'Sehr Hoch', zirconia: 'Extrem Hoch' },
-      ],
+      { property: 'Idealer Einsatz', porcelain: 'Natürliche Versorgung zum Einstiegspreis', zirconia: 'Sehr starke und helle Kronen', emax: 'Premium-Ästhetik für Krone oder Veneer' },
+      { property: 'Ästhetik', porcelain: 'Natürlich', zirconia: 'Hell und gleichmäßig', emax: 'Höchste Transluzenz' },
+      { property: 'Stärke', porcelain: 'Gut', zirconia: 'Extrem hoch', emax: 'Sehr hoch' },
+      { property: 'Herstellung', porcelain: 'Made in Germany', zirconia: 'Made in Germany', emax: 'Made in Germany' },
+    ],
     en: [
-        { property: 'Lifespan', composite: '3-5 years', emax: '15-20+ years', zirconia: '15-20+ years' },
-        { property: 'Stain Resistance', composite: 'Low', emax: 'Excellent', zirconia: 'Excellent' },
-        { property: 'Natural Look', composite: 'Fair', emax: 'Excellent', zirconia: 'Very Good' },
-        { property: 'Durability', composite: 'Medium', emax: 'Very High', zirconia: 'Extremely High' },
-      ],
+      { property: 'Best for', porcelain: 'Natural restoration at entry price', zirconia: 'Very strong and bright crowns', emax: 'Premium aesthetics for crown or veneer' },
+      { property: 'Aesthetics', porcelain: 'Natural', zirconia: 'Bright and uniform', emax: 'Highest translucency' },
+      { property: 'Strength', porcelain: 'Good', zirconia: 'Extremely high', emax: 'Very high' },
+      { property: 'Production', porcelain: 'Made in Germany', zirconia: 'Made in Germany', emax: 'Made in Germany' },
+    ],
   });
 
   return (

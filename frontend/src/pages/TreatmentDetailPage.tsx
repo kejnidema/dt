@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { treatments } from '@/pages/TreatmentsPage';
 import { images } from '@/lib/images';
@@ -43,9 +43,20 @@ const detailCopy: Record<string, { highlights: string[]; timeline: string[]; bes
 
 export default function TreatmentDetailPage() {
   const { slug } = useParams();
+  const location = useLocation();
   const { t: tr } = useI18n();
   const treatment = treatments.find((item) => item.link === `/treatments/${slug}`);
   const copy = slug ? detailCopy[slug] : undefined;
+  const routeState = location.state as { group?: string; selectedTreatment?: string } | null;
+  const isCrownsGroup = routeState?.group === 'crowns';
+  const crownTreatments = treatments.filter((item) =>
+    ['porcelain-crown', 'zirconia-crown', 'emax-crown-veneer'].some((key) => item.link.endsWith(key)),
+  );
+  const pageTitle = isCrownsGroup ? tr('Crowns') : treatment?.title;
+  const pageDescription = isCrownsGroup
+    ? tr('Porcelain, Zirconia and E-Max crowns made in Germany.')
+    : treatment?.description || copy?.bestFor;
+  const pagePrice = isCrownsGroup ? 'from €100' : treatment?.price;
 
   if (!treatment || !copy) {
     return (
@@ -69,13 +80,32 @@ export default function TreatmentDetailPage() {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-sm">
               <span className="material-symbols-outlined text-[18px]">{treatment.icon}</span>
-              <span className="font-label-md uppercase tracking-wider">{treatment.price}</span>
+              <span className="font-label-md uppercase tracking-wider">{pagePrice}</span>
             </div>
-            <h1 className="font-display-lg text-display-lg text-primary">{treatment.title}</h1>
+            <h1 className="font-display-lg text-display-lg text-primary">{pageTitle}</h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant">
-              {treatment.description || copy.bestFor}
+              {pageDescription}
             </p>
-            <p className="text-on-surface-variant">{copy.bestFor}</p>
+            {!isCrownsGroup && <p className="text-on-surface-variant">{copy.bestFor}</p>}
+            {isCrownsGroup && (
+              <div className="grid sm:grid-cols-3 gap-3">
+                {crownTreatments.map((item) => (
+                  <Link
+                    key={item.link}
+                    to={item.link}
+                    state={{ selectedTreatment: item.link.split('/').pop(), group: 'crowns' }}
+                    className={`border rounded-lg p-4 hover:border-primary hover:text-primary transition-colors ${
+                      item.link.endsWith(slug ?? '')
+                        ? 'border-primary bg-primary/5 text-primary'
+                        : 'border-outline-variant text-on-surface-variant'
+                    }`}
+                  >
+                    <span className="font-label-md block">{tr(item.title)}</span>
+                    <span className="text-sm text-secondary">{item.price}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
             <Link
               to="/contact"
               className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-sm font-label-md hover:opacity-95"
@@ -85,7 +115,7 @@ export default function TreatmentDetailPage() {
             </Link>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-2xl bg-surface-container aspect-[4/3]">
-            <img src={treatment.image || images.clinic} alt={treatment.title} className="w-full h-full object-cover" />
+            <img src={treatment.image || images.clinic} alt={pageTitle} className="w-full h-full object-cover" />
           </div>
         </div>
       </section>
