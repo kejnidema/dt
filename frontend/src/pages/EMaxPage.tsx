@@ -5,9 +5,9 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import { images } from '@/lib/images';
 
 export default function EMaxPage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       badge: 'Premium Material',
       headline: 'E-Max Veneers: Das Goldstandard für Ihr Lächeln.',
@@ -86,22 +86,22 @@ export default function EMaxPage() {
       email: 'Email Inquiry',
       galleryTitle: 'Before & After',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
-  const pricingRows =
-    lang === 'de'
-      ? [
+  const pricingRows = localized({
+    de: [
         { property: 'Lebensdauer', composite: '3-5 Jahre', emax: '15-20+ Jahre', zirconia: '15-20+ Jahre' },
         { property: 'Verfärbungsresistenz', composite: 'Gering', emax: 'Hervorragend', zirconia: 'Hervorragend' },
         { property: 'Natürlichkeit', composite: 'Befriedigend', emax: 'Exzellent', zirconia: 'Sehr Gut' },
         { property: 'Widerstandsfähigkeit', composite: 'Mittel', emax: 'Sehr Hoch', zirconia: 'Extrem Hoch' },
-      ]
-      : [
+      ],
+    en: [
         { property: 'Lifespan', composite: '3-5 years', emax: '15-20+ years', zirconia: '15-20+ years' },
         { property: 'Stain Resistance', composite: 'Low', emax: 'Excellent', zirconia: 'Excellent' },
         { property: 'Natural Look', composite: 'Fair', emax: 'Excellent', zirconia: 'Very Good' },
         { property: 'Durability', composite: 'Medium', emax: 'Very High', zirconia: 'Extremely High' },
-      ];
+      ],
+  });
 
   return (
     <>
@@ -136,7 +136,7 @@ export default function EMaxPage() {
             <div className="absolute -bottom-6 -left-6 bg-surface p-6 rounded-xl soft-elevation border border-outline-variant max-w-[240px]">
               <p className="font-label-md text-primary mb-1">German Quality</p>
               <p className="text-on-surface-variant text-sm">
-                {lang === 'de' ? 'Lithium-Disilikat-Keramik von Weltklasse.' : 'World-class lithium disilicate ceramic.'}
+                {tr('World-class lithium disilicate ceramic.')}
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ export default function EMaxPage() {
           {/* Comparison + Process */}
           <div className="lg:col-span-2">
             <h2 className="font-headline-md text-headline-md text-primary mb-8">{t.comparisonTitle}</h2>
-            <PricingTable rows={pricingRows} lang={lang} />
+            <PricingTable rows={pricingRows} />
 
             <div className="mt-12">
               <h2 className="font-headline-md text-headline-md text-primary mb-8">{t.processTitle}</h2>
@@ -208,14 +208,14 @@ export default function EMaxPage() {
                 <div className="pb-6 border-b border-outline-variant">
                   <p className="font-label-md text-on-surface-variant">{t.single}</p>
                   <div className="flex justify-between items-end mt-1">
-                    <p className="font-headline-sm">1 {lang === 'de' ? 'Zahn' : 'Tooth'}</p>
+                    <p className="font-headline-sm">1 {tr('Tooth')}</p>
                     <p className="text-2xl font-bold text-primary">€350</p>
                   </div>
                 </div>
                 <div className="pb-6 border-b border-outline-variant">
                   <p className="font-label-md text-on-surface-variant">{t.smile}</p>
                   <div className="flex justify-between items-end mt-1">
-                    <p className="font-headline-sm">6 {lang === 'de' ? 'Zähne' : 'Teeth'}</p>
+                    <p className="font-headline-sm">6 {tr('Teeth')}</p>
                     <p className="text-2xl font-bold text-primary">€1.900</p>
                   </div>
                   <p className="text-xs text-secondary mt-2 italic">{t.save200}</p>
@@ -223,7 +223,7 @@ export default function EMaxPage() {
                 <div className="pb-6">
                   <p className="font-label-md text-on-surface-variant">{t.full}</p>
                   <div className="flex justify-between items-end mt-1">
-                    <p className="font-headline-sm">10 {lang === 'de' ? 'Zähne' : 'Teeth'}</p>
+                    <p className="font-headline-sm">10 {tr('Teeth')}</p>
                     <p className="text-2xl font-bold text-primary">€3.100</p>
                   </div>
                   <p className="text-xs text-secondary mt-2 italic">{t.express}</p>

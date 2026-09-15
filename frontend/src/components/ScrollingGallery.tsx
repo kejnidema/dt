@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useI18n } from '@/lib/i18n';
 
 interface ScrollingGalleryProps {
   groups: string[][];
@@ -13,6 +14,7 @@ export default function ScrollingGallery({
   subtitle,
   variant = "section",
 }: ScrollingGalleryProps) {
+  const { t } = useI18n();
   const cases = useMemo(
     () => groups.filter((group) => group.length > 0),
     [groups],
@@ -49,7 +51,7 @@ export default function ScrollingGallery({
             <div className="relative aspect-square bg-surface-container overflow-hidden">
               <img
                 src={activeImage}
-                alt={`Patient result ${caseIndex + 1}`}
+                alt={`${t('Patient result')} ${caseIndex + 1}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
 
@@ -59,7 +61,7 @@ export default function ScrollingGallery({
                     type="button"
                     onClick={() => showImage(caseIndex, -1)}
                     className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary/80 text-on-primary backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors shadow-md"
-                    aria-label="Previous image"
+                    aria-label={t('Previous image')}
                   >
                     <span className="material-symbols-outlined">
                       chevron_left
@@ -69,7 +71,7 @@ export default function ScrollingGallery({
                     type="button"
                     onClick={() => showImage(caseIndex, 1)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary/80 text-on-primary backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors shadow-md"
-                    aria-label="Next image"
+                    aria-label={t('Next image')}
                   >
                     <span className="material-symbols-outlined">
                       chevron_right
@@ -92,7 +94,7 @@ export default function ScrollingGallery({
                             ? "bg-secondary-fixed w-5"
                             : "bg-white/70"
                         }`}
-                        aria-label={`Show image ${imageIndex + 1}`}
+                        aria-label={`${t('Show image')} ${imageIndex + 1}`}
                       />
                     ))}
                   </div>

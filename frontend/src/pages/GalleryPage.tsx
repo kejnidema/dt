@@ -4,9 +4,9 @@ import ScrollingGallery from "@/components/ScrollingGallery";
 import { images } from "@/lib/images";
 
 export default function GalleryPage() {
-  const { lang } = useI18n();
+  const { localized } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       headline: "Vorher & Nachher",
       subtitle:
@@ -34,7 +34,7 @@ export default function GalleryPage() {
       resultsSubtitle:
         "Additional real smiles from our gallery — some cases include multiple images.",
     },
-  }[lang === "de" ? "de" : "en"];
+  });
 
   return (
     <>

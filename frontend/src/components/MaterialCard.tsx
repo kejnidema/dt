@@ -20,14 +20,12 @@ export default function MaterialCard({
   badge,
   linkTo,
 }: MaterialCardProps) {
-  const { lang } = useI18n();
-  const labels = lang === 'de'
-    ? { pricePerTooth: 'Preis pro Zahn', dePrice: 'DE Preis:', details: 'Details ansehen' }
-    : lang === 'it'
-      ? { pricePerTooth: 'Prezzo per dente', dePrice: 'Prezzo DE:', details: 'Vedi dettagli' }
-      : lang === 'sq'
-        ? { pricePerTooth: 'Çmimi për dhëmb', dePrice: 'Çmimi DE:', details: 'Shiko detajet' }
-        : { pricePerTooth: 'Price per tooth', dePrice: 'DE price:', details: 'View details' };
+  const { t } = useI18n();
+  const labels = {
+    pricePerTooth: t('Price per tooth'),
+    dePrice: t('DE price:'),
+    details: t('View details'),
+  };
 
   return (
     <div className="bg-surface-container-low border border-outline-variant p-8 rounded-xl flex flex-col hover:shadow-xl transition-all duration-300 group">

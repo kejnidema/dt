@@ -4,20 +4,19 @@ import { useI18n, type Lang } from '@/lib/i18n';
 import { treatments } from '@/pages/TreatmentsPage';
 
 const navItems = [
-  { labelDe: 'Behandlungen', labelEn: 'Treatments', labelIt: 'Trattamenti', labelSq: 'Trajtimet', path: '/treatments', children: treatments },
-  { labelDe: 'Preise', labelEn: 'Pricing', labelIt: 'Prezzi', labelSq: 'Çmimet', path: '/pricing' },
-  { labelDe: 'Galerie', labelEn: 'Gallery', labelIt: 'Galleria', labelSq: 'Galeria', path: '/veneers/gallery' },
-  { labelDe: 'Reise', labelEn: 'Travel', labelIt: 'Viaggio', labelSq: 'Udhëtimi', path: '/journey' },
-  { labelDe: 'Über uns', labelEn: 'About Us', labelIt: 'Chi siamo', labelSq: 'Rreth nesh', path: '/about' },
+  { label: 'Treatments', path: '/treatments', children: treatments },
+  { label: 'Pricing', path: '/pricing' },
+  { label: 'Gallery', path: '/veneers/gallery' },
+  { label: 'Travel', path: '/journey' },
+  { label: 'About Us', path: '/about' },
 ];
 
-const languageOptions: Lang[] = ['de', 'en', 'it', 'sq'];
-
-const labelFor = (lang: Lang, item: { labelDe: string; labelEn: string; labelIt: string; labelSq: string }) =>
-  lang === 'de' ? item.labelDe : lang === 'it' ? item.labelIt : lang === 'sq' ? item.labelSq : item.labelEn;
-
-const bookNowLabel = (lang: Lang) =>
-  lang === 'de' ? 'Termin buchen' : lang === 'it' ? 'Prenota ora' : lang === 'sq' ? 'Rezervo tani' : 'Book Now';
+const languageOptions: Array<{ code: Lang; label: string; flag: string }> = [
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'sq', label: 'Shqip', flag: '🇦🇱' },
+];
 
 function pathMatches(pathname: string, itemPath: string) {
   return pathname === itemPath || pathname.startsWith(`${itemPath}/`);
@@ -36,14 +35,25 @@ function isNavActive(pathname: string, item: (typeof navItems)[number]) {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { lang, setLang } = useI18n();
+  const { lang, setLang, t } = useI18n();
 
-  // Close mobile menu on navigation
-  const closeMenu = () => setMenuOpen(false);
+  const currentLanguage =
+    languageOptions.find((option) => option.code === lang) ??
+    { code: 'en' as Lang, label: 'English', flag: '🇬🇧' };
 
-  // Shadow on scroll
+  const selectLanguage = (code: Lang) => {
+    setLang(code);
+    setLanguageOpen(false);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setLanguageOpen(false);
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();
@@ -58,7 +68,6 @@ export default function Header() {
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-gutter flex justify-between items-center h-full">
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
             <span className="material-symbols-outlined text-secondary-fixed text-2xl">tooth</span>
@@ -68,11 +77,10 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           {navItems.map((item) => {
             const isActive = isNavActive(location.pathname, item);
-            const label = labelFor(lang, item);
+            const label = t(item.label);
 
             if (item.children) {
               return (
@@ -97,7 +105,7 @@ export default function Header() {
                         className="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors"
                       >
                         <span className="material-symbols-outlined text-secondary">{child.icon}</span>
-                        <span className="font-label-md text-label-md">{child.title}</span>
+                        <span className="font-label-md text-label-md">{t(child.title)}</span>
                       </Link>
                     ))}
                   </div>
@@ -121,33 +129,51 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Right Actions */}
         <div className="flex items-center gap-3">
-          {/* Language Switcher */}
-          <div className="hidden sm:flex border border-outline-variant rounded-sm overflow-hidden" aria-label="Language selector">
-            {languageOptions.map((code) => (
-              <button
-                key={code}
-                type="button"
-                onClick={() => setLang(code)}
-                className={`font-label-md text-label-md px-3 py-1.5 transition-colors ${
-                  lang === code ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:text-primary'
-                }`}
-              >
-                {code.toUpperCase()}
-              </button>
-            ))}
+          <div className="hidden sm:block relative" aria-label={t('Language selector')}>
+            <button
+              type="button"
+              onClick={() => setLanguageOpen((open) => !open)}
+              className="flex items-center gap-2 border border-outline-variant rounded-full px-2.5 py-1.5 bg-white text-on-surface-variant hover:text-primary hover:border-primary transition-colors"
+              aria-expanded={languageOpen}
+            >
+              <span className="w-8 h-8 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center text-lg overflow-hidden">
+                {currentLanguage.flag}
+              </span>
+              <span className="font-label-md text-label-md">{currentLanguage.code.toUpperCase()}</span>
+              <span className="material-symbols-outlined text-[18px]">expand_more</span>
+            </button>
+
+            {languageOpen && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-outline-variant rounded-xl shadow-xl p-2">
+                {languageOptions.map((option) => (
+                  <button
+                    key={option.code}
+                    type="button"
+                    onClick={() => selectLanguage(option.code)}
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                      lang === option.code
+                        ? 'bg-primary text-on-primary'
+                        : 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary'
+                    }`}
+                  >
+                    <span className="w-8 h-8 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center text-lg overflow-hidden">
+                      {option.flag}
+                    </span>
+                    <span className="font-label-md text-label-md">{option.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Book Now */}
           <Link
             to="/contact"
             className="bg-primary text-on-primary px-6 py-2.5 font-label-md text-label-md rounded-sm hover:opacity-90 active:opacity-80 transition-all"
           >
-            {bookNowLabel(lang)}
+            {t('Book Now')}
           </Link>
 
-          {/* Mobile Hamburger */}
           <button
             className="lg:hidden p-2 text-primary"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -160,13 +186,12 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {menuOpen && (
         <div className="lg:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant shadow-lg">
           <nav className="flex flex-col p-6 gap-4">
             {navItems.map((item) => {
               const isActive = isNavActive(location.pathname, item);
-              const label = labelFor(lang, item);
+              const label = t(item.label);
 
               if (item.children) {
                 return (
@@ -192,7 +217,7 @@ export default function Header() {
                           className="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary"
                         >
                           <span className="material-symbols-outlined text-secondary text-[20px]">{child.icon}</span>
-                          <span className="font-label-md text-label-md">{child.title}</span>
+                          <span className="font-label-md text-label-md">{t(child.title)}</span>
                         </Link>
                       ))}
                     </div>
@@ -216,26 +241,48 @@ export default function Header() {
               );
             })}
             <div className="flex items-center gap-3 pt-4 border-t border-outline-variant">
-              <div className="flex border border-outline-variant rounded-sm overflow-hidden" aria-label="Language selector">
-                {languageOptions.map((code) => (
-                  <button
-                    key={code}
-                    type="button"
-                    onClick={() => setLang(code)}
-                    className={`font-label-md text-label-md px-3 py-1.5 ${
-                      lang === code ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:text-primary'
-                    }`}
-                  >
-                    {code.toUpperCase()}
-                  </button>
-                ))}
+              <div className="relative" aria-label={t('Language selector')}>
+                <button
+                  type="button"
+                  onClick={() => setLanguageOpen((open) => !open)}
+                  className="flex items-center gap-2 border border-outline-variant rounded-full px-2.5 py-1.5 bg-white text-on-surface-variant"
+                  aria-expanded={languageOpen}
+                >
+                  <span className="w-8 h-8 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center text-lg overflow-hidden">
+                    {currentLanguage.flag}
+                  </span>
+                  <span className="font-label-md text-label-md">{currentLanguage.code.toUpperCase()}</span>
+                  <span className="material-symbols-outlined text-[18px]">expand_more</span>
+                </button>
+
+                {languageOpen && (
+                  <div className="absolute left-0 bottom-full mb-2 w-48 bg-white border border-outline-variant rounded-xl shadow-xl p-2">
+                    {languageOptions.map((option) => (
+                      <button
+                        key={option.code}
+                        type="button"
+                        onClick={() => selectLanguage(option.code)}
+                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                          lang === option.code
+                            ? 'bg-primary text-on-primary'
+                            : 'text-on-surface-variant hover:bg-surface-container-low hover:text-primary'
+                        }`}
+                      >
+                        <span className="w-8 h-8 rounded-full bg-surface-container-low border border-outline-variant flex items-center justify-center text-lg overflow-hidden">
+                          {option.flag}
+                        </span>
+                        <span className="font-label-md text-label-md">{option.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
               <Link
                 to="/contact"
                 onClick={closeMenu}
                 className="bg-primary text-on-primary px-6 py-3 font-label-md rounded-sm w-full text-center"
               >
-                {bookNowLabel(lang)}
+                {t('Book Now')}
               </Link>
             </div>
           </nav>

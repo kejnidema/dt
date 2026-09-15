@@ -30,8 +30,7 @@ const trustItems: TrustItem[] = [
 ];
 
 export default function TrustBar() {
-  const { lang } = useI18n();
-  const contentLang = lang === 'de' ? 'de' : 'en';
+  const { localized } = useI18n();
 
   return (
     <section className="bg-primary py-12">
@@ -43,8 +42,8 @@ export default function TrustBar() {
                 <span className="material-symbols-outlined text-secondary-fixed">{item.icon}</span>
               </div>
               <div>
-                <p className="font-headline-sm text-[18px] leading-tight">{item.title[contentLang]}</p>
-                <p className="text-label-md opacity-70">{item.subtitle[contentLang]}</p>
+                <p className="font-headline-sm text-[18px] leading-tight">{localized({ ...item.title, en: item.title.en })}</p>
+                <p className="text-label-md opacity-70">{localized({ ...item.subtitle, en: item.subtitle.en })}</p>
               </div>
             </div>
           ))}

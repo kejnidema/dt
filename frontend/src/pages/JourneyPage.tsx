@@ -4,9 +4,9 @@ import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
 
 export default function JourneyPage() {
-  const { lang } = useI18n();
+  const { localized } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       headline: 'Ihre Reise zum neuen Lächeln — Schritt für Schritt.',
       subtitle:
@@ -85,7 +85,7 @@ export default function JourneyPage() {
         'Our private driver meets you at the airport and takes you safely to all appointments.',
       faqTitle: 'Frequently Asked Questions',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
   const steps: TimelineStep[] = [
     { number: 1, icon: 'videocam', title: t.step1Title, description: t.step1Desc, imageUrl: images.heroAfter },
@@ -95,20 +95,20 @@ export default function JourneyPage() {
     { number: 5, icon: 'verified', title: t.step5Title, description: t.step5Desc, imageUrl: images.doctor },
   ];
 
-  const faqItems =
-    lang === 'de'
-      ? [
+  const faqItems = localized({
+    de: [
         { question: 'Wie lange muss ich in Tirana bleiben?', answer: 'Für ein komplettes Set an Veneers empfehlen wir 5-7 Werktage.' },
         { question: 'Ist die Qualität in Albanien wirklich vergleichbar?', answer: 'Unsere Ärzte sind international geschult. Wir verwenden CE-zertifizierte Materialien von Ivoclar Vivadent.' },
         { question: 'Spricht das Klinikpersonal Deutsch?', answer: 'Ja, wir haben deutschsprachige Koordinatoren und viele Ärzte sprechen Deutsch oder Englisch.' },
         { question: 'Welche Zahlungsmöglichkeiten gibt es?', answer: 'Kreditkarte, Banküberweisung oder bar. Rechnung in Euro.' },
-      ]
-      : [
+      ],
+    en: [
         { question: 'How long do I need to stay in Tirana?', answer: 'For a complete set of veneers, we recommend 5-7 working days.' },
         { question: 'Is the quality really comparable to Germany?', answer: 'Our doctors are internationally trained. We use CE-certified materials from Ivoclar Vivadent.' },
         { question: 'Does the staff speak German?', answer: 'Yes, we have German-speaking coordinators and many doctors speak German or English.' },
         { question: 'What payment options are available?', answer: 'Credit card, bank transfer, or cash. Invoice in EUR.' },
-      ];
+      ],
+  });
 
   return (
     <>

@@ -43,7 +43,7 @@ const detailCopy: Record<string, { highlights: string[]; timeline: string[]; bes
 
 export default function TreatmentDetailPage() {
   const { slug } = useParams();
-  const { lang } = useI18n();
+  const { t: tr } = useI18n();
   const treatment = treatments.find((item) => item.link === `/treatments/${slug}`);
   const copy = slug ? detailCopy[slug] : undefined;
 
@@ -52,10 +52,10 @@ export default function TreatmentDetailPage() {
       <section className="py-section-padding bg-surface">
         <div className="max-w-[900px] mx-auto px-gutter text-center">
           <h1 className="font-display-lg text-display-lg text-primary mb-6">
-            {lang === 'de' ? 'Behandlung nicht gefunden' : 'Treatment not found'}
+            {tr('Treatment not found')}
           </h1>
           <Link to="/treatments" className="bg-primary text-on-primary px-6 py-3 rounded-sm font-label-md">
-            {lang === 'de' ? 'Alle Behandlungen ansehen' : 'View all treatments'}
+            {tr('View all treatments')}
           </Link>
         </div>
       </section>
@@ -80,7 +80,7 @@ export default function TreatmentDetailPage() {
               to="/contact"
               className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-sm font-label-md hover:opacity-95"
             >
-              {lang === 'de' ? 'Kostenlose Beratung anfragen' : 'Request Free Consultation'}
+              {tr('Request Free Consultation')}
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
           </div>
@@ -104,7 +104,7 @@ export default function TreatmentDetailPage() {
       <section className="py-section-padding bg-surface">
         <div className="max-w-[900px] mx-auto px-gutter">
           <h2 className="font-headline-md text-headline-md text-primary mb-8">
-            {lang === 'de' ? 'Ablauf der Behandlung' : 'Treatment Process'}
+            {tr('Treatment Process')}
           </h2>
           <div className="space-y-5">
             {copy.timeline.map((step, index) => (

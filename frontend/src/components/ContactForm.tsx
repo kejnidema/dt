@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useI18n } from '@/lib/i18n';
 
 export default function ContactForm() {
-  const { lang } = useI18n();
+  const { t: tr } = useI18n();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -34,18 +34,16 @@ export default function ContactForm() {
       <div className="bg-surface-container-low border border-outline-variant rounded-xl p-12 text-center">
         <span className="material-symbols-outlined text-6xl text-secondary mb-4 block">check_circle</span>
         <h3 className="font-headline-md text-headline-md text-primary mb-4">
-          {lang === 'de' ? 'Vielen Dank!' : 'Thank You!'}
+          {tr('Thank You!')}
         </h3>
         <p className="text-on-surface-variant max-w-md mx-auto">
-          {lang === 'de'
-            ? 'Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns innerhalb von 24 Stunden bei Ihnen.'
-            : 'Your request has been sent successfully. We will contact you within 24 hours.'}
+          {tr('Your request has been sent successfully. We will contact you within 24 hours.')}
         </p>
       </div>
     );
   }
 
-  const label = (de: string, en: string) => (lang === 'de' ? de : en);
+  const label = (_de: string, en: string) => tr(en);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

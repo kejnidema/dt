@@ -6,9 +6,9 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import { images } from '@/lib/images';
 
 export default function VeneersHubPage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       headline: 'Veneers: Ihr Weg zum perfekten Lächeln',
       subtitle:
@@ -61,39 +61,39 @@ export default function VeneersHubPage() {
       ctaText: 'Get a free consultation.',
       ctaButton: 'Free Consultation',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
-  const pricingRows =
-    lang === 'de'
-      ? [
+  const pricingRows = localized({
+    de: [
         { property: 'Lebensdauer', composite: '3-5 Jahre', emax: '15-20+ Jahre', zirconia: '15-20+ Jahre' },
         { property: 'Verfärbungsresistenz', composite: 'Gering', emax: 'Hervorragend', zirconia: 'Hervorragend' },
         { property: 'Natürlichkeit', composite: 'Befriedigend', emax: 'Exzellent', zirconia: 'Sehr Gut' },
         { property: 'Widerstandsfähigkeit', composite: 'Mittel', emax: 'Sehr Hoch', zirconia: 'Extrem Hoch' },
         { property: 'Preis/Zahn', composite: 'ab 200 €', emax: 'ab 350 €', zirconia: 'ab 400 €' },
-      ]
-      : [
+      ],
+    en: [
         { property: 'Lifespan', composite: '3-5 years', emax: '15-20+ years', zirconia: '15-20+ years' },
         { property: 'Stain Resistance', composite: 'Low', emax: 'Excellent', zirconia: 'Excellent' },
         { property: 'Natural Look', composite: 'Fair', emax: 'Excellent', zirconia: 'Very Good' },
         { property: 'Durability', composite: 'Medium', emax: 'Very High', zirconia: 'Extremely High' },
         { property: 'Price/Tooth', composite: 'from €200', emax: 'from €350', zirconia: 'from €400' },
-      ];
+      ],
+  });
 
-  const faqItems =
-    lang === 'de'
-      ? [
+  const faqItems = localized({
+    de: [
         { question: 'Schmerzt die Veneer-Behandlung?', answer: 'Nein. Die Behandlung wird unter lokaler Betäubung durchgeführt. Nach der Behandlung können leichte Empfindlichkeiten auftreten, die innerhalb weniger Tage abklingen.' },
         { question: 'Wie lange halten Veneers?', answer: 'Bei richtiger Pflege halten E-Max Veneers 15-20+ Jahre. Zirkonia-Veneers sind noch langlebiger.' },
         { question: 'Wie viele Veneers brauche ich?', answer: 'Das hängt von Ihren Zielen ab. Ein "Hollywood Smile" umfasst typischerweise 8-10 Veneers (vordere Zähne). Einzelne Veneers sind auch möglich.' },
         { question: 'Was kostet die Behandlung in Tirana?', answer: 'E-Max Veneers ab 350 € pro Zahn, Zirkonia ab 400 € pro Zahn. Das ist bis zu 70% günstiger als in Deutschland.' },
-      ]
-      : [
+      ],
+    en: [
         { question: 'Does the veneer procedure hurt?', answer: 'No. The procedure is performed under local anesthesia. Mild sensitivity may occur after treatment, resolving within a few days.' },
         { question: 'How long do veneers last?', answer: 'With proper care, E-Max veneers last 15-20+ years. Zirconia veneers are even more durable.' },
         { question: 'How many veneers do I need?', answer: 'It depends on your goals. A "Hollywood Smile" typically includes 8-10 veneers (front teeth). Individual veneers are also possible.' },
         { question: 'How much does treatment cost in Tirana?', answer: 'E-Max veneers from €350 per tooth, Zirconia from €400 per tooth. Up to 70% cheaper than in Germany.' },
-      ];
+      ],
+  });
 
   return (
     <>
@@ -116,7 +116,7 @@ export default function VeneersHubPage() {
               to="/veneers/cost-comparison"
               className="border border-secondary text-secondary px-8 py-4 font-label-md rounded-sm hover:bg-secondary/5 transition-colors"
             >
-              {lang === 'de' ? 'Preisrechner' : 'Price Calculator'}
+              {tr('Price Calculator')}
             </Link>
           </div>
         </div>
@@ -174,7 +174,7 @@ export default function VeneersHubPage() {
       <section className="py-section-padding bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
           <h2 className="font-headline-md text-headline-md text-primary mb-8">{t.comparisonTitle}</h2>
-          <PricingTable rows={pricingRows} lang={lang} />
+          <PricingTable rows={pricingRows} />
         </div>
       </section>
 

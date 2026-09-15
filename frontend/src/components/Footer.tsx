@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 
 export default function Footer() {
-  const { lang } = useI18n();
+  const { localized } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       brand: 'Veneer Clinic Tirana',
       tagline: 'Premium Boutique-Zahnmedizin in Tirana. Spezialisiert auf Veneers und digitale Lächeln-Gestaltung für Patienten aus ganz Europa.',
@@ -41,7 +41,7 @@ export default function Footer() {
       email: 'info@veneerclinictirana.com',
       copyright: '© 2024 Veneer Clinic Tirana. All Rights Reserved. German Quality, Albanian Hospitality.',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
   return (
     <footer className="bg-primary text-on-primary w-full mt-auto">

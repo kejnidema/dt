@@ -3,9 +3,9 @@ import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
 
 export default function CostComparisonPage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       badge: 'Preis-Transparenz',
       headline: 'Sparen Sie Tausende von Euro bei Ihren Veneers.',
@@ -44,7 +44,7 @@ export default function CostComparisonPage() {
       doctorQuote:
         'We use exactly the same materials and technologies as top clinics in Berlin or Munich — only the operating costs in Tirana enable this price advantage.',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
   return (
     <>
@@ -70,7 +70,7 @@ export default function CostComparisonPage() {
               <img src={images.clinic} alt="Modern dental clinic in Tirana" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur rounded-lg p-5">
-                <p className="text-primary font-headline-sm">{lang === 'de' ? 'Bis zu 70% günstiger als Deutschland' : 'Up to 70% less than Germany'}</p>
+                <p className="text-primary font-headline-sm">{tr('Up to 70% less than Germany')}</p>
                 <p className="text-on-surface-variant text-sm mt-1">E-Max · Zirkonia · Digital Smile Design</p>
               </div>
             </div>

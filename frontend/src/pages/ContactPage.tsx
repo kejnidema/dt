@@ -3,9 +3,9 @@ import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
 
 export default function ContactPage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       headline: 'Kontaktieren Sie uns',
       subtitle: 'Wir freuen uns auf Ihre Anfrage. Unser Team meldet sich innerhalb von 24 Stunden.',
@@ -30,7 +30,7 @@ export default function ContactPage() {
       whatsapp: 'WhatsApp Chat',
       formTitle: 'Request Free Consultation',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
   return (
     <>
@@ -119,14 +119,12 @@ export default function ContactPage() {
             <div className="flex items-center gap-3 mb-4">
               <span className="material-symbols-outlined text-secondary text-4xl">location_on</span>
               <h2 className="font-headline-sm text-headline-sm text-primary">
-                {lang === 'de' ? 'Im Herzen von Tirana' : 'In the Heart of Tirana'}
+                {tr('In the Heart of Tirana')}
               </h2>
             </div>
             <p className="text-on-surface-variant mb-4">Rr. Ibrahim Rugova, 1001 Tirana, Albanien</p>
             <p className="text-sm text-on-surface-variant">
-              {lang === 'de'
-                ? 'Ca. 25 Minuten vom internationalen Flughafen Tirana. VIP-Transfer inklusive.'
-                : 'Approx. 25 minutes from Tirana International Airport. VIP transfer included.'}
+              {tr('Approx. 25 minutes from Tirana International Airport. VIP transfer included.')}
             </p>
           </div>
         </div>

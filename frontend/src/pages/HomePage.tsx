@@ -7,9 +7,9 @@ import TrustBar from '@/components/TrustBar';
 import { images } from '@/lib/images';
 
 export default function HomePage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
-  const t = {
+  const t = localized({
     de: {
       badge: 'Premium Zahnästhetik',
       headline: 'Hollywood-Lächeln ab 350 € — Gleiche Qualität, deutlich günstiger.',
@@ -50,7 +50,7 @@ export default function HomePage() {
       doctorQuote:
         'We combine German precision with Albanian hospitality to offer you a first-class experience.',
     },
-  }[lang === 'de' ? 'de' : 'en'];
+  });
 
   return (
     <>
@@ -114,9 +114,7 @@ export default function HomePage() {
               icon="diamond"
               title="E-Max Veneers"
               description={
-                lang === 'de'
-                  ? 'Vollkeramik für höchste Transluzenz und natürliche Ästhetik. Ideal für Frontzähne.'
-                  : 'Full ceramic for highest translucency and natural aesthetics. Ideal for front teeth.'
+                tr('Full ceramic for highest translucency and natural aesthetics. Ideal for front teeth.')
               }
               priceFrom="ab 350 €"
               germanyPrice="DE: ~1.200 €"
@@ -127,9 +125,7 @@ export default function HomePage() {
               icon="shield"
               title="Zirkonia Veneers"
               description={
-                lang === 'de'
-                  ? 'Extrem belastbar und langlebig. Perfekt für ein strahlend weißes Lächeln.'
-                  : 'Extremely durable and long-lasting. Perfect for a radiant white smile.'
+                tr('Extremely durable and long-lasting. Perfect for a radiant white smile.')
               }
               priceFrom="ab 400 €"
               germanyPrice="DE: ~1.400 €"
@@ -139,9 +135,7 @@ export default function HomePage() {
               icon="layers"
               title="No-Prep Veneers"
               description={
-                lang === 'de'
-                  ? 'Kein Beschleifen der gesunden Zahnsubstanz nötig. Schonend und reversibel.'
-                  : 'No grinding of healthy tooth substance required. Gentle and reversible.'
+                tr('No grinding of healthy tooth substance required. Gentle and reversible.')
               }
               priceFrom="ab 450 €"
               germanyPrice="DE: ~1.800 €"

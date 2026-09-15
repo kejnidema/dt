@@ -61,7 +61,7 @@ const defaultTestimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsCarousel() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
   const [activeIndex, setActiveIndex] = useState(0);
   const testimonials = defaultTestimonials;
 
@@ -80,7 +80,7 @@ export default function TestimonialsCarousel() {
       <div className="max-w-[1200px] mx-auto px-gutter">
         <div className="text-center mb-12">
           <h2 className="font-headline-md text-headline-md text-primary mb-4">
-            {lang === 'de' ? 'Was unsere Patienten sagen' : 'What Our Patients Say'}
+            {tr('What Our Patients Say')}
           </h2>
         </div>
 
@@ -102,7 +102,7 @@ export default function TestimonialsCarousel() {
 
             {/* Comment */}
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 italic">
-              "{lang === 'de' ? current.commentDe : current.commentEn}"
+              "{localized({ de: current.commentDe, en: current.commentEn })}"
             </p>
 
             {/* Author */}

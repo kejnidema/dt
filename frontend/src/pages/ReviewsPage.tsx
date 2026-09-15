@@ -2,7 +2,7 @@ import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
 
 export default function ReviewsPage() {
-  const { lang } = useI18n();
+  const { localized, t: tr } = useI18n();
 
   const reviews = [
     {
@@ -73,7 +73,7 @@ export default function ReviewsPage() {
       <section className="py-section-padding bg-surface">
         <div className="max-w-[1200px] mx-auto px-gutter text-center">
           <h1 className="font-display-lg text-display-lg text-primary mb-6">
-            {lang === 'de' ? 'Patientenbewertungen' : 'Patient Reviews'}
+            {tr('Patient Reviews')}
           </h1>
 
           {/* Overall Rating */}
@@ -91,7 +91,7 @@ export default function ReviewsPage() {
                   </span>
                 ))}
               </div>
-              <p className="text-on-surface-variant text-sm">{reviews.length} {lang === 'de' ? 'Bewertungen' : 'reviews'}</p>
+              <p className="text-on-surface-variant text-sm">{reviews.length} {tr('reviews')}</p>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ export default function ReviewsPage() {
                   <div>
                     <p className="font-label-md text-primary">{review.name}</p>
                     <p className="text-xs text-on-surface-variant">
-                      {review.flag === 'DE' ? '🇩🇪' : ''} {review.daysAgo} {lang === 'de' ? 'Tage her' : 'days ago'}
+                      {review.flag === 'DE' ? '🇩🇪' : ''} {review.daysAgo} {tr('days ago')}
                     </p>
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export default function ReviewsPage() {
                 </div>
 
                 <p className="text-on-surface-variant text-sm mb-3">
-                  "{lang === 'de' ? review.commentDe : review.commentEn}"
+                  "{localized({ de: review.commentDe, en: review.commentEn })}"
                 </p>
 
                 {review.treatment && (

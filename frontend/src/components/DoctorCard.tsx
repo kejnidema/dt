@@ -1,3 +1,5 @@
+import { useI18n } from '@/lib/i18n';
+
 interface DoctorCardProps {
   firstName: string;
   lastName: string;
@@ -8,7 +10,6 @@ interface DoctorCardProps {
   languages: string[];
   credentials: { title: string; institution: string; year: number }[];
   isLead?: boolean;
-  lang: 'de' | 'en' | 'it' | 'sq';
 }
 
 export default function DoctorCard({
@@ -21,8 +22,8 @@ export default function DoctorCard({
   languages,
   credentials,
   isLead,
-  lang,
 }: DoctorCardProps) {
+  const { localized, t } = useI18n();
   return (
     <div className="bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
       {/* Image */}
@@ -39,7 +40,7 @@ export default function DoctorCard({
       <div className="p-6">
         {isLead && (
           <span className="inline-block bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-sm text-label-md font-bold mb-3">
-            {lang === 'de' ? 'Chefarzt' : 'Lead Doctor'}
+            {t('Lead Doctor')}
           </span>
         )}
 
@@ -50,14 +51,14 @@ export default function DoctorCard({
         <p className="text-label-md text-secondary font-bold mb-4">{specialization}</p>
 
         <p className="text-on-surface-variant text-sm mb-4">
-          {lang === 'de' ? biographyDe : biographyEn}
+          {localized({ de: biographyDe, en: biographyEn })}
         </p>
 
         {/* Credentials */}
         {credentials.length > 0 && (
           <div className="mb-4">
             <p className="text-label-md text-primary mb-2">
-              {lang === 'de' ? 'Ausbildung:' : 'Education:'}
+              {t('Education:')}
             </p>
             <ul className="space-y-1">
               {credentials.map((c, i) => (

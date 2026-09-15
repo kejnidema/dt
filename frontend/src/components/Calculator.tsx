@@ -14,26 +14,6 @@ interface TreatmentPrice {
 
 const TREATMENT_PRICING: TreatmentPrice[] = [
   {
-    key: 'tartar-clean',
-    name_de: 'Zahnsteinreinigung',
-    name_en: 'Tartar Clean',
-    unit_de: 'Behandlung',
-    unit_en: 'treatment',
-    tirana_price_eur: 30,
-    germany_price_eur: 100,
-    max_quantity: 4,
-  },
-  {
-    key: 'whitening',
-    name_de: 'Professionelle Zahnaufhellung',
-    name_en: 'Professional Teeth Whitening',
-    unit_de: 'Behandlung',
-    unit_en: 'treatment',
-    tirana_price_eur: 150,
-    germany_price_eur: 400,
-    max_quantity: 4,
-  },
-  {
     key: 'implant',
     name_de: 'MegaGen-Titanium Implantat',
     name_en: 'MegaGen-Titanium Implant',
@@ -41,26 +21,6 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_en: 'implant',
     tirana_price_eur: 500,
     germany_price_eur: 1500,
-    max_quantity: 12,
-  },
-  {
-    key: 'filling-grade-2',
-    name_de: 'Füllung Grad 2',
-    name_en: 'Filling Grade 2',
-    unit_de: 'Füllung',
-    unit_en: 'filling',
-    tirana_price_eur: 50,
-    germany_price_eur: 150,
-    max_quantity: 12,
-  },
-  {
-    key: 'filling-grade-3',
-    name_de: 'Füllung Grad 3',
-    name_en: 'Filling Grade 3',
-    unit_de: 'Füllung',
-    unit_en: 'filling',
-    tirana_price_eur: 70,
-    germany_price_eur: 200,
     max_quantity: 12,
   },
   {
@@ -104,6 +64,46 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     max_quantity: 2,
   },
   {
+    key: 'tartar-clean',
+    name_de: 'Zahnsteinreinigung',
+    name_en: 'Tartar Clean',
+    unit_de: 'Behandlung',
+    unit_en: 'treatment',
+    tirana_price_eur: 30,
+    germany_price_eur: 100,
+    max_quantity: 1,
+  },
+  {
+    key: 'whitening',
+    name_de: 'Professionelle Zahnaufhellung',
+    name_en: 'Professional Teeth Whitening',
+    unit_de: 'Behandlung',
+    unit_en: 'treatment',
+    tirana_price_eur: 150,
+    germany_price_eur: 400,
+    max_quantity: 1,
+  },
+  {
+    key: 'filling-grade-2',
+    name_de: 'Füllung Grad 2',
+    name_en: 'Filling Grade 2',
+    unit_de: 'Füllung',
+    unit_en: 'filling',
+    tirana_price_eur: 50,
+    germany_price_eur: 150,
+    max_quantity: 12,
+  },
+  {
+    key: 'filling-grade-3',
+    name_de: 'Füllung Grad 3',
+    name_en: 'Filling Grade 3',
+    unit_de: 'Füllung',
+    unit_en: 'filling',
+    tirana_price_eur: 70,
+    germany_price_eur: 200,
+    max_quantity: 12,
+  },
+  {
     key: 'surgery',
     name_de: 'Chirurgie',
     name_en: 'Surgery',
@@ -111,14 +111,15 @@ const TREATMENT_PRICING: TreatmentPrice[] = [
     unit_en: 'procedure',
     tirana_price_eur: 200,
     germany_price_eur: 600,
-    max_quantity: 4,
+    max_quantity: 1,
   },
 ];
 
 export default function Calculator() {
-  const { lang } = useI18n();
+  const { lang, localized, t } = useI18n();
   const [treatmentIndex, setTreatmentIndex] = useState(7);
-  const selectedTreatment = TREATMENT_PRICING[treatmentIndex] ?? TREATMENT_PRICING[0]!;
+  const selectedTreatment =
+    TREATMENT_PRICING[treatmentIndex] ?? TREATMENT_PRICING[0]!;
   const [quantity, setQuantity] = useState(8);
 
   const calculate = useCallback(() => {
@@ -130,8 +131,8 @@ export default function Calculator() {
   }, [selectedTreatment, quantity]);
 
   const { germany, tirana, savings, pct } = calculate();
-  const treatmentName = lang === 'de' ? selectedTreatment.name_de : selectedTreatment.name_en;
-  const unitName = lang === 'de' ? selectedTreatment.unit_de : selectedTreatment.unit_en;
+  const treatmentName = localized({ de: selectedTreatment.name_de, en: selectedTreatment.name_en });
+  const unitName = localized({ de: selectedTreatment.unit_de, en: selectedTreatment.unit_en });
 
   const formatEuro = (n: number) =>
     new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US', {
@@ -145,12 +146,10 @@ export default function Calculator() {
       <div className='max-w-[1200px] mx-auto px-gutter'>
         <div className='text-center mb-16'>
           <h2 className='font-headline-md text-headline-md mb-4 text-primary'>
-            {lang === 'de' ? 'Behandlung Preisrechner' : 'Treatment Price Calculator'}
+            {t('Treatment Price Calculator')}
           </h2>
           <p className='text-on-surface-variant max-w-xl mx-auto'>
-            {lang === 'de'
-              ? 'Wählen Sie eine Behandlung und berechnen Sie Ihre Ersparnis gegenüber Deutschland.'
-              : 'Choose a treatment and calculate your savings compared with Germany.'}
+            {t('Choose a treatment and calculate your savings compared with Germany.')}
           </p>
         </div>
 
@@ -160,21 +159,24 @@ export default function Calculator() {
             {/* Treatment */}
             <div>
               <label className='font-label-md block mb-4 text-on-surface-variant'>
-                {lang === 'de' ? 'Behandlung' : 'Treatment'}
+                {t('Treatment')}
               </label>
               <select
                 className='w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md appearance-none cursor-pointer outline-none'
                 value={treatmentIndex}
                 onChange={(e) => {
                   const nextIndex = Number(e.target.value);
-                  const nextTreatment = TREATMENT_PRICING[nextIndex] ?? TREATMENT_PRICING[0]!;
+                  const nextTreatment =
+                    TREATMENT_PRICING[nextIndex] ?? TREATMENT_PRICING[0]!;
                   setTreatmentIndex(nextIndex);
-                  setQuantity((current) => Math.min(current, nextTreatment.max_quantity));
+                  setQuantity((current) =>
+                    Math.min(current, nextTreatment.max_quantity),
+                  );
                 }}
               >
                 {TREATMENT_PRICING.map((treatment, i) => (
                   <option key={treatment.key} value={i}>
-                    {lang === 'de' ? treatment.name_de : treatment.name_en}
+                    {localized({ de: treatment.name_de, en: treatment.name_en })}
                   </option>
                 ))}
               </select>
@@ -184,15 +186,19 @@ export default function Calculator() {
             <div className='grid grid-cols-2 gap-4'>
               <div className='bg-surface-container-low rounded-lg border border-outline-variant p-4'>
                 <p className='font-label-md text-on-surface-variant mb-1'>
-                  {lang === 'de' ? 'Tirana / Einheit' : 'Tirana / Unit'}
+                  {t('Tirana / Unit')}
                 </p>
-                <p className='font-headline-sm text-primary'>{formatEuro(selectedTreatment.tirana_price_eur)}</p>
+                <p className='font-headline-sm text-primary'>
+                  {formatEuro(selectedTreatment.tirana_price_eur)}
+                </p>
               </div>
               <div className='bg-surface-container-low rounded-lg border border-outline-variant p-4'>
                 <p className='font-label-md text-on-surface-variant mb-1'>
-                  {lang === 'de' ? 'DE / Einheit' : 'DE / Unit'}
+                  {t('DE / Unit')}
                 </p>
-                <p className='font-headline-sm text-error'>{formatEuro(selectedTreatment.germany_price_eur)}</p>
+                <p className='font-headline-sm text-error'>
+                  {formatEuro(selectedTreatment.germany_price_eur)}
+                </p>
               </div>
             </div>
 
@@ -200,7 +206,7 @@ export default function Calculator() {
             <div>
               <div className='flex justify-between mb-4'>
                 <label className='font-label-md text-on-surface-variant'>
-                  {lang === 'de' ? `Anzahl ${unitName}` : `Number of ${unitName}s`}
+                  {t('Number of')} {unitName}{localized({ de: '', en: 's' })}
                 </label>
                 <span className='font-headline-sm text-primary'>
                   {quantity}
@@ -228,13 +234,13 @@ export default function Calculator() {
 
             <div className='relative z-10'>
               <h3 className='font-label-md text-secondary-fixed uppercase tracking-widest mb-10'>
-                {lang === 'de' ? 'Ihr Preisvergleich' : 'Your Price Comparison'}
+                {t('Your Price Comparison')}
               </h3>
 
               <div className='grid grid-cols-1 md:grid-cols-[1fr_240px] gap-6 mb-10'>
                 <div className='savings-pulse bg-secondary-fixed text-on-secondary-fixed rounded-2xl p-8 shadow-xl'>
                   <div className='font-label-md uppercase tracking-widest opacity-70 mb-3'>
-                    {lang === 'de' ? 'Tirana Preis' : 'Tirana Price'}
+                    {t('Tirana Price')}
                   </div>
                   <div className='text-[64px] font-bold leading-none'>
                     {formatEuro(tirana)}
@@ -246,9 +252,7 @@ export default function Calculator() {
 
                 <aside className='bg-white/10 border border-white/15 rounded-2xl p-6 flex flex-col justify-center'>
                   <div className='font-label-md opacity-70 mb-2'>
-                    {lang === 'de'
-                      ? 'Ihre Ersparnis'
-                      : 'Your Savings'}
+                    {t('Your Savings')}
                   </div>
                   <div className='text-4xl font-bold text-secondary-fixed'>
                     {formatEuro(savings)}
@@ -257,9 +261,7 @@ export default function Calculator() {
                     -{pct}%
                   </div>
                   <p className='mt-4 text-sm opacity-70'>
-                    {lang === 'de'
-                      ? 'gegenüber einem durchschnittlichen deutschen Referenzpreis'
-                      : 'compared with an average German reference price'}
+                    {t('compared with an average German reference price')}
                   </p>
                 </aside>
               </div>
@@ -268,7 +270,7 @@ export default function Calculator() {
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 <div className='bg-white/5 p-5 rounded border border-white/10'>
                   <div className='font-label-md opacity-60 mb-1'>
-                    {lang === 'de' ? 'Kosten DE' : 'Cost DE'}
+                    {t('Cost DE')}
                   </div>
                   <div className='font-headline-sm'>{formatEuro(germany)}</div>
                   <div className='w-full bg-white/10 h-2 mt-4 rounded-full overflow-hidden'>
@@ -277,9 +279,11 @@ export default function Calculator() {
                 </div>
                 <div className='bg-white/10 p-5 rounded border border-secondary-fixed/40'>
                   <div className='font-label-md text-secondary-fixed mb-1'>
-                    {lang === 'de' ? 'Kosten Tirana' : 'Cost Tirana'}
+                    {t('Cost Tirana')}
                   </div>
-                  <div className='font-headline-sm text-secondary-fixed'>{formatEuro(tirana)}</div>
+                  <div className='font-headline-sm text-secondary-fixed'>
+                    {formatEuro(tirana)}
+                  </div>
                   <div className='w-full bg-white/10 h-2 mt-4 rounded-full overflow-hidden'>
                     <div
                       className='bg-secondary-fixed h-full transition-all duration-500'
@@ -295,14 +299,10 @@ export default function Calculator() {
                 href='/contact'
                 className='w-full bg-secondary-fixed text-on-secondary-fixed py-5 font-label-md text-lg rounded-lg hover:brightness-110 active:scale-[0.98] transition-all block text-center'
               >
-                {lang === 'de'
-                  ? 'Erhalten Sie ein individuelles Angebot'
-                  : 'Get a Personalized Quote'}
+                {t('Get a Personalized Quote')}
               </a>
               <p className='text-center mt-4 font-label-md opacity-50 text-[12px]'>
-                {lang === 'de'
-                  ? 'Kostenlose Erstberatung inklusive Digital Smile Design'
-                  : 'Free initial consultation including Digital Smile Design'}
+                {t('Free initial consultation including Digital Smile Design')}
               </p>
             </div>
           </div>

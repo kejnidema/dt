@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
+import { useI18n } from '@/lib/i18n';
 
 interface Props {
   beforeImage: string;
@@ -19,10 +20,11 @@ export default function BeforeAfterSlider({
   beforeImage,
   afterImage,
   aspectRatio = 'tall',
-  beforeLabel = 'VORHER',
-  afterLabel = 'NACHHER',
+  beforeLabel,
+  afterLabel,
   initialPosition = 50,
 }: Props) {
+  const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(initialPosition);
 
@@ -57,11 +59,11 @@ export default function BeforeAfterSlider({
         <div className="absolute inset-0">
           <img
             src={afterImage}
-            alt="After"
+            alt={t('After')}
             className="w-full h-full object-cover"
           />
           <div className="absolute bottom-4 right-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
-            {afterLabel}
+            {afterLabel ?? t('AFTER')}
           </div>
         </div>
 
@@ -72,12 +74,12 @@ export default function BeforeAfterSlider({
         >
           <img
             src={beforeImage}
-            alt="Before"
+            alt={t('Before')}
             className="w-full h-full object-cover"
             draggable={false}
           />
           <div className="absolute bottom-4 left-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
-            {beforeLabel}
+            {beforeLabel ?? t('BEFORE')}
           </div>
         </div>
 

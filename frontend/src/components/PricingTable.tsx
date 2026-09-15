@@ -1,3 +1,5 @@
+import { useI18n } from '@/lib/i18n';
+
 interface PricingRow {
   property: string;
   composite: string;
@@ -7,14 +9,11 @@ interface PricingRow {
 
 interface PricingTableProps {
   rows: PricingRow[];
-  lang: 'de' | 'en' | 'it' | 'sq';
 }
 
-export default function PricingTable({ rows, lang }: PricingTableProps) {
-  const headers =
-    lang === 'de'
-      ? ['Eigenschaft', 'Komposit', 'E-Max Veneer', 'Zirkonia']
-      : ['Property', 'Composite', 'E-Max Veneer', 'Zirconia'];
+export default function PricingTable({ rows }: PricingTableProps) {
+  const { t } = useI18n();
+  const headers = [t('Property'), t('Composite'), t('E-Max Veneer'), t('Zirconia')];
 
   return (
     <div className="overflow-x-auto">
