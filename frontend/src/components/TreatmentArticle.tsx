@@ -41,7 +41,8 @@ export interface TreatmentArticleContent {
   calloutText: string;
   compareTitle: string;
   compareIntro: string;
-  compare: { id: string; tag: string; title: string; text: string }[];
+  /** Cards link to the price item `id`; `priceText` replaces its listed price */
+  compare: { id: string; tag: string; title: string; text: string; priceText?: string }[];
   fitTitle: string;
   fitIntro: string;
   fit: string[];
@@ -274,6 +275,7 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
             <div className="bg-primary text-on-primary rounded-lg p-6">
               <p className="text-[13px] uppercase tracking-wider text-white/70">{c.priceTitle}</p>
               <p className="font-headline-md text-[28px] leading-tight mt-2">{item ? formatPrice(item.price, lang) : ''}</p>
+              {item?.unit && <p className="text-[13px] text-white/70 mt-1">{item.unit[lang]}</p>}
               <p className="flex items-center gap-2 text-[14px] text-aqua mt-3">
                 <span className="material-symbols-outlined text-[18px]">check_circle</span>
                 {c.priceNote}
@@ -321,7 +323,7 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
               const isCurrent = option.id === itemId;
               return (
                 <Link
-                  key={option.id}
+                  key={option.title}
                   to={treatmentHref(option.id)}
                   className={`group bg-white border rounded-md p-8 flex flex-col hover:shadow-lg transition-all duration-300 ${
                     isCurrent ? 'border-primary' : 'border-outline-variant hover:border-primary/40'
@@ -337,7 +339,11 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
                   <h3 className="font-headline-sm text-headline-sm text-primary mb-3">{option.title}</h3>
                   <p className="text-[15px] text-on-surface-variant leading-relaxed mb-6">{option.text}</p>
                   <div className="mt-auto pt-4 border-t border-outline-variant">
-                    <ItemPrice item={findItem(option.id)} lang={lang} />
+                    {option.priceText ? (
+                      <span className="font-headline-md text-[22px] leading-none text-primary">{option.priceText}</span>
+                    ) : (
+                      <ItemPrice item={findItem(option.id)} lang={lang} />
+                    )}
                   </div>
                 </Link>
               );
@@ -370,7 +376,9 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
             <h2 className="font-headline-md text-headline-md text-primary mb-4">{c.stepsTitle}</h2>
             <p className="text-on-surface-variant">{c.stepsIntro}</p>
           </div>
-          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${c.steps.length === 6 ? 'lg:grid-cols-3' : 'lg:grid-cols-5'}`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${
+            c.steps.length === 6 ? 'lg:grid-cols-3' : c.steps.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'
+          }`}>
             {c.steps.map((step, index) => (
               <div key={step.title} className="bg-white border border-outline-variant rounded-md p-6">
                 <span className="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-semibold mb-4">

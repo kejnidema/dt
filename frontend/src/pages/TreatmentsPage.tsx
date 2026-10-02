@@ -123,8 +123,10 @@ const cardImages: Record<string, string | undefined> = {
   whitening: images.beforeAfterEdited[1],
   'implant-megagen': images.surgery[4],
   'all-on-4': images.beforeAfterEdited[0],
+  'implant-bridge': images.surgery[9],
   'all-on-6': images.surgery[5],
   'sinus-lift': images.clinicGallery[3],
+  'bone-graft': images.surgery[13],
   'implant-zygomatic': images.surgery[7],
   'implant-pterygoid': images.surgery[8],
   scaling: images.clinicGallery[1],
@@ -132,6 +134,10 @@ const cardImages: Record<string, string | undefined> = {
   'filling-3': images.surgery[11],
   'oral-surgery': images.surgery[12],
   denture: images.surgery[6],
+  'dental-exam': images.surgery[3],
+  'ct-scan': images.clinicGallery[2],
+  'root-canal': images.surgery[14],
+  aligners: images.results[5]?.[0],
 };
 
 const cardLinks: Record<string, string> = {

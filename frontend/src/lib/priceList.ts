@@ -23,6 +23,8 @@ export type PriceGroupId =
   | 'fillings'
   | 'crowns'
   | 'prosthetics'
+  | 'orthodontics'
+  | 'diagnostics'
   | 'surgery';
 
 export interface PriceGroup {
@@ -53,6 +55,7 @@ function oneTrip(days: string): Localized {
 }
 
 const oneVisit = oneTrip('1');
+const fullTreatment: Localized = { en: 'full treatment', de: 'gesamte Behandlung', it: 'trattamento completo', sq: 'trajtim i plotë' };
 const twoTrips: Localized = { en: '2 trips', de: '2 Reisen', it: '2 viaggi', sq: '2 udhëtime' };
 const implantWait: Localized = {
   en: '6 months between the two trips',
@@ -62,6 +65,56 @@ const implantWait: Localized = {
 };
 
 export const priceGroups: PriceGroup[] = [
+  {
+    id: 'diagnostics',
+    title: {
+      en: 'Examination & Diagnostics',
+      de: 'Untersuchung & Diagnostik',
+      it: 'Visita e diagnostica',
+      sq: 'Ekzaminim dhe diagnostikë',
+    },
+    items: [
+      {
+        id: 'dental-exam',
+        icon: 'stethoscope',
+        name: {
+          en: 'Dental examination',
+          de: 'Zahnärztliche Untersuchung',
+          it: 'Visita odontoiatrica',
+          sq: 'Ekzaminim dentar',
+        },
+        price: 'free',
+        description: {
+          en: 'A complete check of teeth, gums, bite, existing work and soft tissues, with your X-rays reviewed together. You leave with a written treatment plan and a detailed quote, with no obligation.',
+          de: 'Eine vollständige Kontrolle von Zähnen, Zahnfleisch, Biss, bestehenden Arbeiten und Weichgewebe, mit gemeinsamer Besprechung Ihrer Röntgenbilder. Sie erhalten einen schriftlichen Behandlungsplan und ein detailliertes Angebot, unverbindlich.',
+          it: 'Un controllo completo di denti, gengive, morso, lavori esistenti e tessuti molli, con le radiografie esaminate insieme. Esci con un piano di trattamento scritto e un preventivo dettagliato, senza impegno.',
+          sq: 'Kontroll i plotë i dhëmbëve, mishrave, kafshimit, punimeve ekzistuese dhe indeve të buta, me radiografitë të shqyrtuara bashkë. Largoheni me një plan trajtimi me shkrim dhe një ofertë të detajuar, pa asnjë detyrim.',
+        },
+        duration: { en: '30–45 min', de: '30–45 Min.', it: '30–45 min', sq: '30–45 min' },
+        visits: oneVisit,
+      },
+      {
+        id: 'ct-scan',
+        icon: 'view_in_ar',
+        name: {
+          en: '3D CT scan (CBCT)',
+          de: '3D-Röntgen (DVT)',
+          it: 'TAC 3D (CBCT)',
+          sq: 'Skanim 3D CT',
+        },
+        price: 'free',
+        unit: { en: 'with your treatment', de: 'im Rahmen Ihrer Behandlung', it: 'con il trattamento', sq: 'me trajtimin tuaj' },
+        description: {
+          en: 'A low-dose cone-beam 3D scan of bone, roots, nerves and sinuses, taken in under a minute. Used when it changes the plan: implants, difficult extractions and complex root canals. Free for patients treated with us.',
+          de: 'Ein niedrig dosierter 3D-Scan (digitale Volumentomographie) von Knochen, Wurzeln, Nerven und Kieferhöhlen, in weniger als einer Minute. Eingesetzt, wenn er den Plan verändert: Implantate, schwierige Extraktionen und komplexe Wurzelbehandlungen. Kostenlos für Patienten in Behandlung bei uns.',
+          it: 'Una scansione 3D cone-beam a basso dosaggio di osso, radici, nervi e seni, eseguita in meno di un minuto. Si usa quando cambia il piano: impianti, estrazioni difficili e cure canalari complesse. Gratuita per i pazienti in trattamento da noi.',
+          sq: 'Skanim 3D me rreze konike dhe dozë të ulët i kockës, rrënjëve, nervave dhe sinuseve, në më pak se një minutë. Përdoret kur ndryshon planin: implante, heqje të vështira dhe trajtime kanali komplekse. Falas për pacientët që trajtohen te ne.',
+        },
+        duration: { en: 'Under 1 min', de: 'Unter 1 Min.', it: 'Meno di 1 min', sq: 'Nën 1 min' },
+        visits: oneVisit,
+      },
+    ],
+  },
   {
     id: 'hygiene',
     title: {
@@ -169,6 +222,37 @@ export const priceGroups: PriceGroup[] = [
         healing: implantWait,
       },
       {
+        id: 'implant-bridge',
+        icon: 'linear_scale',
+        name: {
+          en: 'Implant-supported bridge',
+          de: 'Implantatgetragene Brücke',
+          it: 'Ponte su impianti',
+          sq: 'Urë e mbështetur nga implante',
+        },
+        price: 500,
+        unit: perImplant,
+        description: {
+          en: 'Replaces several missing teeth in a row with one fixed bridge carried by two or three MegaGen implants, without grinding down any healthy teeth. Three missing teeth usually need only two implants. The bridge itself is quoted separately, depending on material and number of teeth.',
+          de: 'Ersetzt mehrere nebeneinander fehlende Zähne durch eine feste Brücke auf zwei oder drei MegaGen-Implantaten, ohne gesunde Zähne zu beschleifen. Drei fehlende Zähne brauchen meist nur zwei Implantate. Die Brücke selbst wird je nach Material und Zahnzahl separat berechnet.',
+          it: 'Sostituisce più denti mancanti in fila con un unico ponte fisso sostenuto da due o tre impianti MegaGen, senza limare denti sani. Tre denti mancanti richiedono di solito solo due impianti. Il ponte è quotato a parte, in base al materiale e al numero di denti.',
+          sq: 'Zëvendëson disa dhëmbë të munguar me radhë me një urë fikse të mbajtur nga dy ose tre implante MegaGen, pa gdhendur asnjë dhëmb të shëndetshëm. Tre dhëmbë të munguar zakonisht kërkojnë vetëm dy implante. Ura llogaritet veçmas, sipas materialit dhe numrit të dhëmbëve.',
+        },
+        duration: {
+          en: '1–2 hours for 2–3 implants',
+          de: '1–2 Stunden für 2–3 Implantate',
+          it: '1–2 ore per 2–3 impianti',
+          sq: '1–2 orë për 2–3 implante',
+        },
+        visits: {
+          en: '2 trips: implants, then bridge',
+          de: '2 Reisen: Implantate, dann Brücke',
+          it: '2 viaggi: impianti, poi ponte',
+          sq: '2 udhëtime: implantet, pastaj ura',
+        },
+        healing: implantWait,
+      },
+      {
         id: 'all-on-4',
         icon: 'view_week',
         name: {
@@ -245,6 +329,31 @@ export const priceGroups: PriceGroup[] = [
           sq: '8 muaj ndërmjet dy udhëtimeve',
         },
       },
+      {
+        id: 'bone-graft',
+        icon: 'add_box',
+        name: {
+          en: 'Bone grafting',
+          de: 'Knochenaufbau',
+          it: 'Innesto osseo',
+          sq: 'Shtim kocke',
+        },
+        price: 500,
+        description: {
+          en: 'Rebuilds jawbone that has shrunk after tooth loss, using artificial or human bone graft under a resorbable membrane, so an implant has a solid base. Small grafts are done together with the implant; larger ones heal first and the implant follows.',
+          de: 'Baut Kieferknochen wieder auf, der nach Zahnverlust geschwunden ist – mit künstlichem oder humanem Knochenersatz unter einer resorbierbaren Membran –, damit ein Implantat festen Halt hat. Kleine Aufbauten erfolgen zusammen mit dem Implantat, größere heilen zuerst ein.',
+          it: 'Ricostruisce l’osso mascellare che si è ridotto dopo la perdita di un dente, con innesto osseo artificiale o umano sotto una membrana riassorbibile, così l’impianto ha una base solida. Gli innesti piccoli si fanno insieme all’impianto; quelli più grandi guariscono prima.',
+          sq: 'Rindërton kockën e nofullës që është tërhequr pas humbjes së dhëmbit, me kockë artificiale ose humane nën një membranë të tretshme, që implanti të ketë një bazë të fortë. Shtimet e vogla bëhen bashkë me implantin; të mëdhatë shërohen të parat.',
+        },
+        duration: { en: '45–60 min per area', de: '45–60 Min. pro Bereich', it: '45–60 min per zona', sq: '45–60 min për zonë' },
+        visits: twoTrips,
+        healing: {
+          en: '6–8 months between the two trips',
+          de: '6–8 Monate zwischen den beiden Reisen',
+          it: '6–8 mesi tra i due viaggi',
+          sq: '6–8 muaj ndërmjet dy udhëtimeve',
+        },
+      },
     ],
   },
   {
@@ -314,10 +423,10 @@ export const priceGroups: PriceGroup[] = [
   {
     id: 'fillings',
     title: {
-      en: 'Fillings',
-      de: 'Füllungen',
-      it: 'Otturazioni',
-      sq: 'Mbushje',
+      en: 'Fillings & Root Canals',
+      de: 'Füllungen & Wurzelbehandlung',
+      it: 'Otturazioni e devitalizzazioni',
+      sq: 'Mbushje dhe trajtim kanali',
     },
     items: [
       {
@@ -360,6 +469,26 @@ export const priceGroups: PriceGroup[] = [
         duration: { en: '45–60 min', de: '45–60 Min.', it: '45–60 min', sq: '45–60 min' },
         visits: oneVisit,
       },
+      {
+        id: 'root-canal',
+        icon: 'dentistry',
+        name: {
+          en: 'Root canal treatment',
+          de: 'Wurzelkanalbehandlung',
+          it: 'Cura canalare (devitalizzazione)',
+          sq: 'Trajtim kanali',
+        },
+        price: 100,
+        unit: perTooth,
+        description: {
+          en: 'Saves an infected or inflamed tooth by removing the damaged pulp, then cleaning, shaping and sealing the canals under local anaesthesia. Back teeth usually need a crown afterwards to protect them.',
+          de: 'Rettet einen entzündeten oder infizierten Zahn: Das geschädigte Nervgewebe wird entfernt, die Kanäle unter örtlicher Betäubung gereinigt, aufbereitet und versiegelt. Seitenzähne brauchen danach meist eine Krone zum Schutz.',
+          it: 'Salva un dente infiammato o infetto rimuovendo la polpa danneggiata, poi pulendo, sagomando e sigillando i canali in anestesia locale. I denti posteriori di solito hanno bisogno di una corona dopo, per proteggerli.',
+          sq: 'Shpëton një dhëmb të infektuar ose të inflamuar duke hequr pulpën e dëmtuar, pastaj duke pastruar, formësuar dhe mbyllur kanalet me anestezi lokale. Dhëmbët e pasmë zakonisht kanë nevojë më pas për një kurorë që t’i mbrojë.',
+        },
+        duration: { en: '60–90 min', de: '60–90 Min.', it: '60–90 min', sq: '60–90 min' },
+        visits: oneTrip('1–2'),
+      },
     ],
   },
   {
@@ -396,56 +525,6 @@ export const priceGroups: PriceGroup[] = [
         },
         duration: { en: '3 appointments', de: '3 Termine', it: '3 appuntamenti', sq: '3 seanca' },
         visits: oneTrip('3–5'),
-      },
-      {
-        id: 'crown-porcelain',
-        icon: 'layers',
-        name: {
-          en: 'Porcelain crown',
-          de: 'Porzellankrone',
-          it: 'Corona in porcellana',
-          sq: 'Kurorë porcelani',
-        },
-        price: 100,
-        unit: perTooth,
-        description: {
-          en: 'Metal-ceramic crown: a strong metal framework covered with tooth-coloured porcelain. A durable, economical choice, especially for back teeth. A temporary crown is worn while the final one is made.',
-          de: 'Metallkeramikkrone: stabiles Metallgerüst mit zahnfarbener Keramikverblendung. Langlebig und preiswert, besonders für Seitenzähne. Bis zur Fertigstellung tragen Sie ein Provisorium.',
-          it: 'Corona in metallo-ceramica: struttura metallica resistente rivestita di porcellana del colore del dente. Scelta durevole ed economica, soprattutto per i denti posteriori. Nell’attesa si porta una corona provvisoria.',
-          sq: 'Kurorë metal-qeramike: skelet i fortë metalik i veshur me porcelan me ngjyrën e dhëmbit. Zgjedhje e qëndrueshme dhe ekonomike, sidomos për dhëmbët e pasmë. Gjatë përgatitjes mbani një kurorë të përkohshme.',
-        },
-        duration: {
-          en: '60–90 min preparation',
-          de: '60–90 Min. Präparation',
-          it: '60–90 min di preparazione',
-          sq: '60–90 min përgatitje',
-        },
-        visits: oneTrip('5'),
-      },
-      {
-        id: 'crown-zirconia',
-        icon: 'shield',
-        name: {
-          en: 'Zirconia crown',
-          de: 'Zirkonkrone',
-          it: 'Corona in zirconia',
-          sq: 'Kurorë zirkoni',
-        },
-        price: 200,
-        unit: perTooth,
-        description: {
-          en: 'Metal-free crown milled from high-strength zirconia. Extremely durable and biocompatible, with a natural white appearance and no dark line at the gum. Suitable for front and back teeth.',
-          de: 'Metallfreie Krone aus hochfestem Zirkonoxid. Extrem belastbar und biokompatibel, mit natürlich weißer Optik ohne dunklen Rand am Zahnfleisch. Für Front- und Seitenzähne geeignet.',
-          it: 'Corona senza metallo fresata in zirconia ad alta resistenza. Estremamente durevole e biocompatibile, con un aspetto bianco naturale e senza bordo scuro sulla gengiva. Adatta a denti anteriori e posteriori.',
-          sq: 'Kurorë pa metal e frezuar nga zirkon me rezistencë të lartë. Shumë e qëndrueshme dhe biokompatibile, me pamje të bardhë natyrale dhe pa vijë të errët te mishi. E përshtatshme për dhëmbët e përparmë dhe të pasmë.',
-        },
-        duration: {
-          en: '60–90 min preparation',
-          de: '60–90 Min. Präparation',
-          it: '60–90 min di preparazione',
-          sq: '60–90 min përgatitje',
-        },
-        visits: oneTrip('3'),
       },
       {
         id: 'crown-emax',
@@ -538,12 +617,62 @@ export const priceGroups: PriceGroup[] = [
   {
     id: 'prosthetics',
     title: {
-      en: 'Removable Prosthetics',
-      de: 'Herausnehmbarer Zahnersatz',
-      it: 'Protesi mobili',
-      sq: 'Proteza të lëvizshme',
+      en: 'Crowns & Dentures',
+      de: 'Kronen & Prothesen',
+      it: 'Corone e protesi',
+      sq: 'Kurora dhe proteza',
     },
     items: [
+      {
+        id: 'crown-zirconia',
+        icon: 'shield',
+        name: {
+          en: 'Zirconia crown',
+          de: 'Zirkonkrone',
+          it: 'Corona in zirconia',
+          sq: 'Kurorë zirkoni',
+        },
+        price: 200,
+        unit: perTooth,
+        description: {
+          en: 'Metal-free crown milled from high-strength zirconia. Extremely durable and biocompatible, with a natural white appearance and no dark line at the gum. Suitable for front and back teeth.',
+          de: 'Metallfreie Krone aus hochfestem Zirkonoxid. Extrem belastbar und biokompatibel, mit natürlich weißer Optik ohne dunklen Rand am Zahnfleisch. Für Front- und Seitenzähne geeignet.',
+          it: 'Corona senza metallo fresata in zirconia ad alta resistenza. Estremamente durevole e biocompatibile, con un aspetto bianco naturale e senza bordo scuro sulla gengiva. Adatta a denti anteriori e posteriori.',
+          sq: 'Kurorë pa metal e frezuar nga zirkon me rezistencë të lartë. Shumë e qëndrueshme dhe biokompatibile, me pamje të bardhë natyrale dhe pa vijë të errët te mishi. E përshtatshme për dhëmbët e përparmë dhe të pasmë.',
+        },
+        duration: {
+          en: '60–90 min preparation',
+          de: '60–90 Min. Präparation',
+          it: '60–90 min di preparazione',
+          sq: '60–90 min përgatitje',
+        },
+        visits: oneTrip('3'),
+      },
+      {
+        id: 'crown-porcelain',
+        icon: 'layers',
+        name: {
+          en: 'Porcelain-metal crown',
+          de: 'Metallkeramikkrone',
+          it: 'Corona in metallo-ceramica',
+          sq: 'Kurorë porcelan-metal',
+        },
+        price: 100,
+        unit: perTooth,
+        description: {
+          en: 'Metal-ceramic crown: a strong metal framework covered with tooth-coloured porcelain. A durable, economical choice, especially for back teeth. A temporary crown is worn while the final one is made.',
+          de: 'Metallkeramikkrone: stabiles Metallgerüst mit zahnfarbener Keramikverblendung. Langlebig und preiswert, besonders für Seitenzähne. Bis zur Fertigstellung tragen Sie ein Provisorium.',
+          it: 'Corona in metallo-ceramica: struttura metallica resistente rivestita di porcellana del colore del dente. Scelta durevole ed economica, soprattutto per i denti posteriori. Nell’attesa si porta una corona provvisoria.',
+          sq: 'Kurorë metal-qeramike: skelet i fortë metalik i veshur me porcelan me ngjyrën e dhëmbit. Zgjedhje e qëndrueshme dhe ekonomike, sidomos për dhëmbët e pasmë. Gjatë përgatitjes mbani një kurorë të përkohshme.',
+        },
+        duration: {
+          en: '60–90 min preparation',
+          de: '60–90 Min. Präparation',
+          it: '60–90 min di preparazione',
+          sq: '60–90 min përgatitje',
+        },
+        visits: oneTrip('5'),
+      },
       {
         id: 'denture',
         icon: 'sentiment_satisfied',
@@ -578,6 +707,38 @@ export const priceGroups: PriceGroup[] = [
     ],
   },
   {
+    id: 'orthodontics',
+    title: {
+      en: 'Orthodontics',
+      de: 'Kieferorthopädie',
+      it: 'Ortodonzia',
+      sq: 'Ortodonci',
+    },
+    items: [
+      {
+        id: 'aligners',
+        icon: 'align_horizontal_center',
+        name: {
+          en: 'Invisible aligners',
+          de: 'Unsichtbare Aligner',
+          it: 'Allineatori invisibili',
+          sq: 'Aligner të padukshëm',
+        },
+        price: 1700,
+        unit: fullTreatment,
+        description: {
+          en: 'Clear, removable trays that straighten teeth step by step. Each aligner is worn for about two weeks, 20–22 hours a day. The movement plan is shown to you and approved before anything is made.',
+          de: 'Transparente, herausnehmbare Schienen, die die Zähne Schritt für Schritt begradigen. Jeder Aligner wird etwa zwei Wochen lang 20–22 Stunden am Tag getragen. Der Bewegungsplan wird Ihnen gezeigt und vor der Herstellung von Ihnen freigegeben.',
+          it: 'Mascherine trasparenti e rimovibili che raddrizzano i denti passo dopo passo. Ogni allineatore si porta per circa due settimane, 20–22 ore al giorno. Il piano dei movimenti ti viene mostrato e approvato prima di realizzare qualsiasi cosa.',
+          sq: 'Shina transparente të lëvizshme që i drejtojnë dhëmbët hap pas hapi. Çdo aligner mbahet rreth dy javë, 20–22 orë në ditë. Plani i lëvizjeve ju tregohet dhe e miratoni para se të prodhohet çdo gjë.',
+        },
+        duration: { en: 'Several months, case-dependent', de: 'Mehrere Monate, je nach Fall', it: 'Alcuni mesi, a seconda del caso', sq: 'Disa muaj, sipas rastit' },
+        visits: { en: 'Start visit + check-ups', de: 'Startbesuch + Kontrollen', it: 'Visita iniziale + controlli', sq: 'Vizitë fillestare + kontrolle' },
+        healing: { en: '~2 weeks per aligner', de: '~2 Wochen pro Aligner', it: '~2 settimane per allineatore', sq: '~2 javë për çdo aligner' },
+      },
+    ],
+  },
+  {
     id: 'surgery',
     title: {
       en: 'Oral Surgery',
@@ -590,17 +751,17 @@ export const priceGroups: PriceGroup[] = [
         id: 'oral-surgery',
         icon: 'medical_services',
         name: {
-          en: 'Surgical procedures',
-          de: 'Chirurgische Eingriffe',
-          it: 'Interventi chirurgici',
-          sq: 'Ndërhyrje kirurgjikale të ndryshme',
+          en: 'Tooth extraction & oral surgery',
+          de: 'Zahnextraktion & Oralchirurgie',
+          it: 'Estrazioni e chirurgia orale',
+          sq: 'Heqje dhëmbi dhe kirurgji orale',
         },
         price: [100, 300],
         description: {
-          en: 'Including wisdom tooth removal, cyst removal and other minor oral surgery, performed under local anaesthesia. The exact price depends on complexity and is confirmed after an X-ray or 3D scan.',
-          de: 'Unter anderem Weisheitszahnentfernung, Zystenentfernung und weitere kleine oralchirurgische Eingriffe unter örtlicher Betäubung. Der genaue Preis hängt vom Aufwand ab und wird nach Röntgen oder 3D-Scan bestätigt.',
-          it: 'Tra cui estrazione dei denti del giudizio, rimozione di cisti e altri piccoli interventi di chirurgia orale, in anestesia locale. Il prezzo esatto dipende dalla complessità e viene confermato dopo una radiografia o una TAC 3D.',
-          sq: 'Përfshin heqjen e dhëmballëve të pjekurisë, heqjen e kisteve dhe ndërhyrje të tjera të vogla kirurgjikale, me anestezi lokale. Çmimi i saktë varet nga kompleksiteti dhe konfirmohet pas grafisë ose skanimit 3D.',
+          en: 'Simple and surgical tooth extractions, wisdom tooth removal, cyst removal and other minor oral surgery, performed under local anaesthesia. The exact price depends on complexity and is confirmed after an X-ray or 3D scan.',
+          de: 'Einfache und chirurgische Zahnextraktionen, Weisheitszahnentfernung, Zystenentfernung und weitere kleine oralchirurgische Eingriffe unter örtlicher Betäubung. Der genaue Preis hängt vom Aufwand ab und wird nach Röntgen oder 3D-Scan bestätigt.',
+          it: 'Estrazioni semplici e chirurgiche, estrazione dei denti del giudizio, rimozione di cisti e altri piccoli interventi di chirurgia orale, in anestesia locale. Il prezzo esatto dipende dalla complessità e viene confermato dopo una radiografia o una TAC 3D.',
+          sq: 'Heqje të thjeshta dhe kirurgjikale të dhëmbëve, heqjen e dhëmballëve të pjekurisë, heqjen e kisteve dhe ndërhyrje të tjera të vogla kirurgjikale, me anestezi lokale. Çmimi i saktë varet nga kompleksiteti dhe konfirmohet pas grafisë ose skanimit 3D.',
         },
         duration: { en: '30–90 min', de: '30–90 Min.', it: '30–90 min', sq: '30–90 min' },
         visits: oneTrip('1–2'),
@@ -627,13 +788,19 @@ export const menuSummaries: Record<string, Localized> = {
   'implant-megagen': { en: 'Replaces a single tooth', de: 'Ersetzt einen einzelnen Zahn', it: 'Sostituisce un singolo dente', sq: 'Zëvendëson një dhëmb' },
   'all-on-4': { en: 'Fixed jaw on 4 implants', de: 'Fester Kiefer auf 4 Implantaten', it: 'Arcata fissa su 4 impianti', sq: 'Nofull fikse me 4 implante' },
   'all-on-6': { en: 'Fixed jaw on 6 implants', de: 'Fester Kiefer auf 6 Implantaten', it: 'Arcata fissa su 6 impianti', sq: 'Nofull fikse me 6 implante' },
-  'sinus-lift': { en: 'Adds bone for implants', de: 'Knochenaufbau für Implantate', it: 'Aggiunge osso per impianti', sq: 'Shton kockë për implante' },
+  'implant-bridge': { en: 'Several teeth on 2–3 implants', de: 'Mehrere Zähne auf 2–3 Implantaten', it: 'Più denti su 2–3 impianti', sq: 'Disa dhëmbë mbi 2–3 implante' },
+  'sinus-lift': { en: 'Bone height in the upper jaw', de: 'Knochenhöhe im Oberkiefer', it: 'Altezza ossea nell’arcata superiore', sq: 'Lartësi kocke në nofullën e sipërme' },
+  'bone-graft': { en: 'Rebuilds bone for implants', de: 'Knochenaufbau für Implantate', it: 'Ricostruisce l’osso per impianti', sq: 'Rindërton kockën për implante' },
   'implant-zygomatic': { en: 'For severe bone loss', de: 'Bei starkem Knochenschwund', it: 'Per grave perdita ossea', sq: 'Për humbje të rëndë kocke' },
   'implant-pterygoid': { en: 'Back teeth without sinus lift', de: 'Seitenzähne ohne Sinuslift', it: 'Denti posteriori senza rialzo', sq: 'Dhëmbët e pasmë pa sinuslift' },
   scaling: { en: 'Tartar removal & polish', de: 'Zahnstein entfernen & polieren', it: 'Rimozione tartaro e lucidatura', sq: 'Heqje gurëzash dhe lustrim' },
   'filling-2': { en: 'Medium cavity, one visit', de: 'Mittlere Karies, ein Termin', it: 'Carie media, una seduta', sq: 'Kavitet mesatar, një vizitë' },
   'filling-3': { en: 'Deep cavity near the nerve', de: 'Tiefe Karies nahe am Nerv', it: 'Carie profonda vicino al nervo', sq: 'Kavitet i thellë afër nervit' },
-  'oral-surgery': { en: 'Wisdom teeth, cysts & more', de: 'Weisheitszähne, Zysten u. a.', it: 'Denti del giudizio, cisti e altro', sq: 'Dhëmballë pjekurie, kiste etj.' },
+  'oral-surgery': { en: 'Extractions, wisdom teeth & more', de: 'Extraktionen, Weisheitszähne u. a.', it: 'Estrazioni, denti del giudizio e altro', sq: 'Heqje dhëmbësh, dhëmballë pjekurie etj.' },
+  'dental-exam': { en: 'Full check & written plan', de: 'Komplette Kontrolle & Plan', it: 'Controllo completo e piano scritto', sq: 'Kontroll i plotë dhe plan me shkrim' },
+  'ct-scan': { en: '3D view of bone & nerves', de: '3D-Bild von Knochen & Nerven', it: 'Vista 3D di osso e nervi', sq: 'Pamje 3D e kockës dhe nervave' },
+  'root-canal': { en: 'Saves an infected tooth', de: 'Rettet einen entzündeten Zahn', it: 'Salva un dente infetto', sq: 'Shpëton një dhëmb të infektuar' },
+  aligners: { en: 'Clear trays, straight teeth', de: 'Transparente Schienen', it: 'Mascherine trasparenti', sq: 'Shina transparente, dhëmbë të drejtë' },
   denture: { en: 'Removable, ready in 7 days', de: 'Herausnehmbar, in 7 Tagen fertig', it: 'Mobile, pronta in 7 giorni', sq: 'E lëvizshme, gati për 7 ditë' },
 };
 
@@ -661,13 +828,13 @@ export const priceCategories: PriceCategory[] = [
     id: 'general',
     icon: 'medical_services',
     title: { en: 'General Treatments', de: 'Allgemeine Behandlungen', it: 'Trattamenti generali', sq: 'Trajtime të përgjithshme' },
-    groupIds: ['hygiene', 'fillings', 'surgery'],
+    groupIds: ['diagnostics', 'hygiene', 'fillings', 'surgery'],
   },
   {
     id: 'prosthetics',
     icon: 'layers',
     title: { en: 'Prosthetic Treatments', de: 'Prothetik', it: 'Trattamenti protesici', sq: 'Trajtime protetike' },
-    groupIds: ['prosthetics'],
+    groupIds: ['prosthetics', 'orthodontics'],
   },
 ];
 
@@ -691,6 +858,27 @@ export function lowestPrice(items: PriceItem[]) {
 /** Price items that have their own rebuilt treatment page */
 export const treatmentPages: Record<string, string> = {
   'hollywood-smile': '/treatments/hollywood-smile',
+  'crown-emax': '/treatments/emax-veneers',
+  'veneer-composite': '/treatments/composite-veneers',
+  whitening: '/treatments/whitening',
+  'gum-contouring': '/treatments/gum-contouring',
+  'implant-megagen': '/treatments/single-implant',
+  'implant-bridge': '/treatments/implant-bridge',
+  'all-on-4': '/treatments/all-on-4',
+  'all-on-6': '/treatments/all-on-6',
+  'sinus-lift': '/treatments/sinus-lift',
+  'bone-graft': '/treatments/bone-graft',
+  'ct-scan': '/treatments/3d-ct-scan',
+  'oral-surgery': '/treatments/tooth-extraction',
+  'filling-2': '/treatments/composite-fillings',
+  'filling-3': '/treatments/composite-fillings',
+  'root-canal': '/treatments/root-canal',
+  'crown-zirconia': '/treatments/zirconia-crown',
+  'crown-porcelain': '/treatments/porcelain-crown',
+  denture: '/treatments/dentures',
+  aligners: '/treatments/invisible-aligners',
+  'dental-exam': '/treatments/dental-exam',
+  scaling: '/treatments/teeth-cleaning',
 };
 
 export function treatmentHref(itemId: string) {
