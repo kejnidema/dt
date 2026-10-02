@@ -15,7 +15,7 @@ export default function JourneyPage() {
       processTitle: 'Ihre 5-Schritte Transformation',
       step1Title: 'Digitale Vorberatung',
       step1Desc:
-        'Senden Sie uns Fotos Ihres Lächelns bequem per WhatsApp. Unsere Experten erstellen einen ersten Behandlungsplan — völlig kostenfrei.',
+        'Senden Sie uns Fotos Ihres Lächelns und ein Panorama-Röntgenbild bequem per WhatsApp. Unsere Experten erstellen Ihren Behandlungsplan samt Preis — völlig kostenfrei.',
       step2Title: 'Reiseplanung & Ankunft',
       step2Desc:
         'Wir unterstützen bei der Flugbuchung. Bei Ihrer Ankunft erwartet Sie unser VIP-Transfer direkt zum Hotel oder in die Klinik.',
@@ -54,7 +54,7 @@ export default function JourneyPage() {
       processTitle: 'Your 5-Step Transformation',
       step1Title: 'Digital Pre-Consultation',
       step1Desc:
-        'Send us photos of your smile via WhatsApp. Our experts create an initial treatment plan — completely free.',
+        'Send us photos of your smile and a panoramic X-ray via WhatsApp. Our experts create your treatment plan and price — completely free.',
       step2Title: 'Travel Planning & Arrival',
       step2Desc:
         'We help with flight booking. Upon arrival, our VIP transfer takes you directly to the hotel or clinic.',
@@ -84,6 +84,33 @@ export default function JourneyPage() {
       transferDesc:
         'Our private driver meets you at the airport and takes you safely to all appointments.',
       faqTitle: 'Frequently Asked Questions',
+    },
+  });
+
+  const xray = localized({
+    de: {
+      label: 'Vor Ihrer Reise',
+      title: 'Wir benötigen ein Panorama-Röntgenbild (OPG)',
+      text: 'Bitte senden Sie uns vor der Reise ein aktuelles Panorama-Röntgenbild Ihrer Zähne per WhatsApp oder E-Mail. Damit können wir Diagnose und Preis Ihrer Behandlung mit ca. 90 % Genauigkeit bestimmen, bevor Sie einen Flug buchen.',
+      points: ['Diagnose zu ca. 90 % genau', 'Verlässlicher Preis vor der Reise', 'Bei jedem Zahnarzt oder Röntgenzentrum erhältlich'],
+    },
+    en: {
+      label: 'Before you travel',
+      title: 'We need one panoramic X-ray (OPG)',
+      text: 'Please send us a recent panoramic X-ray of your teeth via WhatsApp or email before you travel. It allows us to determine your diagnosis and the price of your treatment with about 90% accuracy, before you book a flight.',
+      points: ['Diagnosis about 90% accurate', 'Reliable price before you travel', 'Available at any dentist or X-ray centre'],
+    },
+    it: {
+      label: 'Prima di partire',
+      title: 'Ci serve una radiografia panoramica (OPT)',
+      text: 'Prima di partire, inviaci via WhatsApp o email una radiografia panoramica recente dei tuoi denti. Ci permette di definire la diagnosi e il prezzo del trattamento con circa il 90% di precisione, prima che tu prenoti il volo.',
+      points: ['Diagnosi precisa al 90% circa', 'Prezzo affidabile prima del viaggio', 'Disponibile da qualsiasi dentista o centro radiologico'],
+    },
+    sq: {
+      label: 'Para udhëtimit',
+      title: 'Na nevojitet një grafi panoramike (OPG)',
+      text: 'Ju lutemi na dërgoni një grafi panoramike të fundit të dhëmbëve përmes WhatsApp ose email-it para udhëtimit. Ajo na lejon të përcaktojmë diagnozën dhe çmimin e trajtimit me rreth 90% saktësi, para se të rezervoni fluturimin.',
+      points: ['Diagnozë me rreth 90% saktësi', 'Çmim i besueshëm para udhëtimit', 'Bëhet te çdo dentist ose qendër radiologjie'],
     },
   });
 
@@ -125,6 +152,32 @@ export default function JourneyPage() {
           </div>
         </div>
       </header>
+
+      {/* Panoramic X-ray requirement */}
+      <section className="py-16 bg-surface-container-low">
+        <div className="max-w-[1000px] mx-auto px-gutter">
+          <div className="bg-white border border-outline-variant rounded-md p-8 md:p-10 grid md:grid-cols-[auto_1fr] gap-6 items-start">
+            <span className="w-14 h-14 rounded-md bg-primary text-white flex items-center justify-center">
+              <span className="material-symbols-outlined text-[28px]">radiology</span>
+            </span>
+            <div>
+              <span className="font-label-md text-label-md uppercase tracking-[0.12em] text-on-surface-variant">
+                {xray.label}
+              </span>
+              <h2 className="font-headline-md text-headline-md text-primary mt-2 mb-4">{xray.title}</h2>
+              <p className="text-on-surface-variant leading-relaxed mb-5">{xray.text}</p>
+              <ul className="grid sm:grid-cols-3 gap-3 text-[14px]">
+                {xray.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2 bg-surface-container-low rounded-sm px-3 py-2.5">
+                    <span className="material-symbols-outlined text-[18px] text-primary">check</span>
+                    <span className="text-primary">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Timeline */}
       <section className="py-section-padding bg-surface-bright">

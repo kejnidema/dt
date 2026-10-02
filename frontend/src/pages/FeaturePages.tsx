@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import FaqAccordion from '@/components/FaqAccordion';
 import Calculator from '@/components/Calculator';
+import PriceList from '@/components/PriceList';
 import { images } from '@/lib/images';
 
 function Hero({ title, subtitle, image }: { title: string; subtitle: string; image?: string }) {
@@ -25,17 +26,7 @@ export function PricingPage() {
         subtitle={tr('Calculate Tirana costs versus German averages — no hidden fees.')}
       />
       <Calculator />
-      <section className="pb-section-padding bg-surface-container-low">
-        <div className="max-w-[1200px] mx-auto px-gutter text-center">
-          <Link
-            to="/services"
-            className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-sm font-label-md hover:opacity-95 transition-opacity"
-          >
-            {tr('View All Service Prices')}
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </Link>
-        </div>
-      </section>
+      <PriceList />
       <section className="py-section-padding bg-surface">
         <div className="max-w-[1200px] mx-auto px-gutter grid md:grid-cols-3 gap-8">
           {[
@@ -59,14 +50,20 @@ export function AllOnXPage() {
   const { localized, t: tr } = useI18n();
   const tiers = localized({
     de: [
-      ['All-on-4 Standard', '4 Implantate + feste Brücke', 'ab 5.900 €'],
-      ['All-on-6 Premium', '6 Implantate + Zirkonia-Brücke', 'ab 7.900 €'],
-      ['Full Mouth Package', 'Ober- und Unterkiefer komplett', 'ab 13.900 €'],
+      ['All-on-4', 'Komplettpaket: 4 Implantate + feste Brücke, pro Kiefer', '4.500 €'],
+      ['All-on-6', 'Komplettpaket: 6 Implantate + feste Brücke, pro Kiefer', '5.500 €'],
     ],
     en: [
-      ['All-on-4 Standard', '4 implants + fixed bridge', 'from €5,900'],
-      ['All-on-6 Premium', '6 implants + zirconia bridge', 'from €7,900'],
-      ['Full Mouth Package', 'Complete upper and lower jaw', 'from €13,900'],
+      ['All-on-4', 'Full package: 4 implants + fixed bridge, per jaw', '€4,500'],
+      ['All-on-6', 'Full package: 6 implants + fixed bridge, per jaw', '€5,500'],
+    ],
+    it: [
+      ['All-on-4', 'Pacchetto completo: 4 impianti + ponte fisso, per arcata', '4.500 €'],
+      ['All-on-6', 'Pacchetto completo: 6 impianti + ponte fisso, per arcata', '5.500 €'],
+    ],
+    sq: [
+      ['All-on-4', 'Paketë e plotë: 4 implante + urë fikse, për nofull', '4.500 €'],
+      ['All-on-6', 'Paketë e plotë: 6 implante + urë fikse, për nofull', '5.500 €'],
     ],
   });
   const itinerary = localized({
@@ -82,7 +79,7 @@ export function AllOnXPage() {
         image={images.clinic}
       />
       <section className="py-section-padding bg-surface-container-low">
-        <div className="max-w-[1200px] mx-auto px-gutter grid md:grid-cols-3 gap-8">
+        <div className="max-w-[900px] mx-auto px-gutter grid md:grid-cols-2 gap-8">
           {tiers.map(([name, desc, price]) => (
             <div key={name} className="bg-white rounded-xl border border-outline-variant p-8">
               <h3 className="font-headline-sm text-headline-sm text-primary mb-2">{name}</h3>

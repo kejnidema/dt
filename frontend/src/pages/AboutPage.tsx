@@ -35,7 +35,7 @@ export default function AboutPage() {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(0, 6, 19, 0.05) 0%, rgba(0, 6, 19, 0.35) 25%, #000613 40%, #000613 100%)',
+              'linear-gradient(to bottom, rgba(19, 28, 21, 0.05) 0%, rgba(19, 28, 21, 0.35) 25%, #131c15 40%, #131c15 100%)',
           }}
         />
         <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-primary via-primary/90 to-transparent backdrop-blur-[2px]" />

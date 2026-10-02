@@ -50,7 +50,7 @@ export default function Footer() {
         <div className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-on-primary/10 flex items-center justify-center">
-              <span className="material-symbols-outlined text-secondary-fixed text-lg">tooth</span>
+              <span className="material-symbols-outlined text-secondary-fixed text-lg">dentistry</span>
             </div>
             <span className="font-headline-md text-headline-md">{t.brand}</span>
           </div>

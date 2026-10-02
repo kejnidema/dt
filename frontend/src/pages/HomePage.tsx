@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
@@ -6,7 +7,7 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import TrustBar from '@/components/TrustBar';
 import { images } from '@/lib/images';
 
-export default function HomePage() {
+export default function HomePage({ hero }: { hero?: ReactNode }) {
   const { localized, t: tr } = useI18n();
 
   const t = localized({
@@ -54,7 +55,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section */}
+      {hero ?? (
       <section className="relative bg-surface py-section-padding">
         <div className="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
@@ -79,12 +80,6 @@ export default function HomePage() {
                 {t.ctaPrimary}
                 <span className="material-symbols-outlined">arrow_forward</span>
               </Link>
-              <Link
-                to="/veneers/gallery"
-                className="border border-secondary text-secondary px-8 py-4 font-label-md text-label-md rounded-sm hover:bg-secondary/5 transition-colors"
-              >
-                {t.ctaSecondary}
-              </Link>
             </div>
           </div>
 
@@ -95,6 +90,7 @@ export default function HomePage() {
           />
         </div>
       </section>
+      )}
 
       {/* Trust Bar */}
       <TrustBar />
@@ -153,7 +149,7 @@ export default function HomePage() {
             <div className="absolute inset-0 opacity-10">
               <div
                 className="absolute top-0 left-0 w-full h-full"
-                style={{ background: 'radial-gradient(circle at 20% 50%, #D4AF37 0%, transparent 50%)' }}
+                style={{ background: 'radial-gradient(circle at 20% 50%, #A9EAF7 0%, transparent 50%)' }}
               />
             </div>
 

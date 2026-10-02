@@ -2,7 +2,6 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { treatments } from '@/pages/TreatmentsPage';
 import { images } from '@/lib/images';
-
 const detailCopy: Record<string, { highlights: string[]; timeline: string[]; bestFor: string }> = {
   'tartar-clean': {
     bestFor: 'Patients who want healthier gums, fresher breath and a polished smile before cosmetic treatment.',
@@ -57,7 +56,6 @@ export default function TreatmentDetailPage() {
     ? tr('Porcelain, Zirconia and E-Max crowns made in Germany.')
     : treatment?.description || copy?.bestFor;
   const pagePrice = isCrownsGroup ? 'from €100' : treatment?.price;
-
   if (!treatment || !copy) {
     return (
       <section className="py-section-padding bg-surface">
@@ -148,6 +146,7 @@ export default function TreatmentDetailPage() {
           </div>
         </div>
       </section>
+
     </>
   );
 }

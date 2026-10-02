@@ -6,11 +6,14 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import StructuredData from '@/components/StructuredData';
 import ScrollMemory from '@/components/ScrollMemory';
+import RevealOnScroll from '@/components/RevealOnScroll';
 
 import HomePage from '@/pages/HomePage';
+import Home2Page from '@/pages/Home2Page';
 import TreatmentsPage from '@/pages/TreatmentsPage';
 import ServicesPage from '@/pages/ServicesPage';
 import TreatmentDetailPage from '@/pages/TreatmentDetailPage';
+import HollywoodSmilePage from '@/pages/HollywoodSmilePage';
 import VeneersHubPage from '@/pages/VeneersHubPage';
 import EMaxPage from '@/pages/EMaxPage';
 import GalleryPage from '@/pages/GalleryPage';
@@ -35,14 +38,17 @@ function App() {
     <I18nProvider>
       <StructuredData />
       <ScrollMemory />
+      <RevealOnScroll />
       <div className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/home2" element={<Home2Page />} />
             <Route path="/treatments" element={<TreatmentsPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/treatments/all-on-x" element={<AllOnXPage />} />
+            <Route path="/treatments/hollywood-smile" element={<HollywoodSmilePage />} />
             <Route path="/treatments/:slug" element={<TreatmentDetailPage />} />
             <Route path="/veneers" element={<VeneersHubPage />} />
             <Route path="/veneers/emax" element={<EMaxPage />} />
