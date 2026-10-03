@@ -2,113 +2,13 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
-import { formatPrice, itemsOf, priceCategories, treatmentPages } from '@/lib/priceList';
-
-export const treatments = [
-  {
-    icon: 'dentistry',
-    title: 'Porcelain Crown Made in Germany',
-    description: '',
-    link: '/treatments/porcelain-crown',
-    price: 'from €100',
-    image: images.clinic,
-  },
-  {
-    icon: 'dentistry',
-    title: 'Zirkonia Crown Made in Germany',
-    description: '',
-    link: '/treatments/zirconia-crown',
-    price: 'from €200',
-    image: images.surgery[2] ?? images.clinic,
-  },
-  {
-    icon: 'dentistry',
-    title: 'E-Max Crown and Veneer Made in Germany',
-    description: '',
-    link: '/treatments/emax-crown-veneer',
-    price: 'from €300',
-    state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
-    image: images.emaxAfter,
-  },
-  {
-    icon: 'dentistry',
-    title: 'MegaGen-Titanium Implant',
-    description: '',
-    link: '/treatments/megagen-implant',
-    price: 'from €500',
-    image: images.surgery[4] ?? images.clinic,
-  },
-  {
-    icon: 'dentistry',
-    title: 'Professional Teeth Whitening',
-    description: '',
-    link: '/treatments/whitening',
-    price: 'from €150',
-    image: images.beforeAfterEdited[1] ?? images.heroAfter,
-  },
-  {
-    icon: 'dentistry',
-    title: 'Removable Prosthetic',
-    description: '',
-    link: '/treatments/removable-prosthetic',
-    price: 'from €600',
-    image: images.surgery[6] ?? images.clinic,
-  },
-  {
-    icon: 'dentistry',
-    title: 'Tartar Clean',
-    description:
-      'Remove tartar buildup and polish your teeth for a healthier, fresher smile.',
-    link: '/treatments/tartar-clean',
-    price: 'from €30',
-    image: images.clinicGallery[1] ?? images.clinic,
-  },
-  {
-    icon: 'dentistry',
-    title: 'Fillings',
-    description: 'Tooth-colored restorative fillings for cavities and minor damage.',
-    link: '/services',
-    price: 'from €50',
-    image: images.beforeAfterEdited[0] ?? images.heroAfter,
-  },
-];
+import { formatPrice, menuItemsOf, menuNames, priceCategories, subsectionItemsOf, treatmentPages } from '@/lib/priceList';
 
 export const treatmentGroups = [
-  {
-    icon: 'diamond',
-    title: 'Veneers',
-    description: 'E-Max crown and veneer options made in Germany for a natural smile upgrade.',
-    link: '/veneers',
-    state: { selectedTreatment: 'emax' },
-    price: 'from €350',
-    image: images.emaxAfter,
-  },
-  {
-    icon: 'precision_manufacturing',
-    title: 'Crowns',
-    description: 'Porcelain, Zirconia and E-Max crowns made in Germany.',
-    link: '/treatments/emax-crown-veneer',
-    state: { selectedTreatment: 'emax-crown-veneer', group: 'crowns' },
-    price: 'from €100',
-    image: images.clinic,
-  },
-  {
-    icon: 'settings_accessibility',
-    title: 'Implants',
-    description: 'Titanium implant systems for stable long-term tooth replacement.',
-    link: '/treatments/megagen-implant',
-    state: { selectedTreatment: 'megagen-implant' },
-    price: 'from €500',
-    image: images.surgery[4] ?? images.clinic,
-  },
-  {
-    icon: 'list_alt',
-    title: 'All Services',
-    description: 'See every service price including cleaning, whitening and fillings.',
-    link: '/services',
-    price: 'view prices',
-    image: images.clinicGallery[1] ?? images.clinic,
-  },
+  { icon: 'diamond', title: 'Veneers', link: '/treatments/emax-veneers' },
+  { icon: 'precision_manufacturing', title: 'Crowns', link: '/treatments/zirconia-crown' },
+  { icon: 'settings_accessibility', title: 'Implants', link: '/treatments/single-implant' },
+  { icon: 'list_alt', title: 'All Services', link: '/services' },
 ];
 
 const WHATSAPP = 'https://wa.me/355690000000';
@@ -127,8 +27,6 @@ const cardImages: Record<string, string | undefined> = {
   'all-on-6': images.surgery[5],
   'sinus-lift': images.clinicGallery[3],
   'bone-graft': images.surgery[13],
-  'implant-zygomatic': images.surgery[7],
-  'implant-pterygoid': images.surgery[8],
   scaling: images.clinicGallery[1],
   'filling-2': images.surgery[10],
   'filling-3': images.surgery[11],
@@ -138,18 +36,6 @@ const cardImages: Record<string, string | undefined> = {
   'ct-scan': images.clinicGallery[2],
   'root-canal': images.surgery[14],
   aligners: images.results[5]?.[0],
-};
-
-const cardLinks: Record<string, string> = {
-  scaling: '/treatments/tartar-clean',
-  whitening: '/treatments/whitening',
-  'implant-megagen': '/treatments/megagen-implant',
-  'all-on-4': '/treatments/all-on-x',
-  'all-on-6': '/treatments/all-on-x',
-  'crown-porcelain': '/treatments/porcelain-crown',
-  'crown-zirconia': '/treatments/zirconia-crown',
-  'crown-emax': '/veneers/emax',
-  denture: '/treatments/removable-prosthetic',
 };
 
 const copy = {
@@ -226,16 +112,20 @@ export default function TreatmentsPage() {
 
   const cards = useMemo(
     () =>
-      priceCategories.flatMap((category) =>
-        itemsOf(category).map((item) => ({ item, category })),
-      ),
+      priceCategories.flatMap((category) => [
+        ...menuItemsOf(category).map((item) => ({ item, tabs: [category.id] })),
+        ...subsectionItemsOf(category).map((item) => ({ item, tabs: [category.id, `${category.id}-sub`] })),
+      ]),
     [],
   );
-  const visible = filter === 'all' ? cards : cards.filter((card) => card.category.id === filter);
+  const visible = filter === 'all' ? cards : cards.filter((card) => card.tabs.includes(filter));
 
   const tabs = [
     { id: 'all', label: c.all },
-    ...priceCategories.map((category) => ({ id: category.id, label: category.title[lang] })),
+    ...priceCategories.flatMap((category) => [
+      { id: category.id, label: category.title[lang] },
+      ...(category.subsection ? [{ id: `${category.id}-sub`, label: category.subsection.title[lang] }] : []),
+    ]),
   ];
 
   return (
@@ -288,7 +178,7 @@ export default function TreatmentsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {visible.map(({ item }) => {
-              const link = treatmentPages[item.id] ?? cardLinks[item.id] ?? `/services#${item.id}`;
+              const link = treatmentPages[item.id] ?? `/services#${item.id}`;
               const image = cardImages[item.id] ?? images.clinic;
               return (
                 <Link
@@ -299,13 +189,13 @@ export default function TreatmentsPage() {
                   <div className="relative h-52 overflow-hidden bg-surface-container">
                     <img
                       src={image}
-                      alt={item.name[lang]}
+                      alt={(menuNames[item.id] ?? item.name)[lang]}
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="font-headline-sm text-headline-sm text-primary mb-2">{item.name[lang]}</h3>
+                    <h3 className="font-headline-sm text-headline-sm text-primary mb-2">{(menuNames[item.id] ?? item.name)[lang]}</h3>
                     <p className="text-[15px] leading-relaxed text-on-surface-variant line-clamp-3 mb-6">
                       {item.description[lang]}
                     </p>

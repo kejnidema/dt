@@ -46,69 +46,6 @@ export function PricingPage() {
   );
 }
 
-export function AllOnXPage() {
-  const { localized, t: tr } = useI18n();
-  const tiers = localized({
-    de: [
-      ['All-on-4', 'Komplettpaket: 4 Implantate + feste Brücke, pro Kiefer', '4.500 €'],
-      ['All-on-6', 'Komplettpaket: 6 Implantate + feste Brücke, pro Kiefer', '5.500 €'],
-    ],
-    en: [
-      ['All-on-4', 'Full package: 4 implants + fixed bridge, per jaw', '€4,500'],
-      ['All-on-6', 'Full package: 6 implants + fixed bridge, per jaw', '€5,500'],
-    ],
-    it: [
-      ['All-on-4', 'Pacchetto completo: 4 impianti + ponte fisso, per arcata', '4.500 €'],
-      ['All-on-6', 'Pacchetto completo: 6 impianti + ponte fisso, per arcata', '5.500 €'],
-    ],
-    sq: [
-      ['All-on-4', 'Paketë e plotë: 4 implante + urë fikse, për nofull', '4.500 €'],
-      ['All-on-6', 'Paketë e plotë: 6 implante + urë fikse, për nofull', '5.500 €'],
-    ],
-  });
-  const itinerary = localized({
-    de: ['Ankunft & 3D-Diagnostik', 'Implantat-OP / temporäre Zähne', 'Erholung & Tirana entdecken', 'Kontrolle & Anpassungen', 'Finale Übergabe / Heimreise'],
-    en: ['Arrival & 3D diagnostics', 'Implant surgery / temporary teeth', 'Recovery & discover Tirana', 'Check-up & adjustments', 'Final handover / return trip'],
-  });
-
-  return (
-    <>
-      <Hero
-        title={tr('All-on-X Packages')}
-        subtitle={tr('Fixed teeth, hotel guidance, transfers and a clear itinerary in one place.')}
-        image={images.clinic}
-      />
-      <section className="py-section-padding bg-surface-container-low">
-        <div className="max-w-[900px] mx-auto px-gutter grid md:grid-cols-2 gap-8">
-          {tiers.map(([name, desc, price]) => (
-            <div key={name} className="bg-white rounded-xl border border-outline-variant p-8">
-              <h3 className="font-headline-sm text-headline-sm text-primary mb-2">{name}</h3>
-              <p className="text-on-surface-variant mb-6">{desc}</p>
-              <p className="text-3xl font-bold text-secondary mb-6">{price}</p>
-              <Link to="/contact" className="bg-primary text-on-primary px-6 py-3 rounded-sm inline-block">
-                {tr('Request')}
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="py-section-padding bg-surface">
-        <div className="max-w-[900px] mx-auto px-gutter">
-          <h2 className="font-headline-md text-headline-md text-primary mb-8">
-            {tr('Sample 7-Day Itinerary')}
-          </h2>
-          {itinerary.map((step, i) => (
-            <div key={step} className="flex gap-4 mb-5">
-              <span className="w-9 h-9 rounded-full bg-secondary-fixed text-primary font-bold flex items-center justify-center">{i + 1}</span>
-              <p className="pt-1 text-on-surface-variant">{step}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
 export function StayPage() {
   const { localized, t: tr } = useI18n();
   const cards = localized({

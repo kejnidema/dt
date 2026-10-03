@@ -115,7 +115,7 @@ export default function HomePage({ hero }: { hero?: ReactNode }) {
               priceFrom="ab 300 €"
               germanyPrice="DE: ~1.200 €"
               badge="BESTSELLER"
-              linkTo="/treatments/emax-crown-veneer"
+              linkTo="/treatments/emax-veneers"
             />
             <MaterialCard
               icon="shield"

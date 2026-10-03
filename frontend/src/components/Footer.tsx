@@ -11,9 +11,9 @@ export default function Footer() {
       treatments: 'Behandlungen',
       patients: 'Patienten-Service',
       contact: 'Kontakt',
-      veneerProcedure: 'Veneer Procedure',
-      digitalSmile: 'Digital Smile Design',
-      implantology: 'Implantology',
+      veneerProcedure: 'E-max Veneers',
+      digitalSmile: 'Hollywood Smile',
+      implantology: 'Dental Implants',
       journey: 'Patient Journey',
       costComparison: 'Cost Comparison',
       privacy: 'Privacy Policy',
@@ -29,9 +29,9 @@ export default function Footer() {
       treatments: 'Treatments',
       patients: 'Patient Services',
       contact: 'Contact',
-      veneerProcedure: 'Veneer Procedure',
-      digitalSmile: 'Digital Smile Design',
-      implantology: 'Implantology',
+      veneerProcedure: 'E-max Veneers',
+      digitalSmile: 'Hollywood Smile',
+      implantology: 'Dental Implants',
       journey: 'Patient Journey',
       costComparison: 'Cost Comparison',
       privacy: 'Privacy Policy',
@@ -64,17 +64,17 @@ export default function Footer() {
           </h4>
           <ul className="space-y-4">
             <li>
-              <Link to="/veneers/emax" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
+              <Link to="/treatments/emax-veneers" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
                 {t.veneerProcedure}
               </Link>
             </li>
             <li>
-              <Link to="/veneers" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
+              <Link to="/treatments/hollywood-smile" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
                 {t.digitalSmile}
               </Link>
             </li>
             <li>
-              <Link to="/treatments" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
+              <Link to="/treatments/single-implant" className="text-outline-variant hover:text-secondary-fixed transition-all underline-offset-4 hover:underline">
                 {t.implantology}
               </Link>
             </li>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
 import { treatmentGroups } from '@/pages/TreatmentsPage';
-import { formatPrice, itemsOf, menuSummaries, priceCategories, priceListLabels, treatmentHref } from '@/lib/priceList';
+import { formatPrice, menuItemsOf, menuNames, subsectionItemsOf, menuSummaries, priceCategories, priceListLabels, treatmentHref, type PriceItem } from '@/lib/priceList';
 
 const navItems = [
   { label: 'Home2', path: '/home2' },
@@ -33,6 +33,27 @@ function isNavActive(pathname: string, item: (typeof navItems)[number]) {
   if (anotherTopLevelItemMatches) return false;
 
   return item.children?.some((child) => pathMatches(pathname, child.link)) ?? false;
+}
+
+function MenuEntry({ entry, lang }: { entry: PriceItem; lang: Lang }) {
+  return (
+    <li>
+      <Link to={treatmentHref(entry.id)} className="group/item flex gap-3 py-2 rounded-md">
+        <span className="w-8 h-8 shrink-0 rounded-md bg-aqua-soft text-primary flex items-center justify-center transition-colors group-hover/item:bg-primary group-hover/item:text-white">
+          <span className="material-symbols-outlined text-[17px]">{entry.icon}</span>
+        </span>
+        <span className="min-w-0">
+          <span className="flex items-baseline justify-between gap-2">
+            <span className="text-[14px] font-semibold text-primary leading-snug">{(menuNames[entry.id] ?? entry.name)[lang]}</span>
+            <span className="text-[12px] text-on-surface-variant whitespace-nowrap">{formatPrice(entry.price, lang)}</span>
+          </span>
+          <span className="block text-[12px] leading-snug text-on-surface-variant truncate">
+            {menuSummaries[entry.id]?.[lang] ?? entry.description[lang]}
+          </span>
+        </span>
+      </Link>
+    </li>
+  );
 }
 
 export default function Header() {
@@ -121,28 +142,22 @@ export default function Header() {
                               {category.title[lang]}
                             </p>
                             <ul>
-                              {itemsOf(category).map((entry) => (
-                                <li key={entry.id}>
-                                  <Link
-                                    to={treatmentHref(entry.id)}
-                                    className="group/item flex gap-3 py-2 rounded-md"
-                                  >
-                                    <span className="w-8 h-8 shrink-0 rounded-md bg-aqua-soft text-primary flex items-center justify-center transition-colors group-hover/item:bg-primary group-hover/item:text-white">
-                                      <span className="material-symbols-outlined text-[17px]">{entry.icon}</span>
-                                    </span>
-                                    <span className="min-w-0">
-                                      <span className="flex items-baseline justify-between gap-2">
-                                        <span className="text-[14px] font-semibold text-primary leading-snug">{entry.name[lang]}</span>
-                                        <span className="text-[12px] text-on-surface-variant whitespace-nowrap">{formatPrice(entry.price, lang)}</span>
-                                      </span>
-                                      <span className="block text-[12px] leading-snug text-on-surface-variant truncate">
-                                        {menuSummaries[entry.id]?.[lang] ?? entry.description[lang]}
-                                      </span>
-                                    </span>
-                                  </Link>
-                                </li>
+                              {menuItemsOf(category).map((entry) => (
+                                <MenuEntry key={entry.id} entry={entry} lang={lang} />
                               ))}
                             </ul>
+                            {category.subsection && (
+                              <>
+                                <p className="font-label-md text-[12px] uppercase tracking-[0.12em] text-on-surface-variant pb-3 mb-2 mt-5 border-b border-outline-variant">
+                                  {category.subsection.title[lang]}
+                                </p>
+                                <ul>
+                                  {subsectionItemsOf(category).map((entry) => (
+                                    <MenuEntry key={entry.id} entry={entry} lang={lang} />
+                                  ))}
+                                </ul>
+                              </>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -152,7 +167,6 @@ export default function Header() {
                             <Link
                               key={`${child.link}-${child.title}`}
                               to={child.link}
-                              state={child.state}
                               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-outline-variant text-[13px] font-medium text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors"
                             >
                               <span className="material-symbols-outlined text-[16px]">{child.icon}</span>
@@ -187,7 +201,6 @@ export default function Header() {
                       <Link
                         key={`${child.link}-${child.title}`}
                         to={child.link}
-                        state={child.state}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors"
                       >
                         <span className="w-9 h-9 rounded-full bg-aqua-soft flex items-center justify-center">
@@ -293,7 +306,6 @@ export default function Header() {
                         <Link
                           key={`${child.link}-${child.title}`}
                           to={child.link}
-                          state={child.state}
                           onClick={closeMenu}
                           className="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary transition-colors"
                         >

@@ -19,7 +19,6 @@ export type PriceGroupId =
   | 'hygiene'
   | 'whitening'
   | 'implants'
-  | 'advanced-implants'
   | 'fillings'
   | 'crowns'
   | 'prosthetics'
@@ -353,70 +352,6 @@ export const priceGroups: PriceGroup[] = [
           it: '6–8 mesi tra i due viaggi',
           sq: '6–8 muaj ndërmjet dy udhëtimeve',
         },
-      },
-    ],
-  },
-  {
-    id: 'advanced-implants',
-    title: {
-      en: 'Advanced Implant Surgery: Zygomatic & Pterygoid',
-      de: 'Fortgeschrittene Implantatchirurgie: Zygoma & Pterygoid',
-      it: 'Chirurgia implantare avanzata: zigomatici e pterigoidei',
-      sq: 'Kirurgji implantare e avancuar: zigomatik & pterygoid',
-    },
-    intro: {
-      en: 'When are they used? For patients with severe bone loss in the upper jaw, where standard implants have nothing to hold on to. This is common after many years without teeth, after wearing a denture for a long time, or after a failed bone graft. Instead of rebuilding bone with months of grafting, these implants anchor in the dense bone of the cheekbone (zygomatic) or at the very back of the upper jaw (pterygoid). Fixed temporary teeth are often possible within days. Suitability is confirmed with a 3D CT scan.',
-      de: 'Wann werden sie eingesetzt? Bei Patienten mit starkem Knochenschwund im Oberkiefer, bei denen normale Implantate keinen Halt finden. Das ist häufig nach vielen Jahren ohne Zähne, nach langem Tragen einer Prothese oder nach einem misslungenen Knochenaufbau der Fall. Statt den Knochen über Monate aufzubauen, werden diese Implantate im dichten Knochen des Jochbeins (Zygoma) oder ganz hinten im Oberkiefer (Pterygoid) verankert. Feste provisorische Zähne sind oft innerhalb weniger Tage möglich. Die Eignung wird mit einem 3D-CT bestätigt.',
-      it: 'Quando si usano? Nei pazienti con grave perdita ossea nell’arcata superiore, dove gli impianti standard non trovano appoggio. Succede spesso dopo molti anni senza denti, dopo aver portato a lungo una protesi o dopo un innesto osseo non riuscito. Invece di ricostruire l’osso con mesi di innesti, questi impianti si ancorano nell’osso denso dello zigomo (zigomatici) o nella parte più posteriore dell’arcata (pterigoidei). Spesso è possibile avere denti fissi provvisori in pochi giorni. L’idoneità viene confermata con una TAC 3D.',
-      sq: 'Kur përdoren? Te pacientët me humbje të rëndë kocke në nofullën e sipërme, ku implantet standarde nuk kanë ku të mbahen. Kjo ndodh shpesh pas shumë vitesh pa dhëmbë, pas mbajtjes së gjatë të protezës ose pas një shtimi kocke të dështuar. Në vend që kocka të rindërtohet me muaj, këto implante ankorohen në kockën e dendur të mollëzës (zigomatik) ose në pjesën më të pasme të nofullës së sipërme (pterygoid). Dhëmbët e përkohshëm fiks shpesh vendosen brenda pak ditësh. Përshtatshmëria konfirmohet me skanim 3D (CT).',
-    },
-    items: [
-      {
-        id: 'implant-zygomatic',
-        icon: 'face',
-        name: {
-          en: 'Zygomatic implant',
-          de: 'Zygoma-Implantat',
-          it: 'Impianto zigomatico',
-          sq: 'Implant zigomatik',
-        },
-        price: 1500,
-        unit: perImplant,
-        description: {
-          en: 'A long implant anchored in the cheekbone. Recommended when the upper jaw has too little bone even for a sinus lift, or when the patient wants to avoid months of bone grafting. Often combined with standard implants to carry a full fixed bridge. Performed under sedation or general anaesthesia.',
-          de: 'Langes Implantat, das im Jochbein verankert wird. Empfohlen, wenn der Oberkiefer selbst für einen Sinuslift zu wenig Knochen hat oder der Patient monatelangen Knochenaufbau vermeiden möchte. Oft kombiniert mit normalen Implantaten für eine komplette feste Brücke. Unter Sedierung oder Vollnarkose.',
-          it: 'Impianto lungo ancorato all’osso zigomatico. Consigliato quando l’arcata superiore ha troppo poco osso persino per un rialzo del seno, o quando il paziente vuole evitare mesi di innesti. Spesso combinato con impianti standard per sostenere un ponte fisso completo. Eseguito in sedazione o anestesia generale.',
-          sq: 'Implant i gjatë i ankoruar në kockën e mollëzës. Rekomandohet kur nofulla e sipërme ka shumë pak kockë, madje edhe për sinuslift, ose kur pacienti dëshiron të shmangë muajt e shtimit të kockës. Shpesh kombinohet me implante standarde për të mbajtur një urë të plotë fikse. Kryhet me sedacion ose anestezi të përgjithshme.',
-        },
-        duration: {
-          en: '2–4 hours (full arch)',
-          de: '2–4 Stunden (ganzer Kiefer)',
-          it: '2–4 ore (arcata completa)',
-          sq: '2–4 orë (nofull e plotë)',
-        },
-        visits: twoTrips,
-        healing: implantWait,
-      },
-      {
-        id: 'implant-pterygoid',
-        icon: 'architecture',
-        name: {
-          en: 'Pterygoid implant',
-          de: 'Pterygoid-Implantat',
-          it: 'Impianto pterigoideo',
-          sq: 'Implant pterygoid',
-        },
-        price: 800,
-        unit: perImplant,
-        description: {
-          en: 'An implant anchored in the dense pterygoid bone at the very back of the upper jaw. Recommended when the back of the upper jaw has lost bone and the sinus has dropped. It supports the back teeth without a sinus lift and often allows immediate temporary teeth.',
-          de: 'Implantat, das im dichten Pterygoid-Knochen ganz hinten im Oberkiefer verankert wird. Empfohlen, wenn im hinteren Oberkiefer Knochen verloren gegangen und die Kieferhöhle abgesunken ist. Es trägt die Seitenzähne ohne Sinuslift und ermöglicht oft sofortige Provisorien.',
-          it: 'Impianto ancorato nell’osso pterigoideo, molto denso, nella parte più posteriore dell’arcata superiore. Consigliato quando la zona posteriore ha perso osso e il seno si è abbassato. Sostiene i denti posteriori senza rialzo del seno e spesso consente denti provvisori immediati.',
-          sq: 'Implant i ankoruar në kockën e dendur pterygoide, në pjesën më të pasme të nofullës së sipërme. Rekomandohet kur pjesa e pasme e nofullës ka humbur kockë dhe sinusi ka zbritur. Mban dhëmbët e pasmë pa sinuslift dhe shpesh lejon dhëmbë të përkohshëm menjëherë.',
-        },
-        duration: { en: '1–2 hours', de: '1–2 Stunden', it: '1–2 ore', sq: '1–2 orë' },
-        visits: twoTrips,
-        healing: implantWait,
       },
     ],
   },
@@ -777,6 +712,11 @@ export const priceGroups: PriceGroup[] = [
 ];
 
 /** Short one-liners for the header mega menu */
+/** Menu label when one entry stands for several price items */
+export const menuNames: Record<string, Localized> = {
+  'filling-2': { en: 'Composite fillings', de: 'Kompositfüllungen', it: 'Otturazioni in composito', sq: 'Mbushje me kompozit' },
+};
+
 export const menuSummaries: Record<string, Localized> = {
   'hollywood-smile': { en: 'Complete smile makeover', de: 'Komplette Lächeln-Neugestaltung', it: 'Rifacimento completo del sorriso', sq: 'Rikonstruksion i plotë i buzëqeshjes' },
   'crown-porcelain': { en: 'Strong, economical crown', de: 'Stabile, preiswerte Krone', it: 'Corona robusta ed economica', sq: 'Kurorë e fortë dhe ekonomike' },
@@ -791,8 +731,6 @@ export const menuSummaries: Record<string, Localized> = {
   'implant-bridge': { en: 'Several teeth on 2–3 implants', de: 'Mehrere Zähne auf 2–3 Implantaten', it: 'Più denti su 2–3 impianti', sq: 'Disa dhëmbë mbi 2–3 implante' },
   'sinus-lift': { en: 'Bone height in the upper jaw', de: 'Knochenhöhe im Oberkiefer', it: 'Altezza ossea nell’arcata superiore', sq: 'Lartësi kocke në nofullën e sipërme' },
   'bone-graft': { en: 'Rebuilds bone for implants', de: 'Knochenaufbau für Implantate', it: 'Ricostruisce l’osso per impianti', sq: 'Rindërton kockën për implante' },
-  'implant-zygomatic': { en: 'For severe bone loss', de: 'Bei starkem Knochenschwund', it: 'Per grave perdita ossea', sq: 'Për humbje të rëndë kocke' },
-  'implant-pterygoid': { en: 'Back teeth without sinus lift', de: 'Seitenzähne ohne Sinuslift', it: 'Denti posteriori senza rialzo', sq: 'Dhëmbët e pasmë pa sinuslift' },
   scaling: { en: 'Tartar removal & polish', de: 'Zahnstein entfernen & polieren', it: 'Rimozione tartaro e lucidatura', sq: 'Heqje gurëzash dhe lustrim' },
   'filling-2': { en: 'Medium cavity, one visit', de: 'Mittlere Karies, ein Termin', it: 'Carie media, una seduta', sq: 'Kavitet mesatar, një vizitë' },
   'filling-3': { en: 'Deep cavity near the nerve', de: 'Tiefe Karies nahe am Nerv', it: 'Carie profonda vicino al nervo', sq: 'Kavitet i thellë afër nervit' },
@@ -809,6 +747,9 @@ export interface PriceCategory {
   icon: string;
   title: Localized;
   groupIds: PriceGroupId[];
+  /** Treatments in menu order; items sharing a page appear once */
+  itemIds: string[];
+  subsection?: { title: Localized; itemIds: string[] };
 }
 
 export const priceCategories: PriceCategory[] = [
@@ -817,26 +758,37 @@ export const priceCategories: PriceCategory[] = [
     icon: 'sentiment_very_satisfied',
     title: { en: 'Smile Makeover', de: 'Lächeln-Design', it: 'Rifacimento del sorriso', sq: 'Ndryshimi i buzëqeshjes' },
     groupIds: ['crowns', 'whitening'],
+    itemIds: ['hollywood-smile', 'crown-emax', 'veneer-composite', 'whitening', 'gum-contouring'],
   },
   {
     id: 'implants',
     icon: 'hardware',
     title: { en: 'Dental Implants', de: 'Zahnimplantate', it: 'Impianti dentali', sq: 'Implantet dentare' },
-    groupIds: ['implants', 'advanced-implants'],
+    groupIds: ['implants'],
+    itemIds: ['all-on-4', 'implant-megagen', 'implant-bridge', 'bone-graft', 'all-on-6', 'sinus-lift'],
   },
   {
     id: 'general',
     icon: 'medical_services',
     title: { en: 'General Treatments', de: 'Allgemeine Behandlungen', it: 'Trattamenti generali', sq: 'Trajtime të përgjithshme' },
-    groupIds: ['diagnostics', 'hygiene', 'fillings', 'surgery'],
+    groupIds: ['diagnostics', 'hygiene', 'surgery', 'fillings'],
+    itemIds: ['dental-exam', 'scaling', 'ct-scan', 'oral-surgery', 'filling-2', 'root-canal'],
   },
   {
     id: 'prosthetics',
     icon: 'layers',
     title: { en: 'Prosthetic Treatments', de: 'Prothetik', it: 'Trattamenti protesici', sq: 'Trajtime protetike' },
     groupIds: ['prosthetics', 'orthodontics'],
+    itemIds: ['crown-zirconia', 'crown-porcelain', 'denture'],
+    subsection: {
+      title: { en: 'Orthodontic Treatments', de: 'Kieferorthopädie', it: 'Trattamenti ortodontici', sq: 'Trajtime ortodontike' },
+      itemIds: ['aligners'],
+    },
   },
 ];
+
+const itemById = (id: string) => priceGroups.flatMap((g) => g.items).find((i) => i.id === id);
+const byIds = (ids: string[]) => ids.map(itemById).filter((i): i is PriceItem => Boolean(i));
 
 export function groupsOf(category: PriceCategory) {
   return category.groupIds
@@ -844,8 +796,23 @@ export function groupsOf(category: PriceCategory) {
     .filter((g): g is PriceGroup => Boolean(g));
 }
 
+/** Every price item in the category, including the subsection */
 export function itemsOf(category: PriceCategory) {
   return groupsOf(category).flatMap((g) => g.items);
+}
+
+/** One entry per treatment page, in menu order (main list, without the subsection) */
+export function menuItemsOf(category: PriceCategory) {
+  return byIds(category.itemIds);
+}
+
+export function subsectionItemsOf(category: PriceCategory) {
+  return category.subsection ? byIds(category.subsection.itemIds) : [];
+}
+
+/** Main list followed by the subsection */
+export function treatmentsOf(category: PriceCategory) {
+  return [...menuItemsOf(category), ...subsectionItemsOf(category)];
 }
 
 export function lowestPrice(items: PriceItem[]) {
@@ -884,18 +851,6 @@ export const treatmentPages: Record<string, string> = {
 export function treatmentHref(itemId: string) {
   return treatmentPages[itemId] ?? `/services#${itemId}`;
 }
-
-/** Price groups shown on each /treatments/:slug page */
-export const treatmentPriceGroups: Record<string, PriceGroupId[]> = {
-  'tartar-clean': ['hygiene'],
-  whitening: ['whitening'],
-  'megagen-implant': ['implants', 'advanced-implants'],
-  'all-on-x': ['implants', 'advanced-implants'],
-  'porcelain-crown': ['crowns'],
-  'zirconia-crown': ['crowns'],
-  'emax-crown-veneer': ['crowns'],
-  'removable-prosthetic': ['prosthetics'],
-};
 
 const freeLabel: Localized = { en: 'Free', de: 'Gratis', it: 'Gratis', sq: 'Falas' };
 

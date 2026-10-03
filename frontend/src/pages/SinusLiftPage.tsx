@@ -35,7 +35,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
         title: 'Përpara se ta pranoni se ju duhet',
         intro: [
           'Shumë pacientë vijnë pasi u është thënë se u duhen dy ngritje sinusi, dhe largohen pa bërë asnjë.',
-          'Vendosja e pjerrët, parimi pas All-on-4, i anon implantet përpara që të kapin kockën më të dendur në pjesën e përparme, duke e shmangur plotësisht sinusin. Edhe implantet e shkurtra funksionojnë aty ku lartësia është e kufizuar por gjerësia është e mirë, dhe implantet pterigoide ankorohen prapa sinusit. Asnjëra nuk është marifet: janë teknika të konsoliduara që përdorin kockën që keni në vend që të ndërtojnë atë që nuk e keni.',
+          'Vendosja e pjerrët, parimi pas All-on-4, i anon implantet përpara që të kapin kockën më të dendur në pjesën e përparme, duke e shmangur plotësisht sinusin. Edhe implantet e shkurtra funksionojnë aty ku lartësia është e kufizuar por gjerësia është e mirë. Asnjëra nuk është marifet: janë teknika të konsoliduara që përdorin kockën që keni në vend që të ndërtojnë atë që nuk e keni.',
           'Ndonjëherë përgjigjja është vërtet se ju duhet një ngritje, dhe e themi qartë. Por kushton, shton muaj dhe shton një ndërhyrje, ndaj ia vlen të jeni të sigurt më parë.',
         ],
       },
@@ -85,7 +85,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'sinus-lift', tag: 'Ky trajtim', title: 'Ngritje sinusi', text: 'Ndërton lartësinë që mungon nën sinus. Një seancë, pastaj rreth 8 muaj deri në udhëtimin e dytë.' },
       { id: 'all-on-4', tag: 'Pa ngritje', title: 'All-on-4', text: 'Për një hark të plotë, implantet e pasme anohen përpara drejt kockës më të dendur dhe e shmangin sinusin.' },
-      { id: 'implant-pterygoid', tag: 'Pa ngritje', title: 'Implante pterigoide', text: 'Ankorohen në kockën e fortë prapa sinusit dhe japin mbështetje për dhëmbët e pasmë pa shtim kocke.' },
+      { id: 'bone-graft', tag: 'Kur mungon gjerësia', title: 'Shtim kocke', text: 'Kur problemi nuk është lartësia nën sinus, por gjerësia e kreshtës, kocka rindërtohet me shtim kocke.' },
     ],
     fitTitle: 'Kush ka nevojë për ngritje sinusi?',
     fitIntro: 'Ngritja e sinusit mund t’ju duhet nëse:',
@@ -110,7 +110,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     ],
     whyBandTitle: 'Pse Veneer Clinic për ngritje sinusi?',
     whyBandText:
-      'Ju themi nëse nuk ju duhet. Ngritja e sinusit shton kosto, shton muaj dhe shton një ndërhyrje kirurgjikale, dhe ka raste ku vendosja e pjerrët ose implantet pterigoide arrijnë të njëjtin rezultat pa të. Ai vlerësim bëhet paraprakisht nga imazhet tuaja, jo zbulohet në karrige.',
+      'Ju themi nëse nuk ju duhet. Ngritja e sinusit shton kosto, shton muaj dhe shton një ndërhyrje kirurgjikale, dhe ka raste ku vendosja e pjerrët ose implantet e shkurtra arrijnë të njëjtin rezultat pa të. Ai vlerësim bëhet paraprakisht nga imazhet tuaja, jo zbulohet në karrige.',
     caseText: 'Lartësi kocke e rindërtuar për implante të sipërme',
     faq: [
       { question: 'Sa kushton ngritja e sinusit?', answer: 'Ngritja e sinusit kushton 500 €. Implantet që vijnë pas saj llogariten veçmas (MegaGen, 500 € për implant). Oferta e saktë ju dërgohet me shkrim pas vlerësimit të grafisë panoramike.' },
@@ -160,7 +160,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
         title: 'Before you accept that you need one',
         intro: [
           'Many patients arrive having been told they need two sinus lifts, and leave without having either.',
-          'Angled placement, the principle behind All-on-4, tilts the implants forward to grip the denser bone at the front, avoiding the sinus entirely. Short implants also work where height is limited but width is good, and pterygoid implants anchor behind the sinus. None of these is a trick: they are established techniques that use the bone you have instead of building what you do not.',
+          'Angled placement, the principle behind All-on-4, tilts the implants forward to grip the denser bone at the front, avoiding the sinus entirely. Short implants also work where height is limited but width is good. None of these is a trick: they are established techniques that use the bone you have instead of building what you do not.',
           'Sometimes the answer really is that you need a lift, and we say so clearly. But it costs money, adds months and adds a procedure, so it is worth being sure first.',
         ],
       },
@@ -210,7 +210,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'sinus-lift', tag: 'This treatment', title: 'Sinus lift', text: 'Builds the missing height under the sinus. One session, then about 8 months until the second trip.' },
       { id: 'all-on-4', tag: 'No lift', title: 'All-on-4', text: 'For a full arch, the back implants tilt forward into denser bone and avoid the sinus.' },
-      { id: 'implant-pterygoid', tag: 'No lift', title: 'Pterygoid implants', text: 'Anchor in the hard bone behind the sinus and support the back teeth without grafting.' },
+      { id: 'bone-graft', tag: 'When width is missing', title: 'Bone grafting', text: 'When the problem is not the height under the sinus but the width of the ridge, the bone is rebuilt with a graft.' },
     ],
     fitTitle: 'Who needs a sinus lift?',
     fitIntro: 'You may need a sinus lift if:',
@@ -235,7 +235,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     ],
     whyBandTitle: 'Why Veneer Clinic for a sinus lift?',
     whyBandText:
-      'We tell you if you do not need one. A sinus lift adds cost, adds months and adds a surgical procedure, and there are cases where angled placement or pterygoid implants reach the same result without it. That assessment is made in advance from your imaging, not discovered in the chair.',
+      'We tell you if you do not need one. A sinus lift adds cost, adds months and adds a surgical procedure, and there are cases where angled placement or short implants reach the same result without it. That assessment is made in advance from your imaging, not discovered in the chair.',
     caseText: 'Bone height rebuilt for upper implants',
     faq: [
       { question: 'How much does a sinus lift cost?', answer: 'A sinus lift costs €500. The implants that follow are charged separately (MegaGen, €500 per implant). The exact quote is sent to you in writing after we assess your panoramic X-ray.' },
@@ -285,7 +285,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
         title: 'Bevor Sie akzeptieren, dass Sie einen brauchen',
         intro: [
           'Viele Patienten kommen mit der Aussage, sie bräuchten zwei Sinuslifts, und gehen ohne einen einzigen.',
-          'Die geneigte Insertion, das Prinzip hinter All-on-4, kippt die Implantate nach vorn in den dichteren vorderen Knochen und umgeht die Kieferhöhle ganz. Auch kurze Implantate funktionieren, wo die Höhe begrenzt, die Breite aber gut ist, und Pterygoid-Implantate verankern sich hinter der Kieferhöhle. Nichts davon ist ein Trick: Es sind bewährte Techniken, die den vorhandenen Knochen nutzen, statt fehlenden aufzubauen.',
+          'Die geneigte Insertion, das Prinzip hinter All-on-4, kippt die Implantate nach vorn in den dichteren vorderen Knochen und umgeht die Kieferhöhle ganz. Auch kurze Implantate funktionieren, wo die Höhe begrenzt, die Breite aber gut ist. Nichts davon ist ein Trick: Es sind bewährte Techniken, die den vorhandenen Knochen nutzen, statt fehlenden aufzubauen.',
           'Manchmal lautet die Antwort tatsächlich, dass Sie einen Lift brauchen, und das sagen wir klar. Aber er kostet, dauert Monate länger und bedeutet einen weiteren Eingriff, also lohnt es sich, vorher sicher zu sein.',
         ],
       },
@@ -335,7 +335,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'sinus-lift', tag: 'Diese Behandlung', title: 'Sinuslift', text: 'Baut die fehlende Höhe unter der Kieferhöhle auf. Eine Sitzung, dann etwa 8 Monate bis zur zweiten Reise.' },
       { id: 'all-on-4', tag: 'Ohne Lift', title: 'All-on-4', text: 'Bei einem ganzen Kiefer werden die hinteren Implantate nach vorn in dichteren Knochen geneigt und umgehen die Kieferhöhle.' },
-      { id: 'implant-pterygoid', tag: 'Ohne Lift', title: 'Pterygoid-Implantate', text: 'Verankern sich im harten Knochen hinter der Kieferhöhle und stützen die Seitenzähne ohne Knochenaufbau.' },
+      { id: 'bone-graft', tag: 'Wenn Breite fehlt', title: 'Knochenaufbau', text: 'Fehlt nicht die Höhe unter der Kieferhöhle, sondern die Breite des Kieferkamms, wird der Knochen mit einem Aufbau rekonstruiert.' },
     ],
     fitTitle: 'Wer braucht einen Sinuslift?',
     fitIntro: 'Sie brauchen möglicherweise einen Sinuslift, wenn:',
@@ -360,7 +360,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     ],
     whyBandTitle: 'Warum Veneer Clinic für einen Sinuslift?',
     whyBandText:
-      'Wir sagen Ihnen, wenn Sie keinen brauchen. Ein Sinuslift bedeutet mehr Kosten, mehr Monate und einen weiteren chirurgischen Eingriff, und in manchen Fällen erreichen geneigte Insertion oder Pterygoid-Implantate dasselbe ohne ihn. Diese Beurteilung erfolgt vorab anhand Ihrer Bildgebung, nicht erst auf dem Stuhl.',
+      'Wir sagen Ihnen, wenn Sie keinen brauchen. Ein Sinuslift bedeutet mehr Kosten, mehr Monate und einen weiteren chirurgischen Eingriff, und in manchen Fällen erreichen geneigte Insertion oder kurze Implantate dasselbe ohne ihn. Diese Beurteilung erfolgt vorab anhand Ihrer Bildgebung, nicht erst auf dem Stuhl.',
     caseText: 'Knochenhöhe für Implantate im Oberkiefer wiederaufgebaut',
     faq: [
       { question: 'Was kostet ein Sinuslift?', answer: 'Ein Sinuslift kostet 500 €. Die anschließenden Implantate werden separat berechnet (MegaGen, 500 € pro Implantat). Das genaue Angebot erhalten Sie schriftlich nach Auswertung Ihres Panoramaröntgens.' },
@@ -410,7 +410,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
         title: 'Prima di accettare che ti serva',
         intro: [
           'Molti pazienti arrivano dopo che gli è stato detto che servono due rialzi del seno, e ripartono senza averne fatto nessuno.',
-          'L’inserimento inclinato, il principio dietro l’All-on-4, inclina gli impianti in avanti per agganciare l’osso più denso della parte anteriore, evitando del tutto il seno. Anche gli impianti corti funzionano dove l’altezza è limitata ma la larghezza è buona, e gli impianti pterigoidei si ancorano dietro il seno. Nessuno di questi è un trucco: sono tecniche consolidate che usano l’osso che hai invece di costruire quello che non hai.',
+          'L’inserimento inclinato, il principio dietro l’All-on-4, inclina gli impianti in avanti per agganciare l’osso più denso della parte anteriore, evitando del tutto il seno. Anche gli impianti corti funzionano dove l’altezza è limitata ma la larghezza è buona. Nessuno di questi è un trucco: sono tecniche consolidate che usano l’osso che hai invece di costruire quello che non hai.',
           'A volte la risposta è davvero che ti serve un rialzo, e lo diciamo chiaramente. Ma costa, aggiunge mesi e aggiunge un intervento, quindi vale la pena esserne sicuri prima.',
         ],
       },
@@ -460,7 +460,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'sinus-lift', tag: 'Questo trattamento', title: 'Rialzo del seno', text: 'Costruisce l’altezza mancante sotto il seno. Una seduta, poi circa 8 mesi fino al secondo viaggio.' },
       { id: 'all-on-4', tag: 'Senza rialzo', title: 'All-on-4', text: 'Per un’arcata completa, gli impianti posteriori si inclinano in avanti verso l’osso più denso ed evitano il seno.' },
-      { id: 'implant-pterygoid', tag: 'Senza rialzo', title: 'Impianti pterigoidei', text: 'Si ancorano nell’osso duro dietro il seno e sostengono i denti posteriori senza innesto.' },
+      { id: 'bone-graft', tag: 'Quando manca larghezza', title: 'Innesto osseo', text: 'Quando il problema non è l’altezza sotto il seno ma la larghezza della cresta, l’osso si ricostruisce con un innesto.' },
     ],
     fitTitle: 'A chi serve un rialzo del seno?',
     fitIntro: 'Potresti aver bisogno di un rialzo del seno se:',
@@ -485,7 +485,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     ],
     whyBandTitle: 'Perché Veneer Clinic per il rialzo del seno?',
     whyBandText:
-      'Ti diciamo se non ti serve. Il rialzo del seno aggiunge costi, mesi e un intervento chirurgico, e ci sono casi in cui l’inserimento inclinato o gli impianti pterigoidei arrivano allo stesso risultato senza. Quella valutazione si fa prima dalle tue immagini, non si scopre sulla poltrona.',
+      'Ti diciamo se non ti serve. Il rialzo del seno aggiunge costi, mesi e un intervento chirurgico, e ci sono casi in cui l’inserimento inclinato o gli impianti corti arrivano allo stesso risultato senza. Quella valutazione si fa prima dalle tue immagini, non si scopre sulla poltrona.',
     caseText: 'Altezza ossea ricostruita per impianti superiori',
     faq: [
       { question: 'Quanto costa il rialzo del seno?', answer: 'Il rialzo del seno costa 500 €. Gli impianti che seguono sono a parte (MegaGen, 500 € per impianto). Il preventivo esatto ti viene inviato per iscritto dopo aver valutato la tua panoramica.' },

@@ -12,7 +12,6 @@ import HomePage from '@/pages/HomePage';
 import Home2Page from '@/pages/Home2Page';
 import TreatmentsPage from '@/pages/TreatmentsPage';
 import ServicesPage from '@/pages/ServicesPage';
-import TreatmentDetailPage from '@/pages/TreatmentDetailPage';
 import HollywoodSmilePage from '@/pages/HollywoodSmilePage';
 import EmaxVeneersPage from '@/pages/EmaxVeneersPage';
 import CompositeVeneersPage from '@/pages/CompositeVeneersPage';
@@ -34,15 +33,13 @@ import DenturesPage from '@/pages/DenturesPage';
 import AlignersPage from '@/pages/AlignersPage';
 import DentalExamPage from '@/pages/DentalExamPage';
 import TeethCleaningPage from '@/pages/TeethCleaningPage';
-import VeneersHubPage from '@/pages/VeneersHubPage';
-import EMaxPage from '@/pages/EMaxPage';
 import GalleryPage from '@/pages/GalleryPage';
 import CostComparisonPage from '@/pages/CostComparisonPage';
 import JourneyPage from '@/pages/JourneyPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import ContactPage from '@/pages/ContactPage';
 import AboutPage from '@/pages/AboutPage';
-import { AftercarePage, AllOnXPage, BlogPage, FacilityPage, PricingPage, StayPage } from '@/pages/FeaturePages';
+import { AftercarePage, BlogPage, FacilityPage, PricingPage, StayPage } from '@/pages/FeaturePages';
 
 function App() {
   useEffect(() => {
@@ -67,7 +64,6 @@ function App() {
             <Route path="/home2" element={<Home2Page />} />
             <Route path="/treatments" element={<TreatmentsPage />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/treatments/all-on-x" element={<AllOnXPage />} />
             <Route path="/treatments/hollywood-smile" element={<HollywoodSmilePage />} />
             <Route path="/treatments/emax-veneers" element={<EmaxVeneersPage />} />
             <Route path="/treatments/composite-veneers" element={<CompositeVeneersPage />} />
@@ -91,11 +87,14 @@ function App() {
             <Route path="/treatments/teeth-cleaning" element={<TeethCleaningPage />} />
             <Route path="/treatments/tartar-clean" element={<Navigate to="/treatments/teeth-cleaning" replace />} />
             <Route path="/treatments/removable-prosthetic" element={<Navigate to="/treatments/dentures" replace />} />
-            <Route path="/treatments/:slug" element={<TreatmentDetailPage />} />
-            <Route path="/veneers" element={<VeneersHubPage />} />
-            <Route path="/veneers/emax" element={<EmaxVeneersPage />} />
-            <Route path="/veneers/porcelain" element={<EMaxPage />} />
-            <Route path="/veneers/zirconia" element={<EMaxPage />} />
+            <Route path="/treatments/megagen-implant" element={<Navigate to="/treatments/single-implant" replace />} />
+            <Route path="/treatments/emax-crown-veneer" element={<Navigate to="/treatments/emax-veneers" replace />} />
+            <Route path="/treatments/all-on-x" element={<Navigate to="/treatments/all-on-4" replace />} />
+            <Route path="/treatments/:slug" element={<Navigate to="/treatments" replace />} />
+            <Route path="/veneers" element={<Navigate to="/treatments/emax-veneers" replace />} />
+            <Route path="/veneers/emax" element={<Navigate to="/treatments/emax-veneers" replace />} />
+            <Route path="/veneers/porcelain" element={<Navigate to="/treatments/porcelain-crown" replace />} />
+            <Route path="/veneers/zirconia" element={<Navigate to="/treatments/zirconia-crown" replace />} />
             <Route path="/veneers/gallery" element={<GalleryPage />} />
             <Route path="/veneers/cost-comparison" element={<CostComparisonPage />} />
             <Route path="/pricing" element={<PricingPage />} />

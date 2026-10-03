@@ -84,7 +84,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'all-on-6', tag: 'Ky trajtim', title: 'All-on-6', text: 'Gjashtë implante shpërndajnë kafshimin në më shumë pika. Rezervë shtesë për nofullën e sipërme, kafshim të fortë ose hark të gjerë.' },
       { id: 'all-on-4', tag: 'Më pak implante', title: 'All-on-4', text: 'Katër implante, dy prej tyre të anuara, mbajnë të njëjtën urë fikse. Shpesh shmang shtimin e kockës kur kocka prapa është e pakët.' },
-      { id: 'implant-zygomatic', tag: 'Kur kocka mungon', title: 'Implante zigomatike', text: 'Kur kocka lart është shumë e pakët edhe për implante të anuara, implantet ankorohen në kockën e mollëzës.' },
+      { id: 'sinus-lift', tag: 'Kur kocka mungon', title: 'Ngritje sinusi', text: 'Kur kocka lart është shumë e pakët edhe për implante të anuara, ngritja e sinusit ndërton lartësinë që u nevojitet implanteve.' },
     ],
     fitTitle: 'Për kë është All-on-6?',
     fitIntro: 'All-on-6 zakonisht rekomandohet për personat që:',
@@ -205,7 +205,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'all-on-6', tag: 'This treatment', title: 'All-on-6', text: 'Six implants spread the bite over more points. Extra reserve for the upper jaw, a strong bite or a wide arch.' },
       { id: 'all-on-4', tag: 'Fewer implants', title: 'All-on-4', text: 'Four implants, two of them tilted, carry the same fixed bridge. Often avoids bone grafting when bone at the back is thin.' },
-      { id: 'implant-zygomatic', tag: 'When bone is missing', title: 'Zygomatic implants', text: 'When upper bone is too thin even for tilted implants, the implants anchor in the cheekbone.' },
+      { id: 'sinus-lift', tag: 'When bone is missing', title: 'Sinus lift', text: 'When upper bone is too thin even for tilted implants, a sinus lift builds the height the implants need.' },
     ],
     fitTitle: 'Who is All-on-6 for?',
     fitIntro: 'All-on-6 is usually recommended for people who:',
@@ -326,7 +326,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'all-on-6', tag: 'Diese Behandlung', title: 'All-on-6', text: 'Sechs Implantate verteilen den Biss auf mehr Punkte. Zusätzliche Reserve für den Oberkiefer, einen starken Biss oder einen breiten Kiefer.' },
       { id: 'all-on-4', tag: 'Weniger Implantate', title: 'All-on-4', text: 'Vier Implantate, zwei davon geneigt, tragen dieselbe feste Brücke. Vermeidet oft einen Knochenaufbau, wenn der hintere Knochen dünn ist.' },
-      { id: 'implant-zygomatic', tag: 'Wenn Knochen fehlt', title: 'Zygoma-Implantate', text: 'Ist der obere Knochen selbst für geneigte Implantate zu dünn, werden die Implantate im Jochbein verankert.' },
+      { id: 'sinus-lift', tag: 'Wenn Knochen fehlt', title: 'Sinuslift', text: 'Ist der obere Knochen selbst für geneigte Implantate zu dünn, schafft ein Sinuslift die Höhe, die die Implantate brauchen.' },
     ],
     fitTitle: 'Für wen ist All-on-6?',
     fitIntro: 'All-on-6 wird meist Menschen empfohlen, die:',
@@ -447,7 +447,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'all-on-6', tag: 'Questo trattamento', title: 'All-on-6', text: 'Sei impianti distribuiscono il morso su più punti. Margine in più per l’arcata superiore, un morso forte o un’arcata ampia.' },
       { id: 'all-on-4', tag: 'Meno impianti', title: 'All-on-4', text: 'Quattro impianti, due inclinati, sostengono lo stesso ponte fisso. Spesso evita l’innesto osseo quando l’osso posteriore è scarso.' },
-      { id: 'implant-zygomatic', tag: 'Quando manca l’osso', title: 'Impianti zigomatici', text: 'Quando l’osso superiore è troppo scarso anche per impianti inclinati, gli impianti si ancorano nell’osso zigomatico.' },
+      { id: 'sinus-lift', tag: 'Quando manca l’osso', title: 'Rialzo del seno', text: 'Quando l’osso superiore è troppo scarso anche per impianti inclinati, il rialzo del seno crea l’altezza che serve agli impianti.' },
     ],
     fitTitle: 'Per chi è l’All-on-6?',
     fitIntro: 'L’All-on-6 si consiglia di solito a chi:',

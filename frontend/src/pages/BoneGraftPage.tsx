@@ -92,7 +92,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'bone-graft', tag: 'Ky trajtim', title: 'Shtim kocke', text: 'Rindërton gjerësinë ose lartësinë aty ku do të shkojë implanti. Një takim, pastaj 6 deri në 8 muaj shërim.' },
       { id: 'sinus-lift', tag: 'Nofulla e sipërme prapa', title: 'Ngritje sinusi', text: 'Forma e shtimit për pjesën e pasme të sipërme, ku sinusi qëndron ulët dhe implantit i mungon lartësia.' },
-      { id: 'implant-zygomatic', tag: 'Pa shtim', title: 'Implante zigomatike', text: 'Kur humbja e kockës lart është e rëndë, implantet ankorohen në kockën e mollëzës dhe shtimi shmanget plotësisht.' },
+      { id: 'all-on-4', tag: 'Shpesh pa shtim', title: 'All-on-4', text: 'Implantet e pasme anohen që të kapin kockën më të dendur, kështu që shumë pacientë me kockë të pakët e shmangin shtimin.' },
     ],
     fitTitle: 'Kujt i duhet shtim kocke?',
     fitIntro: 'Imazhet japin përgjigjen përfundimtare, por shtimi i kockës zakonisht hyn në lojë nëse:',
@@ -223,7 +223,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'bone-graft', tag: 'This treatment', title: 'Bone grafting', text: 'Rebuilds width or height where the implant will go. One appointment, then 6 to 8 months of healing.' },
       { id: 'sinus-lift', tag: 'Upper back jaw', title: 'Sinus lift', text: 'The form of grafting for the upper back jaw, where the sinus sits low and the implant lacks height.' },
-      { id: 'implant-zygomatic', tag: 'No grafting', title: 'Zygomatic implants', text: 'When upper bone loss is severe, implants anchor in the cheekbone and grafting is avoided entirely.' },
+      { id: 'all-on-4', tag: 'Often no grafting', title: 'All-on-4', text: 'The back implants are tilted to grip the denser bone, so many patients with limited bone avoid grafting.' },
     ],
     fitTitle: 'Who needs a bone graft?',
     fitIntro: 'Imaging gives the final answer, but bone grafting usually comes into play if:',
@@ -354,7 +354,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'bone-graft', tag: 'Diese Behandlung', title: 'Knochenaufbau', text: 'Baut Breite oder Höhe dort auf, wo das Implantat hinkommt. Ein Termin, dann 6 bis 8 Monate Heilung.' },
       { id: 'sinus-lift', tag: 'Hinterer Oberkiefer', title: 'Sinuslift', text: 'Die Form des Aufbaus für den hinteren Oberkiefer, wo die Kieferhöhle tief liegt und dem Implantat Höhe fehlt.' },
-      { id: 'implant-zygomatic', tag: 'Ohne Aufbau', title: 'Zygoma-Implantate', text: 'Bei starkem Knochenschwund im Oberkiefer werden Implantate im Jochbein verankert und ein Aufbau ganz vermieden.' },
+      { id: 'all-on-4', tag: 'Oft ohne Aufbau', title: 'All-on-4', text: 'Die hinteren Implantate werden schräg gesetzt und fassen den dichteren Knochen, sodass viele Patienten mit wenig Knochen keinen Aufbau brauchen.' },
     ],
     fitTitle: 'Wer braucht einen Knochenaufbau?',
     fitIntro: 'Die Bildgebung gibt die endgültige Antwort, aber ein Knochenaufbau kommt meist infrage, wenn:',
@@ -485,7 +485,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
     compare: [
       { id: 'bone-graft', tag: 'Questo trattamento', title: 'Innesto osseo', text: 'Ricostruisce larghezza o altezza dove andrà l’impianto. Un appuntamento, poi 6-8 mesi di guarigione.' },
       { id: 'sinus-lift', tag: 'Arcata superiore posteriore', title: 'Rialzo del seno', text: 'La forma di innesto per la zona posteriore superiore, dove il seno è basso e all’impianto manca altezza.' },
-      { id: 'implant-zygomatic', tag: 'Senza innesto', title: 'Impianti zigomatici', text: 'Quando la perdita ossea superiore è grave, gli impianti si ancorano nell’osso zigomatico e l’innesto si evita del tutto.' },
+      { id: 'all-on-4', tag: 'Spesso senza innesto', title: 'All-on-4', text: 'Gli impianti posteriori vengono inclinati per afferrare l’osso più denso, così molti pazienti con poco osso evitano l’innesto.' },
     ],
     fitTitle: 'A chi serve un innesto osseo?',
     fitIntro: 'Le immagini danno la risposta definitiva, ma l’innesto osseo di solito entra in gioco se:',
