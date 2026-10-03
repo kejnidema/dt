@@ -923,3 +923,119 @@ export const priceListLabels: Record<Lang, {
     note: 'Na dërgoni një grafi panoramike para udhëtimit: ajo na lejon të përcaktojmë diagnozën dhe çmimin me rreth 90% saktësi. Oferta përfundimtare konfirmohet në klinikë.',
   },
 };
+
+type Price = PriceItem['price'];
+
+/** Typical private fees for the same treatment and unit (2026 market averages) */
+const germanyPrices: Record<string, Price> = {
+  'dental-exam': 60,
+  'ct-scan': 250,
+  scaling: 120,
+  whitening: 600,
+  'implant-megagen': 2000,
+  'implant-bridge': 2000,
+  'all-on-4': 16000,
+  'all-on-6': 20000,
+  'sinus-lift': 1500,
+  'bone-graft': 1200,
+  'filling-2': 150,
+  'filling-3': 200,
+  'root-canal': 500,
+  'hollywood-smile': [400, 1200],
+  'crown-emax': 1000,
+  'veneer-composite': 400,
+  'gum-contouring': 500,
+  'crown-zirconia': 1000,
+  'crown-porcelain': 500,
+  denture: 1200,
+  aligners: 4500,
+  'oral-surgery': [300, 800],
+};
+
+const italyPrices: Record<string, Price> = {
+  'dental-exam': 60,
+  'ct-scan': 200,
+  scaling: 100,
+  whitening: 450,
+  'implant-megagen': 1500,
+  'implant-bridge': 1500,
+  'all-on-4': 12000,
+  'all-on-6': 15000,
+  'sinus-lift': 1200,
+  'bone-graft': 1000,
+  'filling-2': 120,
+  'filling-3': 170,
+  'root-canal': 400,
+  'hollywood-smile': [400, 1000],
+  'crown-emax': 900,
+  'veneer-composite': 300,
+  'gum-contouring': 400,
+  'crown-zirconia': 900,
+  'crown-porcelain': 600,
+  denture: 1200,
+  aligners: 4000,
+  'oral-surgery': [250, 700],
+};
+
+export interface LocalMarket {
+  compareTitle: string;
+  localLabel: string;
+  ourLabel: string;
+  saveLabel: string;
+  bannerTitle: string;
+  bannerText: string;
+  prices: Record<string, Price>;
+}
+
+/** Languages without an entry show no comparison */
+export const localMarkets: Partial<Record<Lang, LocalMarket>> = {
+  de: {
+    compareTitle: 'Ihr Preisvorteil',
+    localLabel: 'Üblicher Preis in Deutschland',
+    ourLabel: 'Unser Preis',
+    saveLabel: 'Sie sparen',
+    bannerTitle: 'Was dieselbe Behandlung bei Ihrem Zahnarzt in Deutschland kostet',
+    bannerText:
+      'Neben jedem Preis sehen Sie das übliche Privathonorar in Deutschland für dieselbe Behandlung. So erkennen Sie auf einen Blick, wie viel Sie sparen. Die Vergleichswerte sind Marktdurchschnitte 2026; das Angebot Ihres Zahnarztes kann abweichen.',
+    prices: germanyPrices,
+  },
+  it: {
+    compareTitle: 'Il tuo risparmio',
+    localLabel: 'Prezzo medio dal dentista in Italia',
+    ourLabel: 'Il nostro prezzo',
+    saveLabel: 'Risparmi',
+    bannerTitle: 'Quanto costa lo stesso trattamento dal tuo dentista in Italia',
+    bannerText:
+      'Accanto a ogni prezzo trovi la tariffa media in Italia per lo stesso trattamento, così vedi subito quanto risparmi. I valori di confronto sono medie di mercato 2026; il preventivo del tuo dentista può essere diverso.',
+    prices: italyPrices,
+  },
+  en: {
+    compareTitle: 'Your saving',
+    localLabel: 'Typical price in Western Europe',
+    ourLabel: 'Our price',
+    saveLabel: 'You save',
+    bannerTitle: 'What the same treatment costs at your dentist back home',
+    bannerText:
+      'Next to every price you will find the typical private fee in Western Europe for the same treatment, so you can see at a glance how much you save. Comparison prices are 2026 market averages; your own dentist’s quote may differ.',
+    prices: germanyPrices,
+  },
+  sq: {
+    compareTitle: 'Kursimi juaj',
+    localLabel: 'Çmimi mesatar në Europën Perëndimore',
+    ourLabel: 'Çmimi ynë',
+    saveLabel: 'Kurseni',
+    bannerTitle: 'Sa kushton i njëjti trajtim te dentisti në Europën Perëndimore',
+    bannerText:
+      'Pranë çdo çmimi shihni tarifën mesatare private në Europën Perëndimore për të njëjtin trajtim, që të kuptoni menjëherë sa kurseni. Çmimet e krahasimit janë mesatare tregu të vitit 2026; oferta e dentistit tuaj mund të ndryshojë.',
+    prices: germanyPrices,
+  },
+};
+
+/** Saving in EUR and percent; only when both prices are single amounts (or ours is free) */
+export function savingOf(local: Price, ours: Price) {
+  if (Array.isArray(local) || Array.isArray(ours) || local === 'free') return null;
+  const ourAmount = ours === 'free' ? 0 : ours;
+  const amount = local - ourAmount;
+  if (amount <= 0) return null;
+  return { amount, percent: Math.round((amount / local) * 100) };
+}

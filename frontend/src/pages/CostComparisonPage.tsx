@@ -1,4 +1,3 @@
-import Calculator from '@/components/Calculator';
 import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
 
@@ -77,9 +76,6 @@ export default function CostComparisonPage() {
           </div>
         </div>
       </section>
-
-      {/* Calculator */}
-      <Calculator />
 
       {/* What's Included */}
       <section className="py-section-padding bg-white">

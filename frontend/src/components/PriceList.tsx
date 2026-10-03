@@ -5,10 +5,13 @@ import {
   formatPrice,
   groupsOf,
   itemsOf,
+  localMarkets,
   lowestPrice,
   priceCategories,
   priceGroups,
   priceListLabels,
+  savingOf,
+  type LocalMarket,
   type PriceGroup,
   type PriceGroupId,
   type PriceItem,
@@ -27,6 +30,7 @@ type Labels = (typeof priceListLabels)[Lang];
 export default function PriceList({ showHeading = true, groupIds, tone = 'low' }: PriceListProps) {
   const { lang } = useI18n();
   const labels = priceListLabels[lang];
+  const market = localMarkets[lang];
   const location = useLocation();
   const full = !groupIds;
   const [open, setOpen] = useState<Set<string>>(() => new Set());
@@ -89,6 +93,18 @@ export default function PriceList({ showHeading = true, groupIds, tone = 'low' }
           <div className="mb-10 max-w-2xl">
             <h2 className="font-headline-md text-headline-md text-primary mb-3">{labels.title}</h2>
             <p className="font-body-md text-body-md text-on-surface-variant">{labels.subtitle}</p>
+          </div>
+        )}
+
+        {market && (
+          <div className="mb-10 flex flex-col md:flex-row md:items-center gap-5 rounded-md border border-aqua-deep/40 bg-aqua-soft px-6 py-5">
+            <span className="w-12 h-12 shrink-0 rounded-md bg-primary text-white flex items-center justify-center">
+              <span className="material-symbols-outlined text-[24px]">trending_down</span>
+            </span>
+            <div>
+              <p className="font-headline-sm text-[18px] leading-snug text-primary mb-1">{market.bannerTitle}</p>
+              <p className="text-[14px] leading-relaxed text-on-surface-variant max-w-3xl">{market.bannerText}</p>
+            </div>
           </div>
         )}
 
@@ -182,12 +198,12 @@ export default function PriceList({ showHeading = true, groupIds, tone = 'low' }
                   </span>
                 </div>
                 {groupsOf(category).map((group) => (
-                  <Group key={group.id} group={group} lang={lang} labels={labels} open={open} onToggle={toggle} />
+                  <Group key={group.id} group={group} lang={lang} labels={labels} market={market} open={open} onToggle={toggle} />
                 ))}
               </div>
             ))
           : groups.map((group) => (
-              <Group key={group.id} group={group} lang={lang} labels={labels} open={open} onToggle={toggle} />
+              <Group key={group.id} group={group} lang={lang} labels={labels} market={market} open={open} onToggle={toggle} />
             ))}
 
         <p className="mt-10 flex items-start gap-2 text-[13px] text-on-surface-variant">
@@ -203,11 +219,12 @@ interface GroupProps {
   group: PriceGroup;
   lang: Lang;
   labels: Labels;
+  market?: LocalMarket;
   open: Set<string>;
   onToggle: (id: string) => void;
 }
 
-function Group({ group, lang, labels, open, onToggle }: GroupProps) {
+function Group({ group, lang, labels, market, open, onToggle }: GroupProps) {
   return (
     <div className="mb-10 last:mb-0">
       <h3 className="font-label-md text-label-md uppercase tracking-[0.12em] text-on-surface-variant mb-3">
@@ -225,6 +242,7 @@ function Group({ group, lang, labels, open, onToggle }: GroupProps) {
             item={item}
             lang={lang}
             labels={labels}
+            market={market}
             isOpen={open.has(item.id)}
             onToggle={() => onToggle(item.id)}
           />
@@ -238,11 +256,14 @@ interface RowProps {
   item: PriceItem;
   lang: Lang;
   labels: Labels;
+  market?: LocalMarket;
   isOpen: boolean;
   onToggle: () => void;
 }
 
-function Row({ item, lang, labels, isOpen, onToggle }: RowProps) {
+function Row({ item, lang, labels, market, isOpen, onToggle }: RowProps) {
+  const local = market?.prices[item.id];
+  const saving = local !== undefined ? savingOf(local, item.price) : null;
   return (
     <article id={`price-${item.id}`} className="scroll-mt-40">
       <button
@@ -268,12 +289,24 @@ function Row({ item, lang, labels, isOpen, onToggle }: RowProps) {
           </span>
         </span>
         <span className="text-right">
+          {market && local !== undefined && (
+            <span className="block mb-2">
+              <span className="block text-[11px] uppercase tracking-wider text-on-surface-variant">{market.localLabel}</span>
+              <s className="block text-[15px] text-on-surface-variant/80 whitespace-nowrap">{formatPrice(local, lang)}</s>
+              <span className="block mt-2 text-[11px] uppercase tracking-wider text-primary font-semibold">{market.ourLabel}</span>
+            </span>
+          )}
           <span className="block font-headline-md text-[22px] leading-none text-primary whitespace-nowrap">
             {formatPrice(item.price, lang)}
           </span>
           {item.unit && (
             <span className="block mt-1 text-[11px] uppercase tracking-wider text-on-surface-variant">
               {item.unit[lang]}
+            </span>
+          )}
+          {market && saving && (
+            <span className="inline-block mt-2 rounded-sm bg-primary px-2 py-0.5 text-[11px] font-semibold text-white whitespace-nowrap">
+              {market.saveLabel} {formatPrice(saving.amount, lang)} (−{saving.percent}%)
             </span>
           )}
         </span>

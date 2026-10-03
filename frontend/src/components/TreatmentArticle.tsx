@@ -5,7 +5,7 @@ import { images, galleryPairs } from '@/lib/images';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import FaqAccordion from '@/components/FaqAccordion';
 import ContactForm from '@/components/ContactForm';
-import { formatPrice, priceGroups, priceListLabels, treatmentHref, type PriceItem } from '@/lib/priceList';
+import { formatPrice, localMarkets, priceGroups, priceListLabels, savingOf, treatmentHref, type PriceItem } from '@/lib/priceList';
 
 const WHATSAPP = 'https://wa.me/355690000000';
 
@@ -163,6 +163,54 @@ function ItemPrice({ item, lang }: { item: PriceItem | undefined; lang: Lang }) 
   );
 }
 
+function PriceComparison({ item, lang }: { item: PriceItem; lang: Lang }) {
+  const market = localMarkets[lang];
+  const local = market?.prices[item.id];
+  if (!market || local === undefined) return null;
+  const saving = savingOf(local, item.price);
+  return (
+    <div className="relative overflow-hidden rounded-lg bg-primary text-on-primary p-6 md:p-7 mb-8 shadow-lg">
+      <span className="pointer-events-none absolute -right-10 -top-10 w-40 h-40 rounded-full bg-aqua/20 blur-2xl" />
+      <div className="relative flex items-center justify-between gap-4 mb-5">
+        <span className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-aqua">
+          <span className="material-symbols-outlined text-[18px]">trending_down</span>
+          {market.compareTitle}
+        </span>
+        {saving && (
+          <span className="rounded-full bg-aqua text-primary px-3 py-1 text-[13px] font-bold whitespace-nowrap">
+            −{saving.percent}%
+          </span>
+        )}
+      </div>
+      <div className="relative grid grid-cols-[1fr_auto_1fr] items-end gap-4">
+        <div>
+          <p className="text-[12px] leading-snug text-white/70 mb-1">{market.localLabel}</p>
+          <s className="block font-headline-md text-[24px] md:text-[28px] leading-none text-white/60 decoration-2 whitespace-nowrap">
+            {formatPrice(local, lang)}
+          </s>
+        </div>
+        <span className="material-symbols-outlined text-[28px] text-aqua pb-1">arrow_forward</span>
+        <div>
+          <p className="text-[12px] leading-snug text-white/70 mb-1">{market.ourLabel}</p>
+          <p className="font-headline-md text-[32px] md:text-[38px] leading-none text-white whitespace-nowrap">
+            {formatPrice(item.price, lang)}
+          </p>
+        </div>
+      </div>
+      {(item.unit || saving) && (
+        <div className="relative mt-5 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-2 text-[13px]">
+          {item.unit && <span className="text-white/70">{item.unit[lang]}</span>}
+          {saving && (
+            <span className="font-semibold text-aqua">
+              {market.saveLabel} {formatPrice(saving.amount, lang)}
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface Props {
   content: Record<Lang, TreatmentArticleContent>;
   /** Price list item this page describes */
@@ -198,6 +246,7 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
             <h1 className="font-display-lg text-display-lg text-primary mt-3 mb-6">{c.name}</h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">{c.subtitle}</p>
             <p className="text-on-surface-variant mb-8">{c.lead}</p>
+            {item && <PriceComparison item={item} lang={lang} />}
             <div className="flex flex-col items-start gap-4">
               <Link
                 to="/contact"
@@ -274,6 +323,11 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
             </div>
             <div className="bg-primary text-on-primary rounded-lg p-6">
               <p className="text-[13px] uppercase tracking-wider text-white/70">{c.priceTitle}</p>
+              {item && localMarkets[lang]?.prices[item.id] !== undefined && (
+                <p className="mt-2 text-[13px] text-white/60">
+                  {localMarkets[lang]!.localLabel}: <s>{formatPrice(localMarkets[lang]!.prices[item.id]!, lang)}</s>
+                </p>
+              )}
               <p className="font-headline-md text-[28px] leading-tight mt-2">{item ? formatPrice(item.price, lang) : ''}</p>
               {item?.unit && <p className="text-[13px] text-white/70 mt-1">{item.unit[lang]}</p>}
               <p className="flex items-center gap-2 text-[14px] text-aqua mt-3">

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import FaqAccordion from '@/components/FaqAccordion';
-import Calculator from '@/components/Calculator';
 import PriceList from '@/components/PriceList';
 import { images } from '@/lib/images';
 
@@ -18,14 +17,18 @@ function Hero({ title, subtitle, image }: { title: string; subtitle: string; ima
 }
 
 export function PricingPage() {
-  const { t: tr } = useI18n();
+  const { t: tr, localized } = useI18n();
   return (
     <>
       <Hero
         title={tr('Transparent Pricing & Savings')}
-        subtitle={tr('Calculate Tirana costs versus German averages — no hidden fees.')}
+        subtitle={localized({
+          de: 'Jeder Preis im Vergleich zu dem, was dieselbe Behandlung in Deutschland kostet. Keine versteckten Kosten.',
+          en: 'Every price next to what the same treatment costs back home. No hidden fees.',
+          it: 'Ogni prezzo accanto a quanto costa lo stesso trattamento in Italia. Nessun costo nascosto.',
+          sq: 'Çmime transparente për çdo trajtim, pa kosto të fshehura.',
+        })}
       />
-      <Calculator />
       <PriceList />
       <section className="py-section-padding bg-surface">
         <div className="max-w-[1200px] mx-auto px-gutter grid md:grid-cols-3 gap-8">

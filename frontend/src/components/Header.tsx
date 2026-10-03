@@ -7,7 +7,6 @@ import { formatPrice, menuItemsOf, menuNames, subsectionItemsOf, menuSummaries, 
 const navItems = [
   { label: 'Home2', path: '/home2' },
   { label: 'Treatments', path: '/treatments', children: treatmentGroups },
-  { label: 'Pricing', path: '/pricing' },
   { label: 'Gallery', path: '/veneers/gallery' },
   { label: 'Travel', path: '/journey' },
   { label: 'About Us', path: '/about' },
