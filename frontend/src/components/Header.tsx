@@ -5,7 +5,6 @@ import { treatmentGroups } from '@/pages/TreatmentsPage';
 import { formatPrice, menuItemsOf, menuNames, subsectionItemsOf, menuSummaries, priceCategories, priceListLabels, treatmentHref, type PriceItem } from '@/lib/priceList';
 
 const navItems = [
-  { label: 'Home2', path: '/home2' },
   { label: 'Treatments', path: '/treatments', children: treatmentGroups },
   { label: 'Gallery', path: '/veneers/gallery' },
   { label: 'Travel', path: '/journey' },
@@ -60,7 +59,7 @@ export default function Header() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const overlay = location.pathname === '/home2' && !scrolled && !menuOpen && !languageOpen;
+  const overlay = location.pathname === '/' && !scrolled && !menuOpen && !languageOpen;
   const { lang, setLang, t } = useI18n();
 
   const currentLanguage =

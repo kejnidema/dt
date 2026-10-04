@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
-import HomePage from '@/pages/HomePage';
 
 const HERO_VIDEO = '/images/misc/final-home-hero-hmc-video.mp4';
 const WHATSAPP_URL =
   'https://wa.me/355690000000?text=Hello%2C%20I%20would%20like%20a%20consultation%20for%20veneers.';
 
-function VideoHero() {
+export default function VideoHero() {
   const { localized } = useI18n();
 
   const t = localized({
@@ -100,8 +99,4 @@ function VideoHero() {
       </div>
     </section>
   );
-}
-
-export default function Home2Page() {
-  return <HomePage hero={<VideoHero />} />;
 }

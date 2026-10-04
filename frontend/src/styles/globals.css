@@ -343,7 +343,41 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Testimonials carousel */
+.testimonial-in-next { animation: testimonial-in-next .7s var(--ease-out-soft) both; }
+.testimonial-in-prev { animation: testimonial-in-prev .7s var(--ease-out-soft) both; }
+.testimonial-star { animation: star-pop .5s var(--ease-out-soft) both; }
+.testimonial-progress { animation-name: progress-fill; animation-timing-function: linear; animation-fill-mode: both; }
+.testimonial-quote { animation: quote-float 4s ease-in-out infinite; }
+
+@keyframes testimonial-in-next {
+  from { opacity: 0; transform: translate3d(48px, 0, 0); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes testimonial-in-prev {
+  from { opacity: 0; transform: translate3d(-48px, 0, 0); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes star-pop {
+  0% { opacity: 0; transform: scale(.3) rotate(-35deg); }
+  70% { opacity: 1; transform: scale(1.2) rotate(6deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes quote-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .testimonial-in-next, .testimonial-in-prev, .testimonial-star, .testimonial-quote { animation: none; }
   .site-header { animation: none; }
   .nav-link::after,
   :where(a, button).bg-primary::before,

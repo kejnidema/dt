@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigationType } from 'react-router-dom';
 
 const STORAGE_PREFIX = 'vct-scroll:';
 
@@ -27,6 +27,7 @@ function restoreScroll(top: number) {
 
 export default function ScrollMemory() {
   const location = useLocation();
+  const navigationType = useNavigationType();
   const key = storageKey(location.pathname, location.search);
   const activeKey = useRef(key);
   const ticking = useRef(false);
@@ -44,7 +45,8 @@ export default function ScrollMemory() {
     saveScroll(activeKey.current);
 
     activeKey.current = key;
-    const top = readScroll(key); // first visit => 0, revisits => remembered position
+    // Only back/forward and reloads restore the old position; link clicks always start at the top
+    const top = navigationType === 'POP' ? readScroll(key) : 0;
 
     restoreScroll(top);
 
@@ -56,7 +58,7 @@ export default function ScrollMemory() {
       cancelAnimationFrame(frame);
       window.clearTimeout(timeout);
     };
-  }, [key]);
+  }, [key, navigationType]);
 
   useEffect(() => {
     const onScroll = () => {

@@ -1,8 +1,10 @@
-import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import PlaceholderPhoto from '@/components/PlaceholderPhoto';
+import DoctorCard from '@/components/DoctorCard';
+import { doctors } from '@/lib/doctors';
+import VideoHero from '@/components/VideoHero';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { images, galleryPairs, tiranaPhotos } from '@/lib/images';
 import { formatPrice, lowestPrice, priceGroups, treatmentHref, type Localized } from '@/lib/priceList';
@@ -506,8 +508,6 @@ const featured: { id: string; image: string; text: Localized }[] = [
 
 const allItems = priceGroups.flatMap((group) => group.items);
 
-/** Placeholder profiles until the real team details are ready */
-const team = Array.from({ length: 5 }, (_, index) => ({ id: index, name: '', role: '', photo: '' }));
 
 const whyPhotos = [photo(2), photo(3), photo(4), photo(5)];
 const clinicPhotos = [images.clinicGallery[0], images.clinicGallery[1], photo(6), photo(7), photo(8)].map(
@@ -526,30 +526,13 @@ function SectionHeading({ eyebrow, title, text, light }: { eyebrow: string; titl
   );
 }
 
-export default function HomePage({ hero }: { hero?: ReactNode }) {
+export default function HomePage() {
   const { lang } = useI18n();
   const c = copy[lang];
 
   return (
     <>
-      {hero ?? (
-        <section className="relative bg-surface py-section-padding">
-          <div className="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-on-surface-variant">{c.whyEyebrow}</span>
-              <h1 className="font-display-lg text-display-lg leading-tight text-primary">
-                {c.whyTitle} <span className="text-secondary">{c.whyAccent}</span>
-              </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg">{c.whyText}</p>
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-label-md">
-                {c.ctaBook}
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </Link>
-            </div>
-            <BeforeAfterSlider beforeImage={images.heroBefore} afterImage={images.heroAfter} aspectRatio="tall" />
-          </div>
-        </section>
-      )}
+      <VideoHero />
 
       {/* Certifications */}
       <section className="py-16 bg-surface border-b border-outline-variant">
@@ -559,10 +542,10 @@ export default function HomePage({ hero }: { hero?: ReactNode }) {
             <p className="text-on-surface-variant mt-2">{c.certsText}</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {c.certs.map((cert, index) => (
+            {c.certs.map((cert) => (
               <div key={cert.code} className="flex flex-col items-center gap-4 bg-white border border-outline-variant rounded-lg p-6 text-center">
                 <img
-                  src={index === 0 ? '/images/misc/iso-cert.svg' : '/images/misc/ce-cert.svg'}
+                  src={cert.code === 'CE' ? '/images/certs/ce.webp' : '/images/certs/iso-13485.webp'}
                   alt={cert.title}
                   className="w-36 h-36 sm:w-40 sm:h-40 object-contain"
                   loading="lazy"
@@ -839,31 +822,16 @@ export default function HomePage({ hero }: { hero?: ReactNode }) {
       <section className="py-section-padding bg-surface">
         <div className="max-w-[1200px] mx-auto px-gutter">
           <SectionHeading eyebrow={c.teamEyebrow} title={c.teamTitle} text={c.teamText} />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {team.map((member) => (
-              <div key={member.id} className="bg-white border border-outline-variant rounded-lg overflow-hidden">
-                <div className="aspect-[3/4] bg-surface-container grid place-items-center">
-                  {member.photo ? (
-                    <img src={member.photo} alt={member.name} loading="lazy" className="w-full h-full object-cover" />
-                  ) : (
-                    <span className="material-symbols-outlined text-[64px] text-outline-variant">person</span>
-                  )}
-                </div>
-                <div className="p-4 min-h-[76px]">
-                  {member.name ? (
-                    <>
-                      <p className="font-semibold text-primary">{member.name}</p>
-                      <p className="text-[13px] text-on-surface-variant">{member.role}</p>
-                    </>
-                  ) : (
-                    <>
-                      <span className="block h-4 w-3/4 rounded bg-surface-container" />
-                      <span className="block h-3 w-1/2 rounded bg-surface-container mt-2" />
-                    </>
-                  )}
-                </div>
-              </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {doctors.map((doctor) => (
+              <DoctorCard key={doctor.slug} doctor={doctor} />
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link to="/about" className="inline-flex items-center gap-2 text-primary font-label-md hover:gap-3 transition-all">
+              {{ sq: 'Njihuni me të gjithë ekipin', en: 'Meet the whole team', de: 'Das ganze Team kennenlernen', it: 'Conosci tutto il team' }[lang]}
+              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </Link>
           </div>
         </div>
       </section>

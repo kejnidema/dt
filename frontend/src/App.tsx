@@ -9,7 +9,6 @@ import ScrollMemory from '@/components/ScrollMemory';
 import RevealOnScroll from '@/components/RevealOnScroll';
 
 import HomePage from '@/pages/HomePage';
-import Home2Page from '@/pages/Home2Page';
 import TreatmentsPage from '@/pages/TreatmentsPage';
 import ServicesPage from '@/pages/ServicesPage';
 import HollywoodSmilePage from '@/pages/HollywoodSmilePage';
@@ -62,7 +61,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/home2" element={<Home2Page />} />
+            <Route path="/home2" element={<Navigate to="/" replace />} />
             <Route path="/treatments" element={<TreatmentsPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/treatments/hollywood-smile" element={<HollywoodSmilePage />} />
