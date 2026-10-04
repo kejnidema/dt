@@ -94,12 +94,12 @@ export function AftercarePage() {
     de: [
       { question: 'Wie pflege ich Veneers?', answer: 'Zweimal täglich putzen, Zahnseide/Interdentalbürsten verwenden und alle 6 Monate professionelle Kontrolle.' },
       { question: 'Was passiert nach der Heimreise?', answer: 'Sie erhalten digitale Unterlagen, Pflegehinweise und können Kontrollfotos per WhatsApp senden.' },
-      { question: 'Gibt es Garantie?', answer: 'Ja, auf Material- und Herstellungsfehler gemäß individueller Behandlung und Pflegeprotokoll.' },
+      { question: 'Gibt es Garantie?', answer: 'Ja: 10 Jahre auf Implantate und 5 Jahre auf Veneers, mit kostenloser Neuanfertigung bei Schäden.' },
     ],
     en: [
       { question: 'How do I care for veneers?', answer: 'Brush twice daily, use floss/interdental brushes and schedule professional check-ups every 6 months.' },
       { question: 'What happens after I return home?', answer: 'You receive digital documents, care instructions and can send follow-up photos via WhatsApp.' },
-      { question: 'Is there a warranty?', answer: 'Yes, for material and manufacturing defects according to your individual treatment and care protocol.' },
+      { question: 'Is there a warranty?', answer: 'Yes: 10 years on implants and 5 years on veneers, with free rework in case of damage.' },
     ],
   });
 

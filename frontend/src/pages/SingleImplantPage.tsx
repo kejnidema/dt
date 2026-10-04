@@ -520,6 +520,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
 export default function SingleImplantPage() {
   return (
     <TreatmentArticle
+      warrantyYears={10}
       content={content}
       itemId="implant-megagen"
       heroImage={images.surgery[4] ?? images.heroAfter}

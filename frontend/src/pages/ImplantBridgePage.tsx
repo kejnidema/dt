@@ -532,6 +532,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
 export default function ImplantBridgePage() {
   return (
     <TreatmentArticle
+      warrantyYears={10}
       content={content}
       itemId="implant-bridge"
       heroImage={images.surgery[9] ?? images.heroAfter}

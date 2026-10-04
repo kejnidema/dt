@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .gold { fill: #F7C948; }
+      .white { fill: #FFFFFF; }
+      .blue { fill: #0A4FA2; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-weight: 700; }
+    </style>
+  </defs>
+  <circle class="blue" cx="256" cy="256" r="240"/>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#F7C948" stroke-width="10"/>
+
+  <g class="gold">
+    <path d="M256 36 L270 62 L298 57 L282 82 L300 110 L271 98 L256 126 L241 98 L212 110 L230 82 L214 57 L242 62 Z"/>
+    <path d="M419 75 L433 100 L459 95 L443 119 L461 147 L432 135 L419 161 L406 135 L377 147 L395 119 L379 95 L405 100 Z"/>
+    <path d="M93 75 L107 100 L133 95 L117 119 L135 147 L106 135 L93 161 L80 135 L51 147 L69 119 L53 95 L79 100 Z"/>
+    <path d="M419 437 L433 462 L459 457 L443 481 L461 509 L432 497 L419 523 L406 497 L377 509 L395 481 L379 457 L405 462 Z"/>
+    <path d="M93 437 L107 462 L133 457 L117 481 L135 509 L106 497 L93 523 L80 497 L51 509 L69 481 L53 457 L79 462 Z"/>
+    <path d="M142 152 L156 177 L182 172 L166 196 L184 224 L155 212 L142 238 L129 212 L100 224 L118 196 L102 172 L128 177 Z"/>
+    <path d="M370 152 L384 177 L410 172 L394 196 L412 224 L383 212 L370 238 L357 212 L328 224 L346 196 L330 172 L356 177 Z"/>
+    <path d="M142 360 L156 385 L182 380 L166 404 L184 432 L155 420 L142 446 L129 420 L100 432 L118 404 L102 380 L128 385 Z"/>
+    <path d="M370 360 L384 385 L410 380 L394 404 L412 432 L383 420 L370 446 L357 420 L328 432 L346 404 L330 380 L356 385 Z"/>
+    <path d="M256 338 L270 364 L298 359 L282 384 L300 412 L271 400 L256 426 L241 400 L212 412 L230 384 L214 359 L242 364 Z"/>
+  </g>
+
+  <text x="256" y="208" text-anchor="middle" class="label white" font-size="108">ISO</text>
+  <text x="256" y="272" text-anchor="middle" class="label white" font-size="90">13485</text>
+  <text x="256" y="332" text-anchor="middle" class="label white" font-size="36">2016</text>
+</svg>

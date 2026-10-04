@@ -18,7 +18,7 @@ export default function CostComparisonPage() {
       hotelTitle: '4* & 5* Hotels',
       hotelDesc: 'Übernachtung in unseren Partnerhotels direkt im Herzen von Tirana.',
       planTitle: 'Treatment Plan',
-      planDesc: 'Digital Smile Design, Röntgen, Anästhesie und lebenslange Garantie.',
+      planDesc: 'Digital Smile Design, Röntgen und Anästhesie inklusive.',
       doctorName: 'Dr. Marko Hoxha',
       doctorTitle: 'Chefarzt & Spezialist für Ästhetik',
       doctorQuote:
@@ -37,7 +37,7 @@ export default function CostComparisonPage() {
       hotelTitle: '4* & 5* Hotels',
       hotelDesc: 'Stay at our partner hotels in the heart of Tirana.',
       planTitle: 'Treatment Plan',
-      planDesc: 'Digital Smile Design, X-rays, anesthesia and lifetime warranty.',
+      planDesc: 'Digital Smile Design, X-rays and anesthesia included.',
       doctorName: 'Dr. Marko Hoxha',
       doctorTitle: 'Lead Doctor & Aesthetic Specialist',
       doctorQuote:

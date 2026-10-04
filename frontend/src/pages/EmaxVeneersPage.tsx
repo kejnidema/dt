@@ -528,6 +528,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
 export default function EmaxVeneersPage() {
   return (
     <TreatmentArticle
+      warrantyYears={5}
       content={content}
       itemId="crown-emax"
       heroImage={images.emaxAfter}

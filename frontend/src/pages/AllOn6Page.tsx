@@ -492,6 +492,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
 export default function AllOn6Page() {
   return (
     <TreatmentArticle
+      warrantyYears={10}
       content={content}
       itemId="all-on-6"
       heroImage={images.surgery[5] ?? images.heroAfter}

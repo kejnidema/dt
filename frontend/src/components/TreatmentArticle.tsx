@@ -169,9 +169,9 @@ function PriceComparison({ item, lang }: { item: PriceItem; lang: Lang }) {
   if (!market || local === undefined) return null;
   const saving = savingOf(local, item.price);
   return (
-    <div className="relative overflow-hidden rounded-lg bg-primary text-on-primary p-6 md:p-7 mb-8 shadow-lg">
+    <div className="relative overflow-hidden rounded-lg bg-primary text-on-primary p-5 mb-6 shadow-lg">
       <span className="pointer-events-none absolute -right-10 -top-10 w-40 h-40 rounded-full bg-aqua/20 blur-2xl" />
-      <div className="relative flex items-center justify-between gap-4 mb-5">
+      <div className="relative flex items-center justify-between gap-4 mb-4">
         <span className="inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-aqua">
           <span className="material-symbols-outlined text-[18px]">trending_down</span>
           {market.compareTitle}
@@ -185,20 +185,20 @@ function PriceComparison({ item, lang }: { item: PriceItem; lang: Lang }) {
       <div className="relative grid grid-cols-[1fr_auto_1fr] items-end gap-4">
         <div>
           <p className="text-[12px] leading-snug text-white/70 mb-1">{market.localLabel}</p>
-          <s className="block font-headline-md text-[24px] md:text-[28px] leading-none text-white/60 decoration-2 whitespace-nowrap">
+          <s className="block font-headline-md text-[20px] md:text-[22px] leading-none text-white/60 decoration-2 whitespace-nowrap">
             {formatPrice(local, lang)}
           </s>
         </div>
-        <span className="material-symbols-outlined text-[28px] text-aqua pb-1">arrow_forward</span>
+        <span className="material-symbols-outlined text-[22px] text-aqua pb-1">arrow_forward</span>
         <div>
           <p className="text-[12px] leading-snug text-white/70 mb-1">{market.ourLabel}</p>
-          <p className="font-headline-md text-[32px] md:text-[38px] leading-none text-white whitespace-nowrap">
+          <p className="font-headline-md text-[26px] md:text-[30px] leading-none text-white whitespace-nowrap">
             {formatPrice(item.price, lang)}
           </p>
         </div>
       </div>
       {(item.unit || saving) && (
-        <div className="relative mt-5 pt-4 border-t border-white/15 flex flex-wrap items-center justify-between gap-2 text-[13px]">
+        <div className="relative mt-4 pt-3 border-t border-white/15 flex flex-wrap items-center justify-between gap-2 text-[13px]">
           {item.unit && <span className="text-white/70">{item.unit[lang]}</span>}
           {saving && (
             <span className="font-semibold text-aqua">
@@ -217,9 +217,39 @@ interface Props {
   itemId: string;
   heroImage: string;
   whatImage: string;
+  warrantyYears?: number;
 }
 
-export default function TreatmentArticle({ content, itemId, heroImage, whatImage }: Props) {
+const warrantyCopy: Record<Lang, { title: string; years: (n: number) => string; rework: string }> = {
+  sq: { title: 'Garanci', years: (n) => `${n} vjet`, rework: 'Ripunim falas në rast dëmtimi' },
+  en: { title: 'Warranty', years: (n) => `${n} years`, rework: 'Free rework in case of damage' },
+  de: { title: 'Garantie', years: (n) => `${n} Jahre`, rework: 'Kostenlose Neuanfertigung bei Schäden' },
+  it: { title: 'Garanzia', years: (n) => `${n} anni`, rework: 'Rifacimento gratuito in caso di danno' },
+};
+
+function WarrantyCard({ years, lang }: { years: number; lang: Lang }) {
+  const w = warrantyCopy[lang];
+  return (
+    <div className="relative overflow-hidden rounded-lg border-2 border-aqua-deep bg-aqua-soft p-5">
+      <span className="material-symbols-outlined absolute -right-3 -top-3 text-[80px] text-aqua-deep/40" aria-hidden>
+        verified_user
+      </span>
+      <div className="relative">
+        <p className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-wider text-primary">
+          <span className="material-symbols-outlined text-[20px]">verified_user</span>
+          {w.title}
+        </p>
+        <p className="font-headline-md text-[26px] leading-none text-primary mt-2">{w.years(years)}</p>
+        <p className="flex items-start gap-2 text-[14px] font-medium text-primary mt-3">
+          <span className="material-symbols-outlined text-[18px] mt-0.5">autorenew</span>
+          {w.rework}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function TreatmentArticle({ content, itemId, heroImage, whatImage, warrantyYears }: Props) {
   const { lang } = useI18n();
   const c = content[lang];
   const ui = common[lang];
@@ -232,10 +262,10 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
   return (
     <>
       {/* Hero */}
-      <section className="py-section-padding bg-surface">
-        <div className="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-10 md:py-14 bg-surface">
+        <div className="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
-            <nav className="flex items-center gap-2 text-[13px] text-on-surface-variant mb-6">
+            <nav className="flex items-center gap-2 text-[13px] text-on-surface-variant mb-4">
               <Link to="/" className="hover:text-primary">{ui.home}</Link>
               <span className="material-symbols-outlined text-[16px]">chevron_right</span>
               <Link to="/treatments" className="hover:text-primary">{ui.treatments}</Link>
@@ -243,9 +273,9 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
               <span className="text-primary">{c.name}</span>
             </nav>
             <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-on-surface-variant">{c.eyebrow}</span>
-            <h1 className="font-display-lg text-display-lg text-primary mt-3 mb-6">{c.name}</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant mb-4">{c.subtitle}</p>
-            <p className="text-on-surface-variant mb-8">{c.lead}</p>
+            <h1 className="font-display-lg text-[32px] md:text-[40px] leading-tight font-semibold tracking-tight text-primary mt-2 mb-3">{c.name}</h1>
+            <p className="text-[17px] leading-relaxed text-on-surface-variant mb-2">{c.subtitle}</p>
+            <p className="text-[15px] leading-relaxed text-on-surface-variant mb-6">{c.lead}</p>
             {item && <PriceComparison item={item} lang={lang} />}
             <div className="flex flex-col items-start gap-4">
               <Link
@@ -263,7 +293,7 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
               </p>
             </div>
           </div>
-          <div className="aspect-[4/5] rounded-lg overflow-hidden bg-surface-container">
+          <div className="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container">
             <img src={heroImage} alt={c.name} className="w-full h-full object-cover" />
           </div>
         </div>
@@ -315,12 +345,13 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
           <aside className="lg:sticky lg:top-24 space-y-4">
             <div className="bg-white border border-outline-variant rounded-lg divide-y divide-outline-variant">
               {c.stats.map((stat) => (
-                <div key={stat.label} className="px-6 py-5">
-                  <p className="font-headline-md text-[26px] leading-none text-primary">{stat.value}</p>
-                  <p className="mt-2 text-[13px] uppercase tracking-wider text-on-surface-variant">{stat.label}</p>
+                <div key={stat.label} className="flex items-baseline justify-between gap-4 px-5 py-3">
+                  <p className="text-[13px] text-on-surface-variant">{stat.label}</p>
+                  <p className="text-[16px] font-semibold text-primary text-right whitespace-nowrap">{stat.value}</p>
                 </div>
               ))}
             </div>
+            {warrantyYears && <WarrantyCard years={warrantyYears} lang={lang} />}
             <div className="bg-primary text-on-primary rounded-lg p-6">
               <p className="text-[13px] uppercase tracking-wider text-white/70">{c.priceTitle}</p>
               {item && localMarkets[lang]?.prices[item.id] !== undefined && (
@@ -328,7 +359,7 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
                   {localMarkets[lang]!.localLabel}: <s>{formatPrice(localMarkets[lang]!.prices[item.id]!, lang)}</s>
                 </p>
               )}
-              <p className="font-headline-md text-[28px] leading-tight mt-2">{item ? formatPrice(item.price, lang) : ''}</p>
+              <p className="font-headline-md text-[24px] leading-tight mt-2">{item ? formatPrice(item.price, lang) : ''}</p>
               {item?.unit && <p className="text-[13px] text-white/70 mt-1">{item.unit[lang]}</p>}
               <p className="flex items-center gap-2 text-[14px] text-aqua mt-3">
                 <span className="material-symbols-outlined text-[18px]">check_circle</span>

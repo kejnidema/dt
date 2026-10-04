@@ -452,6 +452,7 @@ const content: Record<Lang, TreatmentArticleContent> = {
 export default function AllOn4Page() {
   return (
     <TreatmentArticle
+      warrantyYears={10}
       content={content}
       itemId="all-on-4"
       heroImage={images.beforeAfterEdited[0] ?? images.heroAfter}

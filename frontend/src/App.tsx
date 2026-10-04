@@ -39,6 +39,7 @@ import JourneyPage from '@/pages/JourneyPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import ContactPage from '@/pages/ContactPage';
 import AboutPage from '@/pages/AboutPage';
+import DoctorPage from '@/pages/DoctorPage';
 import { AftercarePage, BlogPage, FacilityPage, PricingPage, StayPage } from '@/pages/FeaturePages';
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/about/doctors" element={<AboutPage />} />
+            <Route path="/about/doctors/:slug" element={<DoctorPage />} />
             <Route path="/about/facility" element={<FacilityPage />} />
             <Route path="/aftercare" element={<AftercarePage />} />
             <Route path="/blog" element={<BlogPage />} />

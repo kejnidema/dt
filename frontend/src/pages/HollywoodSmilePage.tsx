@@ -603,6 +603,7 @@ const article: Record<Lang, TreatmentArticleContent> = {
 export default function HollywoodSmilePage() {
   return (
     <TreatmentArticle
+      warrantyYears={5}
       content={article}
       itemId="hollywood-smile"
       heroImage={images.results[0]?.[0] ?? images.heroAfter}
