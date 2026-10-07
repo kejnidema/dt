@@ -1,91 +1,68 @@
+import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
+import type { Doctor } from '@/lib/doctors';
 
-interface DoctorCardProps {
-  firstName: string;
-  lastName: string;
-  specialization: string;
-  biographyDe: string;
-  biographyEn: string;
-  imageUrl?: string;
-  languages: string[];
-  credentials: { title: string; institution: string; year: number }[];
-  isLead?: boolean;
-}
+const labels = {
+  years: { sq: 'vite', en: 'years', de: 'Jahre', it: 'anni' },
+  lead: { sq: 'Mjeku kryesor', en: 'Lead dentist', de: 'Leitender Zahnarzt', it: 'Medico responsabile' },
+  profile: { sq: 'Shiko profilin', en: 'View profile', de: 'Profil ansehen', it: 'Vedi profilo' },
+};
 
-export default function DoctorCard({
-  firstName,
-  lastName,
-  specialization,
-  biographyDe,
-  biographyEn,
-  imageUrl,
-  languages,
-  credentials,
-  isLead,
-}: DoctorCardProps) {
-  const { localized, t } = useI18n();
+export const yearsOfExperience = (since: number) => new Date().getFullYear() - since;
+
+export default function DoctorCard({ doctor }: { doctor: Doctor }) {
+  const { lang } = useI18n();
   return (
-    <div className="bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
-      {/* Image */}
-      <div className="aspect-[4/3] bg-surface-container overflow-hidden">
-        {imageUrl ? (
-          <img src={imageUrl} alt={`Dr. ${lastName}`} className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-primary text-on-primary">
-            <span className="material-symbols-outlined text-6xl">person</span>
-          </div>
-        )}
-      </div>
-
-      <div className="p-6">
-        {isLead && (
-          <span className="inline-block bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-sm text-label-md font-bold mb-3">
-            {t('Lead Doctor')}
+    <Link
+      to={`/about/doctors/${doctor.slug}`}
+      className="group flex flex-col bg-white border border-outline-variant rounded-lg overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    >
+      <div className="relative aspect-[4/5] overflow-hidden bg-surface-container">
+        <img
+          src={doctor.photo}
+          alt={doctor.name}
+          loading="lazy"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+        />
+        <span className="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary text-[13px] font-semibold px-3 py-1 rounded-full">
+          {yearsOfExperience(doctor.since)}+ {labels.years[lang]}
+        </span>
+        {doctor.lead && (
+          <span className="absolute top-4 right-4 bg-secondary-fixed text-on-secondary-fixed text-[12px] font-semibold px-3 py-1 rounded-full">
+            {labels.lead[lang]}
           </span>
         )}
-
-        <h3 className="font-headline-sm text-headline-sm text-primary mb-1">
-          Dr. {firstName} {lastName}
-        </h3>
-
-        <p className="text-label-md text-secondary font-bold mb-4">{specialization}</p>
-
-        <p className="text-on-surface-variant text-sm mb-4">
-          {localized({ de: biographyDe, en: biographyEn })}
-        </p>
-
-        {/* Credentials */}
-        {credentials.length > 0 && (
-          <div className="mb-4">
-            <p className="text-label-md text-primary mb-2">
-              {t('Education:')}
-            </p>
-            <ul className="space-y-1">
-              {credentials.map((c, i) => (
-                <li key={i} className="text-sm text-on-surface-variant flex items-start gap-2">
-                  <span className="material-symbols-outlined text-[16px] text-secondary mt-0.5">
-                    school
-                  </span>
-                  <span>
-                    {c.title}, {c.institution} ({c.year})
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Languages */}
-        <div className="flex flex-wrap gap-2">
-          {languages.map((l) => (
-            <span
-              key={l}
-              className="text-xs px-2 py-1 bg-surface-container-low rounded-sm text-on-surface-variant border border-outline-variant"
-            >
-              {l}
+      </div>
+      <div className="flex flex-col flex-1 p-6">
+        <h3 className="font-headline-sm text-headline-sm text-primary">{doctor.name}</h3>
+        <p className="text-[14px] font-semibold text-secondary mt-1 mb-3">{doctor.role[lang]}</p>
+        <p className="text-[14px] text-on-surface-variant leading-relaxed line-clamp-3 mb-4">{doctor.summary[lang]}</p>
+        <div className="flex flex-wrap gap-2 mb-5">
+          {doctor.tags.slice(0, 3).map((tag) => (
+            <span key={tag.en} className="text-[12px] px-2.5 py-1 rounded-full bg-aqua-soft text-primary">
+              {tag[lang]}
             </span>
           ))}
         </div>
+        <span className="mt-auto inline-flex items-center gap-1 text-primary font-label-md group-hover:gap-3 transition-all">
+          {labels.profile[lang]}
+          <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+export function DoctorPlaceholderCard({ label }: { label: string }) {
+  return (
+    <div className="flex flex-col bg-white border border-dashed border-outline-variant rounded-lg overflow-hidden">
+      <div className="aspect-[4/5] grid place-items-center bg-gradient-to-br from-surface-container to-surface-container-high">
+        <span className="material-symbols-outlined text-[72px] text-on-surface-variant/40">person</span>
+      </div>
+      <div className="p-6 space-y-3">
+        <div className="h-5 w-2/3 rounded bg-surface-container" />
+        <div className="h-4 w-1/2 rounded bg-surface-container" />
+        <p className="text-[13px] text-on-surface-variant pt-2">{label}</p>
       </div>
     </div>
   );

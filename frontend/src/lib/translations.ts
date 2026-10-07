@@ -3,6 +3,7 @@ export type Lang = 'de' | 'en' | 'it' | 'sq';
 export const de: Record<string, string> = {
   'Treatments': 'Behandlungen',
   'Services': 'Services',
+  'Services & Prices': 'Leistungen & Preise',
   'Pricing': 'Preise',
   'Veneers': 'Veneers',
   'Gallery': 'Galerie',
@@ -204,6 +205,7 @@ Object.assign(de, {
 export const it: Record<string, string> = {
   'Treatments': 'Trattamenti',
   'Services': 'Servizi',
+  'Services & Prices': 'Servizi e prezzi',
   'Pricing': 'Prezzi',
   'Veneers': 'Faccette',
   'Gallery': 'Galleria',
@@ -358,6 +360,7 @@ export const it: Record<string, string> = {
 export const sq: Record<string, string> = {
   'Treatments': 'Trajtimet',
   'Services': 'Shërbimet',
+  'Services & Prices': 'Shërbime & çmime',
   'Pricing': 'Çmimet',
   'Veneers': 'Fasetat',
   'Gallery': 'Galeria',

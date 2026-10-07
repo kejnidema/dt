@@ -33,17 +33,26 @@ export default function TrustBar() {
   const { localized } = useI18n();
 
   return (
-    <section className="bg-primary py-12">
+    <section className="bg-primary py-8 md:py-10">
       <div className="max-w-[1200px] mx-auto px-gutter">
-        <div className="flex flex-wrap justify-between items-center gap-8 md:gap-12 text-on-primary">
-          {trustItems.map((item) => (
-            <div key={item.icon} className="flex items-center gap-4 group cursor-default">
-              <div className="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="material-symbols-outlined text-secondary-fixed">{item.icon}</span>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 text-on-primary">
+          {trustItems.map((item, i) => (
+            <div
+              key={item.icon}
+              className={`flex items-center gap-3 min-w-0 cursor-default px-4 lg:px-6 ${
+                i > 0 ? 'lg:border-l lg:border-white/10' : 'lg:pl-0'
+              } ${i % 2 === 1 ? 'border-l border-white/10 lg:border-l' : ''}`}
+            >
+              <div className="w-10 h-10 rounded-full bg-aqua/15 flex items-center justify-center flex-shrink-0">
+                <span className="material-symbols-outlined text-aqua text-[20px]">{item.icon}</span>
               </div>
-              <div>
-                <p className="font-headline-sm text-[18px] leading-tight">{localized({ ...item.title, en: item.title.en })}</p>
-                <p className="text-label-md opacity-70">{localized({ ...item.subtitle, en: item.subtitle.en })}</p>
+              <div className="min-w-0">
+                <p className="font-headline-sm text-[15px] leading-5 font-semibold tracking-[-0.01em]">
+                  {localized({ ...item.title, en: item.title.en })}
+                </p>
+                <p className="text-[12px] leading-4 text-on-primary/55 mt-0.5 whitespace-nowrap">
+                  {localized({ ...item.subtitle, en: item.subtitle.en })}
+                </p>
               </div>
             </div>
           ))}

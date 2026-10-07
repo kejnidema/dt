@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .gold { fill: #F7C948; }
+      .white { fill: #FFFFFF; }
+      .blue { fill: #0A4FA2; }
+      .stroke { stroke: #F7C948; stroke-width: 10; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-weight: 700; }
+    </style>
+  </defs>
+  <circle class="blue" cx="256" cy="256" r="240"/>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#F7C948" stroke-width="8" opacity="0.8"/>
+
+  <g class="gold">
+    <path d="M256 42 L270 68 L298 63 L282 88 L300 116 L271 104 L256 132 L241 104 L212 116 L230 88 L214 63 L242 68 Z"/>
+    <path d="M421 83 L435 108 L461 103 L445 127 L463 155 L434 143 L421 170 L408 143 L379 155 L396 127 L380 103 L406 108 Z"/>
+    <path d="M90 83 L104 108 L130 103 L114 127 L132 155 L103 143 L90 170 L77 143 L48 155 L65 127 L49 103 L75 108 Z"/>
+    <path d="M421 429 L435 454 L461 449 L445 473 L463 501 L434 489 L421 516 L408 489 L379 501 L396 473 L380 449 L406 454 Z"/>
+    <path d="M90 429 L104 454 L130 449 L114 473 L132 501 L103 489 L90 516 L77 489 L48 501 L65 473 L49 449 L75 454 Z"/>
+    <path d="M146 154 L160 179 L186 174 L170 198 L188 226 L159 214 L146 240 L133 214 L104 226 L122 198 L106 174 L132 179 Z"/>
+    <path d="M366 154 L380 179 L406 174 L390 198 L408 226 L379 214 L366 240 L353 214 L324 226 L342 198 L326 174 L352 179 Z"/>
+    <path d="M146 358 L160 383 L186 378 L170 402 L188 430 L159 418 L146 444 L133 418 L104 430 L122 402 L106 378 L132 383 Z"/>
+    <path d="M366 358 L380 383 L406 378 L390 402 L408 430 L379 418 L366 444 L353 418 L324 430 L342 402 L326 378 L352 383 Z"/>
+    <path d="M256 362 L270 388 L298 383 L282 408 L300 436 L271 424 L256 450 L241 424 L212 436 L230 408 L214 383 L242 388 Z"/>
+  </g>
+
+  <text x="256" y="290" text-anchor="middle" class="label white" font-size="180">CE</text>
+</svg>

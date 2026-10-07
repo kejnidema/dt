@@ -62,7 +62,7 @@ export default function BeforeAfterSlider({
             alt={t('After')}
             className="w-full h-full object-cover"
           />
-          <div className="absolute bottom-4 right-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
+          <div translate="no" className="notranslate absolute bottom-4 right-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
             {afterLabel ?? t('AFTER')}
           </div>
         </div>
@@ -78,7 +78,7 @@ export default function BeforeAfterSlider({
             className="w-full h-full object-cover"
             draggable={false}
           />
-          <div className="absolute bottom-4 left-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
+          <div translate="no" className="notranslate absolute bottom-4 left-4 bg-primary/80 text-white px-4 py-1 rounded-sm text-label-md backdrop-blur-md">
             {beforeLabel ?? t('BEFORE')}
           </div>
         </div>
@@ -89,7 +89,8 @@ export default function BeforeAfterSlider({
           style={{ left: `${position}%` }}
         >
           <div className="before-after-handle">
-            <span className="material-symbols-outlined">unfold_more</span>
+            <span className="material-symbols-outlined text-[20px] -mr-1.5">chevron_left</span>
+            <span className="material-symbols-outlined text-[20px] -ml-1.5">chevron_right</span>
           </div>
         </div>
       </div>

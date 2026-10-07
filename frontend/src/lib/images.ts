@@ -17,6 +17,9 @@ const clinic = [
 
 const surgery = Array.from({ length: 18 }, (_, i) => staff(`surgery${i}.jpeg`));
 
+/** Drop photos at these paths; a placeholder shows until each file exists */
+export const tiranaPhotos = Array.from({ length: 5 }, (_, i) => `/images/tirana/tirana${i + 1}.jpg`);
+
 export const images = {
   doctor: staff('team0.jpeg'),
   doctorFemale: patients[1],
