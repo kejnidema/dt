@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
 const HERO_VIDEO = '/images/misc/final-home-hero-hmc-video.mp4';
-const WHATSAPP_URL =
-  'https://wa.me/355690000000?text=Hello%2C%20I%20would%20like%20a%20consultation%20for%20veneers.';
+const WHATSAPP_URL = whatsAppUrl('Hello, I would like a consultation for veneers.');
 
 export default function VideoHero() {
   const { localized } = useI18n();
@@ -84,17 +84,19 @@ export default function VideoHero() {
               {t.cardCta}
             </Link>
           </div>
-          <p className="text-[13px] text-white/75 lg:pr-4">
-            {t.chatPrompt}{' '}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white underline underline-offset-4 decoration-white/40 hover:decoration-aqua transition-colors"
-            >
-              {t.chatLink}
-            </a>
-          </p>
+          {WHATSAPP_URL && (
+            <p className="text-[13px] text-white/75 lg:pr-4">
+              {t.chatPrompt}{' '}
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white underline underline-offset-4 decoration-white/40 hover:decoration-aqua transition-colors"
+              >
+                {t.chatLink}
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </section>

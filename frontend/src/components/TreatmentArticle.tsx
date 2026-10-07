@@ -5,9 +5,10 @@ import { images, galleryPairs } from '@/lib/images';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import FaqAccordion from '@/components/FaqAccordion';
 import ContactForm from '@/components/ContactForm';
+import { whatsAppUrl } from '@/lib/whatsapp';
 import { formatPrice, localMarkets, priceGroups, priceListLabels, savingOf, treatmentHref, type PriceItem } from '@/lib/priceList';
 
-const WHATSAPP = 'https://wa.me/355690000000';
+const WHATSAPP = whatsAppUrl();
 
 export type Point = { title: string; text: string };
 
@@ -285,12 +286,14 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
                 {ui.cta}
                 <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
               </Link>
-              <p className="text-[14px] text-on-surface-variant">
-                {ui.travel}{' '}
-                <a href={WHATSAPP} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">
-                  {ui.travelLink}
-                </a>
-              </p>
+              {WHATSAPP && (
+                <p className="text-[14px] text-on-surface-variant">
+                  {ui.travel}{' '}
+                  <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
+                    {ui.travelLink}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           <div className="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container">

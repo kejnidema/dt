@@ -1,10 +1,13 @@
 import { useI18n } from '@/lib/i18n';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
 export default function WhatsAppButton() {
   const { t } = useI18n();
+  const url = whatsAppUrl('Hello, I would like a consultation for veneers.');
+  if (!url) return null;
   return (
     <a
-      href="https://wa.me/355690000000?text=Hello%2C%20I%20would%20like%20a%20consultation%20for%20veneers."
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] shadow-lg flex items-center justify-center hover:scale-110 transition-transform"

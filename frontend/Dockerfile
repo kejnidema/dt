@@ -6,6 +6,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+ARG VITE_WHATSAPP_NUMBER
+ENV VITE_WHATSAPP_NUMBER=$VITE_WHATSAPP_NUMBER
 RUN npm run build
 
 # Runtime stage

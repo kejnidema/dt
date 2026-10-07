@@ -38,3 +38,8 @@ frontend/.vite/
 
 # Docker
 *.pid
+
+# AI
+AGENTS.md
+IMPLEMENTATION_PLAN.md
+
