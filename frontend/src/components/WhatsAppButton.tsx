@@ -3,7 +3,7 @@ import { whatsAppUrl } from '@/lib/whatsapp';
 
 export default function WhatsAppButton() {
   const { t } = useI18n();
-  const url = whatsAppUrl('Hello, I would like a consultation for veneers.');
+  const url = whatsAppUrl('Hello, I would like a consultation.');
   if (!url) return null;
   return (
     <a
