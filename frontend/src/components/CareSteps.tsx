@@ -13,7 +13,6 @@ interface Copy {
   eyebrow: string;
   title: string;
   text: string;
-  languageTitle: string;
   languages: string[];
   photoSoon: string;
   steps: Step[];
@@ -24,7 +23,6 @@ const copy: Record<Lang, Copy> = {
     eyebrow: 'Si funksionon',
     title: 'Ne kujdesemi për të gjithë hapat',
     text: 'Nga aeroporti deri te kontrolli i fundit jeni gjithmonë të shoqëruar, dhe çdo gjë ju shpjegohet në gjuhën tuaj.',
-    languageTitle: 'Shoqërim dhe komunikim në gjuhën tuaj',
     languages: ['🇩🇪 Gjermanisht', '🇬🇧 Anglisht', '🇮🇹 Italisht', '🇦🇱 Shqip'],
     photoSoon: 'Foto së shpejti',
     steps: [
@@ -40,7 +38,6 @@ const copy: Record<Lang, Copy> = {
     eyebrow: 'How it works',
     title: 'We take care of every step',
     text: 'From the airport to your final check-up you are always accompanied, and everything is explained in your language.',
-    languageTitle: 'Support and communication in your language',
     languages: ['🇩🇪 German', '🇬🇧 English', '🇮🇹 Italian', '🇦🇱 Albanian'],
     photoSoon: 'Photo coming soon',
     steps: [
@@ -56,7 +53,6 @@ const copy: Record<Lang, Copy> = {
     eyebrow: 'So funktioniert es',
     title: 'Wir kümmern uns um jeden Schritt',
     text: 'Vom Flughafen bis zur Abschlusskontrolle werden Sie begleitet – und alles wird Ihnen in Ihrer Sprache erklärt.',
-    languageTitle: 'Begleitung und Kommunikation in Ihrer Sprache',
     languages: ['🇩🇪 Deutsch', '🇬🇧 Englisch', '🇮🇹 Italienisch', '🇦🇱 Albanisch'],
     photoSoon: 'Foto folgt',
     steps: [
@@ -72,7 +68,6 @@ const copy: Record<Lang, Copy> = {
     eyebrow: 'Come funziona',
     title: 'Ci prendiamo cura di ogni passo',
     text: 'Dall’aeroporto all’ultimo controllo sei sempre accompagnato, e tutto ti viene spiegato nella tua lingua.',
-    languageTitle: 'Assistenza e comunicazione nella tua lingua',
     languages: ['🇮🇹 Italiano', '🇩🇪 Tedesco', '🇬🇧 Inglese', '🇦🇱 Albanese'],
     photoSoon: 'Foto in arrivo',
     steps: [
@@ -104,24 +99,10 @@ export default function CareSteps() {
   return (
     <section className="py-section-padding bg-surface">
       <div className="max-w-[1200px] mx-auto px-gutter">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-on-surface-variant">{c.eyebrow}</span>
           <h2 className="font-display-lg text-[36px] md:text-[44px] leading-tight text-primary mt-3 mb-4">{c.title}</h2>
           <p className="text-[17px] text-on-surface-variant">{c.text}</p>
-        </div>
-
-        <div className="mx-auto mb-16 max-w-3xl flex flex-col sm:flex-row items-center justify-center gap-4 rounded-3xl bg-aqua-soft px-6 py-5 text-center sm:text-left">
-          <span className="grid place-items-center w-12 h-12 rounded-full bg-aqua text-primary shrink-0">
-            <span className="material-symbols-outlined">translate</span>
-          </span>
-          <p className="font-bold text-primary text-[17px]">{c.languageTitle}</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {c.languages.map((language) => (
-              <span key={language} className="rounded-full bg-white px-3 py-1 text-[13px] font-semibold text-primary shadow-sm">
-                {language}
-              </span>
-            ))}
-          </div>
         </div>
 
         <ol className="relative">
