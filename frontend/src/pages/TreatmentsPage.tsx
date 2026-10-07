@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
+import { whatsAppUrl } from '@/lib/whatsapp';
 import { formatPrice, menuItemsOf, menuNames, priceCategories, subsectionItemsOf, treatmentPages } from '@/lib/priceList';
 
 export const treatmentGroups = [
@@ -11,7 +12,7 @@ export const treatmentGroups = [
   { icon: 'list_alt', title: 'All Services', link: '/services' },
 ];
 
-const WHATSAPP = 'https://wa.me/355690000000';
+const WHATSAPP = whatsAppUrl();
 
 const cardImages: Record<string, string | undefined> = {
   'hollywood-smile': images.results[0]?.[0],
@@ -146,12 +147,14 @@ export default function TreatmentsPage() {
               {c.cta}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>
-            <p className="text-[14px] text-on-surface-variant">
-              {c.travel}{' '}
-              <a href={WHATSAPP} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">
-                {c.travelLink}
-              </a>
-            </p>
+            {WHATSAPP && (
+              <p className="text-[14px] text-on-surface-variant">
+                {c.travel}{' '}
+                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
+                  {c.travelLink}
+                </a>
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -240,15 +243,17 @@ export default function TreatmentsPage() {
               {c.book}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>
-            <a
-              href={WHATSAPP}
-              target="_blank"
-              rel="noreferrer"
-              className="border border-white/30 text-white px-8 py-4 rounded-md font-label-md inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-              {c.whatsapp}
-            </a>
+            {WHATSAPP && (
+              <a
+                href={WHATSAPP}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-white/30 text-white px-8 py-4 rounded-md font-label-md inline-flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[20px]">chat</span>
+                {c.whatsapp}
+              </a>
+            )}
           </div>
         </div>
       </section>

@@ -3,8 +3,9 @@ import FaqAccordion from '@/components/FaqAccordion';
 import PlaceholderPhoto from '@/components/PlaceholderPhoto';
 import { useI18n, type Lang } from '@/lib/i18n';
 import { images } from '@/lib/images';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
-const WHATSAPP_URL = 'https://wa.me/355690000000';
+const WHATSAPP_URL = whatsAppUrl();
 
 interface Point {
   icon: string;
@@ -398,12 +399,14 @@ export default function JourneyPage() {
                 {c.cta}
                 <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
               </Link>
-              <p className="text-[14px] text-on-surface-variant">
-                {c.travelPrompt}{' '}
-                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">
-                  {c.travelLink}
-                </a>
-              </p>
+              {WHATSAPP_URL && (
+                <p className="text-[14px] text-on-surface-variant">
+                  {c.travelPrompt}{' '}
+                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
+                    {c.travelLink}
+                  </a>
+                </p>
+              )}
             </div>
           </div>
           <PlaceholderPhoto src={placePhoto('hero')} label={c.photoSoon} className="aspect-[4/5] rounded-lg" />
@@ -556,15 +559,17 @@ export default function JourneyPage() {
               {c.cta}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-white/40 px-8 py-4 rounded-md font-label-md hover:bg-white/10 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-              {c.ctaWhatsApp}
-            </a>
+            {WHATSAPP_URL && (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-white/40 px-8 py-4 rounded-md font-label-md hover:bg-white/10 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[20px]">chat</span>
+                {c.ctaWhatsApp}
+              </a>
+            )}
           </div>
         </div>
       </section>

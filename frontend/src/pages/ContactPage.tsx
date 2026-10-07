@@ -1,9 +1,11 @@
 import ContactForm from '@/components/ContactForm';
 import { useI18n } from '@/lib/i18n';
 import { images } from '@/lib/images';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
 export default function ContactPage() {
   const { localized, t: tr } = useI18n();
+  const whatsappUrl = whatsAppUrl();
 
   const t = localized({
     de: {
@@ -94,13 +96,17 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <a
-              href="https://wa.me/355690000000"
-              className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 font-label-md rounded-sm hover:opacity-90 transition-all"
-            >
-              <span className="material-symbols-outlined">chat</span>
-              {t.whatsapp}
-            </a>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 font-label-md rounded-sm hover:opacity-90 transition-all"
+              >
+                <span className="material-symbols-outlined">chat</span>
+                {t.whatsapp}
+              </a>
+            )}
           </div>
 
           {/* Contact Form */}

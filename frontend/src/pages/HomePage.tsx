@@ -10,8 +10,9 @@ import CareSteps from '@/components/CareSteps';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { images, galleryPairs, tiranaPhotos } from '@/lib/images';
 import { formatPrice, lowestPrice, priceGroups, treatmentHref, type Localized } from '@/lib/priceList';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
-const WHATSAPP_URL = 'https://wa.me/355690000000';
+const WHATSAPP_URL = whatsAppUrl();
 const photo = (index: number) => images.surgery[index] ?? images.heroAfter;
 
 interface Point {
@@ -571,15 +572,17 @@ export default function HomePage() {
               {c.ctaBook}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-white/40 px-8 py-4 rounded-md font-label-md hover:bg-white/10 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-              {c.ctaWhatsApp}
-            </a>
+            {WHATSAPP_URL && (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-white/40 px-8 py-4 rounded-md font-label-md hover:bg-white/10 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[20px]">chat</span>
+                {c.ctaWhatsApp}
+              </a>
+            )}
           </div>
         </div>
       </section>

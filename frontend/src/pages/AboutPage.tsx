@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
 import DoctorCard, { DoctorPlaceholderCard } from '@/components/DoctorCard';
 import { doctors, TEAM_SIZE } from '@/lib/doctors';
+import { whatsAppUrl } from '@/lib/whatsapp';
 
-const WHATSAPP_URL = 'https://wa.me/355690000000';
+const WHATSAPP_URL = whatsAppUrl();
 
 interface Copy {
   home: string;
@@ -142,15 +143,17 @@ export default function AboutPage() {
               {c.cta}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-primary text-primary px-8 py-4 rounded-md font-label-md hover:bg-primary/5 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">chat</span>
-              {c.ctaWhatsApp}
-            </a>
+            {WHATSAPP_URL && (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-primary text-primary px-8 py-4 rounded-md font-label-md hover:bg-primary/5 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[20px]">chat</span>
+                {c.ctaWhatsApp}
+              </a>
+            )}
           </div>
         </div>
       </section>

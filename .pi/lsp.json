@@ -19,12 +19,8 @@
         "package.json",
         "tsconfig.json"
       ],
-      "bin": "npx",
-      "args": [
-        "--yes",
-        "typescript-language-server",
-        "--stdio"
-      ],
+      "bin": "./node_modules/.bin/typescript-language-server",
+      "args": ["--stdio"],
       "cwd": "{root}",
       "languageIdByExtension": {
         ".ts": "typescript",
@@ -50,7 +46,7 @@
         "go.mod",
         "go.work"
       ],
-      "bin": "/home/kd/go/bin/gopls",
+      "bin": "gopls",
       "args": [],
       "cwd": "{root}",
       "languageIdByExtension": {

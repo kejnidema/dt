@@ -6,6 +6,9 @@ export default function ContactForm() {
   const { t: tr, lang } = useI18n();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [xray, setXray] = useState<File | null>(null);
+  const [fileError, setFileError] = useState(false);
   const [form, setForm] = useState({
     full_name: '',
     email: '',
@@ -22,12 +25,32 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
+    setFileError(false);
+    if (xray && (xray.size > 20 * 1024 * 1024 || !/\.(jpe?g|png|tiff?|bmp|pdf|dcm)$/i.test(xray.name))) {
+      setFileError(true);
+      return;
+    }
     setLoading(true);
-
-    // Static site: no backend request is made.
-    console.info('Consultation request:', form);
-    setSubmitted(true);
-    setLoading(false);
+    setError(false);
+    try {
+      const body = xray ? new FormData() : JSON.stringify(form);
+      if (body instanceof FormData) {
+        Object.entries(form).forEach(([key, value]) => body.append(key, value));
+        body.append('panoramic_xray', xray!);
+      }
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        ...(xray ? {} : { headers: { 'Content-Type': 'application/json' } }),
+        body,
+      });
+      if (!response.ok) throw new Error('save failed');
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -48,6 +71,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && <p role="alert" className="text-red-700">{tr('Could not send your request. Please try again later.')}</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Name */}
         <div>
@@ -58,6 +82,7 @@ export default function ContactForm() {
             type="text"
             name="full_name"
             required
+            maxLength={150}
             value={form.full_name}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -74,6 +99,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             required
+            maxLength={254}
             value={form.email}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -89,6 +115,7 @@ export default function ContactForm() {
           <input
             type="tel"
             name="phone"
+            maxLength={50}
             value={form.phone}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -104,6 +131,7 @@ export default function ContactForm() {
           <input
             type="text"
             name="city"
+            maxLength={120}
             value={form.city}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -133,17 +161,32 @@ export default function ContactForm() {
 
       {/* Panoramic X-ray */}
       <div>
-        <label className="font-label-md block mb-2 text-on-surface-variant">
+        <label htmlFor="panoramic-xray-file" className="font-label-md block mb-2 text-on-surface-variant">
           {label('Panorama-Röntgenbild (optional)', 'Panoramic X-ray (optional)')}
         </label>
         <input
+          id="panoramic-xray-file"
+          type="file"
+          accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.pdf,.dcm"
+          disabled={Boolean(form.panoramic_xray_url)}
+          onChange={(event) => { setXray(event.target.files?.[0] ?? null); setFileError(false); }}
+          className="block w-full mb-4 text-on-surface-variant disabled:opacity-50"
+        />
+        <p className="text-sm text-on-surface-variant mb-3">{tr('Upload a JPG, PNG, TIFF, BMP, PDF or DICOM (.dcm) file, up to 20 MB; or provide an HTTPS link below.')}</p>
+        {fileError && <p role="alert" className="text-red-700">{tr('Choose a supported file no larger than 20 MB.')}</p>}
+        <input
           type="url"
           name="panoramic_xray_url"
+          disabled={Boolean(xray)}
+          maxLength={2048}
+          pattern="https://.*"
+          title="Please use an HTTPS link"
           value={form.panoramic_xray_url}
           onChange={handleChange}
           className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
           placeholder={label('Link zu Ihrem Panorama-Röntgenbild', 'Link to your panoramic X-ray')}
         />
+        <p className="text-sm text-on-surface-variant mt-2">{tr('Use an HTTPS link to your X-ray or document. Do not include passwords in the link.')}</p>
       </div>
 
       {/* Message */}
@@ -154,6 +197,7 @@ export default function ContactForm() {
         <textarea
           name="message"
           rows={4}
+          maxLength={5000}
           value={form.message}
           onChange={handleChange}
           className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors resize-none"
