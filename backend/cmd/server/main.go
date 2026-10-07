@@ -2,206 +2,157 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"io"
+	"log"
 	"net/http"
+	"net/mail"
+	"net/url"
 	"os"
 	"strings"
 	"time"
 
-	"veneer-clinic/internal/db"
-
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
-type server struct {
-	queries *db.Queries
-}
-
-type consultationRequest struct {
-	TreatmentID      string `json:"treatment_id"`
+type lead struct {
 	FullName         string `json:"full_name"`
 	Email            string `json:"email"`
 	Phone            string `json:"phone"`
-	Country          string `json:"country"`
 	City             string `json:"city"`
+	Treatment        string `json:"treatment"`
 	Message          string `json:"message"`
 	PanoramicXrayURL string `json:"panoramic_xray_url"`
 }
 
-type updateConsultationStatusRequest struct {
-	Status string `json:"status"`
+type leadStore interface {
+	Save(context.Context, lead) error
 }
 
-func main() {
-	time.Local = time.UTC
+type postgresStore struct{ pool *pgxpool.Pool }
 
-	ctx := context.Background()
-	databaseURL := env("DATABASE_URL", "postgres://dt:dentaltourism@localhost:5432/dt?sslmode=disable")
-
-	pool, err := pgxpool.New(ctx, databaseURL)
-	if err != nil {
-		panic(err)
-	}
-	defer pool.Close()
-
-	if err := pool.Ping(ctx); err != nil {
-		panic(err)
-	}
-
-	s := &server{queries: db.New(pool)}
-	e := echo.New()
-	e.HideBanner = true
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-	e.Use(middleware.CORS())
-
-	e.GET("/health", s.health)
-
-	api := e.Group("/api")
-	api.GET("/health", s.health)
-	api.GET("/testimonials", s.listTestimonials)
-	api.GET("/testimonials/featured", s.listFeaturedTestimonials)
-	api.POST("/consultation", s.createConsultation)
-	api.POST("/consultations", s.createConsultation)
-	api.GET("/consultations", s.listConsultations)
-	api.PATCH("/consultations/:id/status", s.updateConsultationStatus)
-
-	port := env("PORT", "8080")
-	if err := e.Start(":" + port); err != nil && !errors.Is(err, http.ErrServerClosed) {
-		panic(err)
-	}
-}
-
-func (s *server) health(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]string{"status": "ok"})
-}
-
-func (s *server) listTestimonials(c echo.Context) error {
-	items, err := s.queries.ListActiveTestimonials(c.Request().Context())
-	return jsonOrError(c, items, err)
-}
-
-func (s *server) listFeaturedTestimonials(c echo.Context) error {
-	items, err := s.queries.ListFeaturedTestimonials(c.Request().Context())
-	return jsonOrError(c, items, err)
-}
-
-func (s *server) createConsultation(c echo.Context) error {
-	var req consultationRequest
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request body"})
-	}
-
-	req.FullName = strings.TrimSpace(req.FullName)
-	req.Email = strings.TrimSpace(req.Email)
-	req.Phone = strings.TrimSpace(req.Phone)
-	if req.FullName == "" || req.Email == "" || req.Phone == "" {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "full_name, email and phone are required"})
-	}
-
-	ctx := c.Request().Context()
-	patient, err := s.queries.UpsertPatientByEmail(ctx, db.UpsertPatientByEmailParams{
-		FullName: req.FullName,
-		Email:    req.Email,
-		Phone:    req.Phone,
-		Country:  text(req.Country),
-		City:     text(req.City),
-	})
+func (s postgresStore) Save(ctx context.Context, l lead) error {
+	tx, err := s.pool.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {
 		return err
 	}
-
-	item, err := s.queries.CreateConsultation(ctx, db.CreateConsultationParams{
-		PatientID:        uuidValue(patient.ID),
-		TreatmentID:      nullableUUID(req.TreatmentID),
-		FullName:         req.FullName,
-		Email:            req.Email,
-		Phone:            req.Phone,
-		Country:          text(req.Country),
-		City:             text(req.City),
-		Message:          text(req.Message),
-		PanoramicXrayUrl: text(req.PanoramicXrayURL),
-		Status:           nil,
-	})
-	return jsonOrErrorWithStatus(c, item, err, http.StatusCreated)
-}
-
-func (s *server) listConsultations(c echo.Context) error {
-	status := strings.TrimSpace(c.QueryParam("status"))
-	if status == "" {
-		status = "new"
-	}
-
-	items, err := s.queries.ListConsultationsByStatus(c.Request().Context(), status)
-	return jsonOrError(c, items, err)
-}
-
-func (s *server) updateConsultationStatus(c echo.Context) error {
-	id, err := uuid.Parse(strings.TrimSpace(c.Param("id")))
+	defer tx.Rollback(ctx)
+	var id uuid.UUID
+	err = tx.QueryRow(ctx, `INSERT INTO leads (full_name, email, phone, city, treatment, message)
+		VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`,
+		l.FullName, l.Email, l.Phone, l.City, l.Treatment, l.Message).Scan(&id)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid consultation id"})
+		return err
 	}
+	if l.PanoramicXrayURL != "" {
+		_, err = tx.Exec(ctx, `INSERT INTO lead_xrays (lead_id, url) VALUES ($1, $2)`, id, l.PanoramicXrayURL)
+		if err != nil {
+			return err
+		}
+	}
+	return tx.Commit(ctx)
+}
 
-	var req updateConsultationStatusRequest
-	if err := c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request body"})
-	}
-	req.Status = strings.TrimSpace(req.Status)
-	if req.Status == "" {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "status is required"})
-	}
+func writeJSON(w http.ResponseWriter, status int, body any) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Cache-Control", "no-store")
+	w.WriteHeader(status)
+	_ = json.NewEncoder(w).Encode(body)
+}
 
-	item, err := s.queries.UpdateConsultationStatus(c.Request().Context(), db.UpdateConsultationStatusParams{
-		ID:     id,
-		Status: req.Status,
+func handler(store leadStore) http.Handler {
+	mux := http.NewServeMux()
+	mux.HandleFunc("POST /api/leads", func(w http.ResponseWriter, r *http.Request) {
+		// JSON is not a cross-site simple request. No CORS middleware is installed.
+		if r.Header.Get("Content-Type") != "application/json" {
+			writeJSON(w, http.StatusUnsupportedMediaType, map[string]string{"error": "expected application/json"})
+			return
+		}
+		if r.ContentLength > 16*1024 {
+			writeJSON(w, http.StatusRequestEntityTooLarge, map[string]string{"error": "request too large"})
+			return
+		}
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 16*1024))
+		dec.DisallowUnknownFields()
+		var l lead
+		if err := dec.Decode(&l); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request"})
+			return
+		}
+		if err := dec.Decode(new(any)); !errors.Is(err, io.EOF) {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request"})
+			return
+		}
+		l.FullName = strings.TrimSpace(l.FullName)
+		l.Email = strings.TrimSpace(l.Email)
+		l.Phone = strings.TrimSpace(l.Phone)
+		l.City = strings.TrimSpace(l.City)
+		l.Treatment = strings.TrimSpace(l.Treatment)
+		l.Message = strings.TrimSpace(l.Message)
+		l.PanoramicXrayURL = strings.TrimSpace(l.PanoramicXrayURL)
+		if !valid(l) {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid form fields"})
+			return
+		}
+		ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+		defer cancel()
+		if err := store.Save(ctx, l); err != nil {
+			log.Printf("lead insert failed: %T", err) // never log lead data, SQL or URL
+			writeJSON(w, http.StatusServiceUnavailable, map[string]string{"error": "could not save request; please try again"})
+			return
+		}
+		writeJSON(w, http.StatusCreated, map[string]string{"status": "saved"})
 	})
-	return jsonOrError(c, item, err)
+	return mux
 }
 
-func jsonOrError(c echo.Context, v any, err error) error {
-	return jsonOrErrorWithStatus(c, v, err, http.StatusOK)
-}
-
-func jsonOrErrorWithStatus(c echo.Context, v any, err error, status int) error {
-	if err == nil {
-		return c.JSON(status, v)
+func valid(l lead) bool {
+	if len(l.FullName) < 1 || len(l.FullName) > 150 || len(l.Email) > 254 || len(l.Phone) > 50 || len(l.City) > 120 || len(l.Treatment) > 120 || len(l.Message) > 5000 {
+		return false
 	}
-	if errors.Is(err, pgx.ErrNoRows) {
-		return c.JSON(http.StatusNotFound, map[string]string{"error": "not found"})
+	addr, err := mail.ParseAddress(l.Email)
+	if err != nil || addr.Address != l.Email || len(l.Email) < 3 {
+		return false
 	}
-	return err
-}
-
-func text(value string) pgtype.Text {
-	value = strings.TrimSpace(value)
-	return pgtype.Text{String: value, Valid: value != ""}
-}
-
-func uuidValue(id uuid.UUID) pgtype.UUID {
-	return pgtype.UUID{Bytes: id, Valid: true}
-}
-
-func nullableUUID(value string) pgtype.UUID {
-	value = strings.TrimSpace(value)
-	if value == "" {
-		return pgtype.UUID{}
+	if l.PanoramicXrayURL == "" {
+		return true
 	}
-	id, err := uuid.Parse(value)
+	if len(l.PanoramicXrayURL) > 2048 {
+		return false
+	}
+	u, err := url.Parse(l.PanoramicXrayURL)
+	return err == nil && u.Scheme == "https" && u.Hostname() != "" && u.User == nil && u.Fragment == "" && u.Port() == ""
+}
+
+func main() {
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		log.Fatal("DATABASE_URL is required")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	pool, err := pgxpool.New(ctx, dsn)
 	if err != nil {
-		return pgtype.UUID{}
+		log.Fatal("invalid database configuration")
 	}
-	return uuidValue(id)
-}
-
-func env(key, fallback string) string {
-	value := strings.TrimSpace(os.Getenv(key))
-	if value == "" {
-		return fallback
+	defer pool.Close()
+	if err := pool.Ping(ctx); err != nil {
+		log.Fatal("database unavailable")
 	}
-	return value
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	srv := &http.Server{
+		Addr:              ":" + port,
+		Handler:           handler(postgresStore{pool}),
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		IdleTimeout:       60 * time.Second,
+	}
+	log.Fatal(srv.ListenAndServe())
 }

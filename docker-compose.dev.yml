@@ -1,0 +1,42 @@
+# Run with: docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build --watch
+# This override keeps the production nginx image/config untouched.
+services:
+  frontend:
+    build:
+      target: development
+    ports: !override
+      - "127.0.0.1:5173:5173"
+    environment:
+      VITE_WHATSAPP_NUMBER: ${VITE_WHATSAPP_NUMBER:-}
+      API_PROXY_TARGET: http://backend:8080
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend/src
+          target: /src/src
+        - action: sync
+          path: ./frontend/public
+          target: /src/public
+        - action: sync
+          path: ./frontend/index.html
+          target: /src/index.html
+        - action: sync
+          path: ./frontend/vite.config.ts
+          target: /src/vite.config.ts
+        - action: rebuild
+          path: ./frontend/package.json
+        - action: rebuild
+          path: ./frontend/package-lock.json
+        - action: rebuild
+          path: ./frontend/Dockerfile
+
+  backend:
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend
+          ignore:
+            - .env
+            - .env.*
+            - bin/
+            - '*.log'

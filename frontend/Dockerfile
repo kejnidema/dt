@@ -1,11 +1,15 @@
-# Build stage
-FROM node:22-alpine AS builder
+# Development stage (Vite + HMR)
+FROM node:22-alpine AS development
 
 WORKDIR /src
 COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+
+# Production build stage
+FROM development AS builder
 ARG VITE_WHATSAPP_NUMBER
 ENV VITE_WHATSAPP_NUMBER=$VITE_WHATSAPP_NUMBER
 RUN npm run build

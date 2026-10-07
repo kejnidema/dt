@@ -6,6 +6,7 @@ export default function ContactForm() {
   const { t: tr, lang } = useI18n();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     full_name: '',
     email: '',
@@ -22,12 +23,22 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
-
-    // Static site: no backend request is made.
-    console.info('Consultation request:', form);
-    setSubmitted(true);
-    setLoading(false);
+    setError(false);
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!response.ok) throw new Error('save failed');
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -48,6 +59,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {error && <p role="alert" className="text-red-700">{tr('Could not send your request. Please try again later.')}</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Name */}
         <div>
@@ -58,6 +70,7 @@ export default function ContactForm() {
             type="text"
             name="full_name"
             required
+            maxLength={150}
             value={form.full_name}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -74,6 +87,7 @@ export default function ContactForm() {
             type="email"
             name="email"
             required
+            maxLength={254}
             value={form.email}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -89,6 +103,7 @@ export default function ContactForm() {
           <input
             type="tel"
             name="phone"
+            maxLength={50}
             value={form.phone}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -104,6 +119,7 @@ export default function ContactForm() {
           <input
             type="text"
             name="city"
+            maxLength={120}
             value={form.city}
             onChange={handleChange}
             className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
@@ -139,11 +155,15 @@ export default function ContactForm() {
         <input
           type="url"
           name="panoramic_xray_url"
+          maxLength={2048}
+          pattern="https://.*"
+          title="Please use an HTTPS link"
           value={form.panoramic_xray_url}
           onChange={handleChange}
           className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors"
           placeholder={label('Link zu Ihrem Panorama-Röntgenbild', 'Link to your panoramic X-ray')}
         />
+        <p className="text-sm text-on-surface-variant mt-2">{tr('Use an HTTPS link to your X-ray or document. Do not include passwords in the link.')}</p>
       </div>
 
       {/* Message */}
@@ -154,6 +174,7 @@ export default function ContactForm() {
         <textarea
           name="message"
           rows={4}
+          maxLength={5000}
           value={form.message}
           onChange={handleChange}
           className="w-full border-b border-outline focus:border-primary focus:ring-0 py-3 bg-transparent font-body-md outline-none transition-colors resize-none"
