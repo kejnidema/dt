@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
 import { treatmentGroups } from '@/pages/TreatmentsPage';
-import { formatPrice, menuItemsOf, menuNames, subsectionItemsOf, menuSummaries, priceCategories, priceListLabels, treatmentHref, type PriceItem } from '@/lib/priceList';
+import { formatPrice, menuNames, priceGroups, treatmentHref, type PriceItem } from '@/lib/priceList';
 
 const navItems = [
   { label: 'Treatments', path: '/treatments', children: treatmentGroups },
@@ -33,22 +33,43 @@ function isNavActive(pathname: string, item: (typeof navItems)[number]) {
   return item.children?.some((child) => pathMatches(pathname, child.link)) ?? false;
 }
 
-function MenuEntry({ entry, lang }: { entry: PriceItem; lang: Lang }) {
+const allPriceItems = priceGroups.flatMap((group) => group.items);
+const itemsByIds = (ids: string[]) =>
+  ids.map((id) => allPriceItems.find((item) => item.id === id)).filter((item): item is PriceItem => item !== undefined);
+
+const menuGroups: { icon: string; title: Record<Lang, string>; items: PriceItem[] }[] = [
+  {
+    icon: 'hardware',
+    title: { sq: 'Implante', en: 'Implants', de: 'Implantate', it: 'Impianti' },
+    items: itemsByIds(['all-on-4', 'all-on-6', 'implant-megagen', 'implant-bridge', 'bone-graft', 'sinus-lift']),
+  },
+  {
+    icon: 'diamond',
+    title: { sq: 'Faseta', en: 'Veneers', de: 'Veneers', it: 'Faccette' },
+    items: itemsByIds(['hollywood-smile', 'crown-emax', 'veneer-composite']),
+  },
+];
+
+const allTreatmentsLabel: Record<Lang, string> = {
+  sq: 'Të gjitha trajtimet',
+  en: 'All treatments',
+  de: 'Alle Behandlungen',
+  it: 'Tutti i trattamenti',
+};
+
+function MenuEntry({ entry, lang, onClick }: { entry: PriceItem; lang: Lang; onClick?: () => void }) {
   return (
     <li>
-      <Link to={treatmentHref(entry.id)} className="group/item flex gap-3 py-2 rounded-md">
+      <Link
+        to={treatmentHref(entry.id)}
+        onClick={onClick}
+        className="group/item flex items-center gap-3 px-3 py-2 rounded-lg text-[15px] text-primary hover:bg-surface-container-low transition-colors"
+      >
         <span className="w-8 h-8 shrink-0 rounded-md bg-aqua-soft text-primary flex items-center justify-center transition-colors group-hover/item:bg-primary group-hover/item:text-white">
           <span className="material-symbols-outlined text-[17px]">{entry.icon}</span>
         </span>
-        <span className="min-w-0">
-          <span className="flex items-baseline justify-between gap-2">
-            <span className="text-[14px] font-semibold text-primary leading-snug">{(menuNames[entry.id] ?? entry.name)[lang]}</span>
-            <span className="text-[12px] text-on-surface-variant whitespace-nowrap">{formatPrice(entry.price, lang)}</span>
-          </span>
-          <span className="block text-[12px] leading-snug text-on-surface-variant truncate">
-            {menuSummaries[entry.id]?.[lang] ?? entry.description[lang]}
-          </span>
-        </span>
+        <span className="flex-1 font-medium">{(menuNames[entry.id] ?? entry.name)[lang]}</span>
+        <span className="text-[13px] text-on-surface-variant whitespace-nowrap">{formatPrice(entry.price, lang)}</span>
       </Link>
     </li>
   );
@@ -109,7 +130,7 @@ export default function Header() {
 
             if (item.path === '/treatments') {
               return (
-                <div key={item.path} className="group h-20 flex items-center">
+                <div key={item.path} className="relative group h-20 flex items-center">
                   <Link
                     to={item.path}
                     onMouseEnter={() => setMegaHidden(false)}
@@ -125,54 +146,31 @@ export default function Header() {
                     onClick={(e) => {
                       if ((e.target as HTMLElement).closest('a')) closeMega();
                     }}
-                    className={`invisible opacity-0 translate-y-2 transition-all duration-300 ease-out-soft absolute inset-x-0 top-full px-6 md:px-10 ${
+                    className={`invisible opacity-0 translate-y-2 transition-all duration-300 ease-out-soft absolute left-1/2 -translate-x-1/2 top-full w-[620px] ${
                       megaHidden
                         ? 'pointer-events-none'
                         : 'group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 focus-within:visible focus-within:opacity-100 focus-within:translate-y-0'
                     }`}
                   >
-                    <div className="max-w-[1360px] mx-auto bg-white border border-outline-variant rounded-lg shadow-header">
-                      <div className="grid grid-cols-4 gap-8 p-8">
-                        {priceCategories.map((category) => (
-                          <div key={category.id}>
-                            <p className="font-label-md text-[12px] uppercase tracking-[0.12em] text-on-surface-variant pb-3 mb-2 border-b border-outline-variant">
-                              {category.title[lang]}
+                    <div className="mt-1 bg-white border border-outline-variant rounded-2xl shadow-header">
+                      <div className="grid grid-cols-2 gap-8 p-7">
+                        {menuGroups.map((group) => (
+                          <div key={group.icon}>
+                            <p className="flex items-center gap-2.5 px-3 pb-3 mb-2 border-b border-outline-variant text-[16px] font-bold text-primary">
+                              <span className="material-symbols-outlined text-[22px]">{group.icon}</span>
+                              {group.title[lang]}
                             </p>
-                            <ul>
-                              {menuItemsOf(category).map((entry) => (
+                            <ul className="flex flex-col gap-0.5">
+                              {group.items.map((entry) => (
                                 <MenuEntry key={entry.id} entry={entry} lang={lang} />
                               ))}
                             </ul>
-                            {category.subsection && (
-                              <>
-                                <p className="font-label-md text-[12px] uppercase tracking-[0.12em] text-on-surface-variant pb-3 mb-2 mt-5 border-b border-outline-variant">
-                                  {category.subsection.title[lang]}
-                                </p>
-                                <ul>
-                                  {subsectionItemsOf(category).map((entry) => (
-                                    <MenuEntry key={entry.id} entry={entry} lang={lang} />
-                                  ))}
-                                </ul>
-                              </>
-                            )}
                           </div>
                         ))}
                       </div>
-                      <div className="flex items-center justify-between gap-4 px-8 py-4 border-t border-outline-variant bg-surface-container-low rounded-b-lg">
-                        <div className="flex flex-wrap gap-2">
-                          {(item.children ?? []).map((child) => (
-                            <Link
-                              key={`${child.link}-${child.title}`}
-                              to={child.link}
-                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-outline-variant text-[13px] font-medium text-on-surface-variant hover:text-primary hover:border-primary/40 transition-colors"
-                            >
-                              <span className="material-symbols-outlined text-[16px]">{child.icon}</span>
-                              {t(child.title)}
-                            </Link>
-                          ))}
-                        </div>
-                        <Link to="/services" className="inline-flex items-center gap-1 text-[13px] font-semibold text-primary whitespace-nowrap">
-                          {priceListLabels[lang].title}
+                      <div className="flex justify-end px-7 py-4 border-t border-outline-variant">
+                        <Link to="/treatments" className="inline-flex items-center gap-1 text-[14px] font-semibold text-primary hover:gap-2 transition-all">
+                          {allTreatmentsLabel[lang]}
                           <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                         </Link>
                       </div>
@@ -298,20 +296,24 @@ export default function Header() {
                       {label}
                       <span className="material-symbols-outlined text-[18px]">expand_more</span>
                     </Link>
-                    <div className="pl-4 border-l border-outline-variant flex flex-col gap-1">
-                      {item.children.map((child) => (
-                        <Link
-                          key={`${child.link}-${child.title}`}
-                          to={child.link}
-                          onClick={closeMenu}
-                          className="flex items-center gap-3 py-2 text-on-surface-variant hover:text-primary transition-colors"
-                        >
-                          <span className="w-8 h-8 rounded-full bg-aqua-soft flex items-center justify-center">
-                            <span className="material-symbols-outlined text-primary text-[18px]">{child.icon}</span>
-                          </span>
-                          <span className="font-label-md text-label-md">{t(child.title)}</span>
-                        </Link>
+                    <div className="flex flex-col gap-3">
+                      {menuGroups.map((group) => (
+                        <div key={group.icon}>
+                          <p className="flex items-center gap-2.5 px-3 pb-2 text-[16px] font-bold text-primary">
+                            <span className="material-symbols-outlined text-[22px]">{group.icon}</span>
+                            {group.title[lang]}
+                          </p>
+                          <ul>
+                            {group.items.map((entry) => (
+                              <MenuEntry key={entry.id} entry={entry} lang={lang} onClick={closeMenu} />
+                            ))}
+                          </ul>
+                        </div>
                       ))}
+                      <Link to="/treatments" onClick={closeMenu} className="inline-flex w-fit items-center gap-1 px-3 text-[14px] font-semibold text-primary">
+                        {allTreatmentsLabel[lang]}
+                        <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                      </Link>
                     </div>
                   </div>
                 );
