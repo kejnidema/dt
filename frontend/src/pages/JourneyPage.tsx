@@ -394,7 +394,7 @@ export default function JourneyPage() {
             <h1 className="font-display-lg text-display-lg text-primary mt-3 mb-6">{c.heroTitle}</h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-8">{c.heroText}</p>
             <div className="flex flex-col items-start gap-4">
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-label-md">
+              <Link to="/contact" className="inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-8 py-4 rounded-md font-label-md">
                 {c.cta}
                 <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
               </Link>

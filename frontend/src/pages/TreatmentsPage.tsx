@@ -141,7 +141,7 @@ export default function TreatmentsPage() {
           <div className="flex flex-col items-center gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-label-md"
+              className="inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-8 py-4 rounded-md font-label-md"
             >
               {c.cta}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>

@@ -175,29 +175,6 @@
     transition: transform .3s var(--ease-out-soft), box-shadow .3s var(--ease-out-soft), opacity .2s, filter .2s;
   }
 
-  :where(a, button).bg-primary::before,
-  :where(a, button).bg-secondary-fixed::before,
-  :where(a, button).bg-secondary-container::before {
-    content: "";
-    position: absolute;
-    left: 18%;
-    right: 18%;
-    bottom: 0;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--aqua);
-    transform: scaleX(0.01);
-    transform-origin: left center;
-    opacity: 0;
-    transition: transform .4s var(--ease-line), opacity .25s ease;
-    pointer-events: none;
-  }
-
-  :where(a, button).bg-secondary-fixed::before,
-  :where(a, button).bg-secondary-container::before {
-    background: var(--ink);
-  }
-
   :where(a, button).bg-primary::after,
   :where(a, button).bg-secondary-fixed::after,
   :where(a, button).bg-secondary-container::after {
@@ -218,15 +195,6 @@
   :where(a, button).bg-secondary-fixed:hover,
   :where(a, button).bg-secondary-container:hover {
     box-shadow: 0 16px 40px -14px rgb(127 214 232 / 0.65);
-  }
-
-  :where(a, button).bg-primary:hover::before,
-  :where(a, button).bg-primary:focus-visible::before,
-  :where(a, button).bg-secondary-fixed:hover::before,
-  :where(a, button).bg-secondary-fixed:focus-visible::before,
-  :where(a, button).bg-secondary-container:hover::before {
-    transform: scaleX(1);
-    opacity: 1;
   }
 
   :where(a, button).bg-primary:hover::after,
@@ -343,6 +311,51 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Main CTA: a slow light sweeping around the border */
+@property --cta-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --cta-glow {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.cta-spin {
+  position: relative;
+  display: inline-flex;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--cta-angle),
+    rgb(255 255 255 / var(--cta-glow)) 0deg 220deg,
+    rgb(255 255 255 / calc(0.6 + 0.4 * var(--cta-glow))) 290deg,
+    #ffffff 330deg,
+    rgb(255 255 255 / var(--cta-glow)) 360deg
+  );
+  box-shadow: 0 0 0 0 rgb(255 255 255 / 0);
+  animation: cta-spin 4s linear infinite;
+  transition: --cta-glow .5s var(--ease-out-soft), box-shadow .5s var(--ease-out-soft);
+}
+
+.cta-spin:hover,
+.cta-spin:focus-within {
+  --cta-glow: 1;
+  animation-play-state: paused;
+  box-shadow: 0 0 22px -2px rgb(255 255 255 / 0.45);
+}
+
+.cta-spin > * { flex: 1; box-shadow: none !important; }
+
+@keyframes cta-spin {
+  to { --cta-angle: 360deg; }
+}
+
+/* Home hero floating cards */
+.hero-float { animation: quote-float 5s ease-in-out infinite; }
+
 /* Testimonials carousel */
 .testimonial-in-next { animation: testimonial-in-next .7s var(--ease-out-soft) both; }
 .testimonial-in-prev { animation: testimonial-in-prev .7s var(--ease-out-soft) both; }
@@ -377,7 +390,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .testimonial-in-next, .testimonial-in-prev, .testimonial-star, .testimonial-quote { animation: none; }
+  .testimonial-in-next, .testimonial-in-prev, .testimonial-star, .testimonial-quote, .hero-float, .cta-spin { animation: none; }
   .site-header { animation: none; }
   .nav-link::after,
   :where(a, button).bg-primary::before,

@@ -4,7 +4,9 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 import PlaceholderPhoto from '@/components/PlaceholderPhoto';
 import DoctorCard from '@/components/DoctorCard';
 import { doctors } from '@/lib/doctors';
-import VideoHero from '@/components/VideoHero';
+import HomeHero from '@/components/HomeHero';
+import ClinicLocation from '@/components/ClinicLocation';
+import CareSteps from '@/components/CareSteps';
 import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 import { images, galleryPairs, tiranaPhotos } from '@/lib/images';
 import { formatPrice, lowestPrice, priceGroups, treatmentHref, type Localized } from '@/lib/priceList';
@@ -27,44 +29,17 @@ interface Copy {
   whyAccent: string;
   whyText: string;
   whyPoints: Point[];
-  locationTitle: string;
-  locationText: string;
-  treatmentsEyebrow: string;
   treatmentsTitle: string;
   treatmentsText: string;
   from: string;
   learnMore: string;
   allTreatments: string;
-  howEyebrow: string;
-  howTitle: string;
-  howText: string;
-  steps: { title: string; text: string }[];
-  clinicEyebrow: string;
-  clinicTitle: string;
-  clinicText: string;
-  intlEyebrow: string;
-  intlTitle: string;
-  intlText: string;
-  arrivalTag: string;
-  arrivalTitle: string;
-  arrivalText: string;
-  stats: { value: string; label: string }[];
-  stayTag: string;
-  stayTitle: string;
-  stayText: string[];
-  coordinatorTag: string;
-  coordinatorTitle: string;
-  coordinatorText: string;
-  languages: string[];
   destTag: string;
   destTitle: string;
   destAccent: string;
   destText: string;
   destHighlights: Point[];
   photoSoon: string;
-  planTag: string;
-  planTitle: string;
-  planText: string;
   storiesEyebrow: string;
   storiesTitle: string;
   storiesText: string;
@@ -88,7 +63,7 @@ const copy: Record<Lang, Copy> = {
       { code: 'ISO 13485', title: 'Produkte të certifikuara ISO 13485', text: 'Standardi ndërkombëtar i cilësisë për pajisjet mjekësore.' },
       { code: 'CE', title: 'Produkte me certifikim CE / EU MDR', text: 'Në përputhje me Rregulloren Europiane për Pajisjet Mjekësore.' },
     ],
-    whyEyebrow: 'Pse Veneer Clinic',
+    whyEyebrow: 'Veneer Clinic',
     whyTitle: 'Cilësi europiane.',
     whyAccent: 'Çmime të ndershme.',
     whyText:
@@ -99,43 +74,11 @@ const copy: Record<Lang, Copy> = {
       { icon: 'event_available', title: 'Pa lista pritjeje', text: 'Trajtimi nis që ditën e parë të vizitës, sipas planit që keni marrë paraprakisht.' },
       { icon: 'travel_explore', title: 'Buzëqeshje dhe udhëtim', text: 'Mes seancave, zbuloni Tiranën: kuzhinën, rrugët plot jetë dhe mikpritjen shqiptare.' },
     ],
-    locationTitle: 'Tiranë, Shqipëri',
-    locationText: 'Rreth dy orë fluturim nga shumica e kryeqyteteve europiane.',
-    treatmentsEyebrow: 'Shërbimet tona',
     treatmentsTitle: 'Trajtimet që ofrojmë',
     treatmentsText: 'Nga implantet te estetika e buzëqeshjes, çdo trajtim planifikohet me saktësi dhe kryhet me kujdes.',
     from: 'Nga',
     learnMore: 'Mëso më shumë',
     allTreatments: 'Shikoni të gjitha trajtimet',
-    howEyebrow: 'Procesi',
-    howTitle: 'Si funksionon',
-    howText: 'E kemi thjeshtuar çdo hap, që ju të mendoni vetëm për buzëqeshjen tuaj të re.',
-    steps: [
-      { title: 'Konsultë falas online', text: 'Na dërgoni foto dhe një grafi panoramike. Brenda 24 orëve merrni planin e trajtimit dhe një ofertë të fiksuar.' },
-      { title: 'Ne organizojmë vizitën', text: 'Ju ndihmojmë me datat, transfertën nga aeroporti dhe akomodimin pranë klinikës.' },
-      { title: 'Trajtimi dhe kujdesi pas tij', text: 'Trajtimi kryhet sipas planit, dhe ne mbetemi pranë jush edhe pasi ktheheni në shtëpi.' },
-    ],
-    clinicEyebrow: 'Klinika jonë',
-    clinicTitle: 'Brenda Veneer Clinic',
-    clinicText: 'Një ambient modern në Tiranë, i menduar për rehatinë tuaj dhe për punë të saktë në çdo hap.',
-    intlEyebrow: 'Për pacientët ndërkombëtarë',
-    intlTitle: 'Një klinikë në Tiranë, pacientë nga e gjithë Europa',
-    intlText: 'Një ekip që kujdeset për çdo detaj të vizitës suaj, nga aeroporti deri te kontrolli i fundit.',
-    arrivalTag: 'Mbërritja',
-    arrivalTitle: 'Kujdesi ynë fillon në aeroport',
-    arrivalText:
-      'Një anëtar i ekipit ju pret në aeroport dhe ju shoqëron në hotel ose në klinikë, që dita e parë të nisë qetë dhe pa shqetësime.',
-    stats: [
-      { value: '24h', label: 'Plani i trajtimit pas fotove' },
-      { value: '2', label: 'Udhëtime për implantet, me 6 muaj ndërmjet' },
-      { value: '4', label: 'Gjuhë: shqip, anglisht, gjermanisht, italisht' },
-    ],
-    stayTag: 'Akomodimi',
-    stayTitle: 'Qëndrim i rehatshëm pranë klinikës',
-    stayText: [
-      'Ju ndihmojmë të gjeni akomodim të rehatshëm pranë klinikës, për gjithë kohëzgjatjen e trajtimit.',
-      'Kështu çdo takim është vetëm pak minuta larg, dhe pjesën tjetër të ditës e keni të lirë për veten.',
-    ],
     destTag: 'Destinacioni',
     destTitle: 'Jo thjesht një vizitë dentare.',
     destAccent: 'Një udhëtim në Tiranë.',
@@ -148,15 +91,6 @@ const copy: Record<Lang, Copy> = {
       { icon: 'beach_access', title: 'Deti afër', text: 'Plazhet e Durrësit janë rreth 40 minuta larg me makinë.' },
     ],
     photoSoon: 'Foto e Tiranës',
-    coordinatorTag: 'Mbështetje',
-    coordinatorTitle: 'Koordinatori juaj personal',
-    coordinatorText:
-      'Nga mesazhi i parë në WhatsApp deri te kontrolli i fundit, një koordinator flet gjuhën tuaj dhe ju përgjigjet për çdo pyetje.',
-    languages: ['🇦🇱 Shqip', '🇬🇧 Anglisht', '🇩🇪 Gjermanisht', '🇮🇹 Italisht'],
-    planTag: 'Planifikim i personalizuar',
-    planTitle: 'Një plan për çdo buzëqeshje',
-    planText:
-      'Koha juaj vlen. Seancat i planifikojmë sipas fluturimeve dhe ditëve që keni, që të udhëtoni sa më pak. Për shumicën e trajtimeve estetike mjafton një udhëtim; implantet kërkojnë dy, me rreth gjashtë muaj ndërmjet.',
     storiesEyebrow: 'Rezultate',
     storiesTitle: 'Histori buzëqeshjesh',
     storiesText: 'Raste reale nga klinika jonë. Tërhiqni rrëshqitësin për të parë ndryshimin.',
@@ -178,7 +112,7 @@ const copy: Record<Lang, Copy> = {
       { code: 'ISO 13485', title: 'ISO 13485 Certified Products', text: 'The international quality standard for medical devices.' },
       { code: 'CE', title: 'CE / EU MDR Certified Products', text: 'Compliant with the European Medical Device Regulation.' },
     ],
-    whyEyebrow: 'Why Veneer Clinic',
+    whyEyebrow: 'Veneer Clinic',
     whyTitle: 'European quality.',
     whyAccent: 'Honest prices.',
     whyText:
@@ -189,43 +123,11 @@ const copy: Record<Lang, Copy> = {
       { icon: 'event_available', title: 'No waiting lists', text: 'Treatment starts on the first day of your visit, following the plan you received in advance.' },
       { icon: 'travel_explore', title: 'Smile & stay', text: 'Between appointments, discover Tirana: the food, the lively streets and Albanian hospitality.' },
     ],
-    locationTitle: 'Tirana, Albania',
-    locationText: 'About a two-hour flight from most European capitals.',
-    treatmentsEyebrow: 'Our Services',
     treatmentsTitle: 'Treatments We Offer',
     treatmentsText: 'From implants to smile aesthetics, every treatment is precisely planned and carefully delivered.',
     from: 'From',
     learnMore: 'Learn more',
     allTreatments: 'View all treatments',
-    howEyebrow: 'The Process',
-    howTitle: 'How It Works',
-    howText: 'We have simplified every step, so you can focus on your new smile.',
-    steps: [
-      { title: 'Free online consultation', text: 'Send us photos and a panoramic X-ray. Within 24 hours you get a treatment plan and a fixed quote.' },
-      { title: 'We organise your visit', text: 'We help with dates, the airport transfer and accommodation near the clinic.' },
-      { title: 'Treatment & aftercare', text: 'Treatment follows the agreed plan, and we stay by your side after you return home.' },
-    ],
-    clinicEyebrow: 'Our Clinic',
-    clinicTitle: 'Inside Veneer Clinic',
-    clinicText: 'A modern space in Tirana, designed for your comfort and for precise work at every step.',
-    intlEyebrow: 'For International Patients',
-    intlTitle: 'One clinic in Tirana, patients from all over Europe',
-    intlText: 'A team that takes care of every detail of your visit, from the airport to your final check-up.',
-    arrivalTag: 'Arrival',
-    arrivalTitle: 'Our care starts at the airport',
-    arrivalText:
-      'A member of our team meets you at the airport and takes you to your hotel or the clinic, so your first day starts calmly and smoothly.',
-    stats: [
-      { value: '24h', label: 'Treatment plan after your photos' },
-      { value: '2', label: 'Trips for implants, 6 months apart' },
-      { value: '4', label: 'Languages: Albanian, English, German, Italian' },
-    ],
-    stayTag: 'Accommodation',
-    stayTitle: 'A comfortable stay near the clinic',
-    stayText: [
-      'We help you find comfortable accommodation near the clinic for the whole length of your treatment.',
-      'That way every appointment is only minutes away, and the rest of the day is yours.',
-    ],
     destTag: 'The Destination',
     destTitle: 'Not just a dental visit.',
     destAccent: 'A trip to Tirana.',
@@ -238,15 +140,6 @@ const copy: Record<Lang, Copy> = {
       { icon: 'beach_access', title: 'The sea nearby', text: 'The beaches of Durrës are about 40 minutes away by car.' },
     ],
     photoSoon: 'Tirana photo',
-    coordinatorTag: 'Support',
-    coordinatorTitle: 'Your personal coordinator',
-    coordinatorText:
-      'From your first WhatsApp message to your final check-up, a coordinator speaks your language and answers every question.',
-    languages: ['🇦🇱 Albanian', '🇬🇧 English', '🇩🇪 German', '🇮🇹 Italian'],
-    planTag: 'Personalised Planning',
-    planTitle: 'A plan for every smile',
-    planText:
-      'Your time is valuable. We schedule appointments around your flights and the days you have, so you travel as little as possible. Most aesthetic treatments need one trip; implants need two, about six months apart.',
     storiesEyebrow: 'Results',
     storiesTitle: 'Smile Stories',
     storiesText: 'Real cases from our clinic. Drag the slider to see the difference.',
@@ -268,7 +161,7 @@ const copy: Record<Lang, Copy> = {
       { code: 'ISO 13485', title: 'ISO-13485-zertifizierte Produkte', text: 'Der internationale Qualitätsstandard für Medizinprodukte.' },
       { code: 'CE', title: 'CE- / EU-MDR-zertifizierte Produkte', text: 'Konform mit der europäischen Medizinprodukteverordnung.' },
     ],
-    whyEyebrow: 'Warum Veneer Clinic',
+    whyEyebrow: 'Veneer Clinic',
     whyTitle: 'Europäische Qualität.',
     whyAccent: 'Ehrliche Preise.',
     whyText:
@@ -279,43 +172,11 @@ const copy: Record<Lang, Copy> = {
       { icon: 'event_available', title: 'Keine Wartelisten', text: 'Die Behandlung beginnt am ersten Tag Ihres Besuchs, nach dem Plan, den Sie vorab erhalten haben.' },
       { icon: 'travel_explore', title: 'Lächeln & Reisen', text: 'Zwischen den Terminen entdecken Sie Tirana: die Küche, die lebendigen Straßen und albanische Gastfreundschaft.' },
     ],
-    locationTitle: 'Tirana, Albanien',
-    locationText: 'Etwa zwei Flugstunden von den meisten europäischen Hauptstädten entfernt.',
-    treatmentsEyebrow: 'Unsere Leistungen',
     treatmentsTitle: 'Unsere Behandlungen',
     treatmentsText: 'Von Implantaten bis zur Lächeln-Ästhetik – jede Behandlung wird präzise geplant und sorgfältig durchgeführt.',
     from: 'Ab',
     learnMore: 'Mehr erfahren',
     allTreatments: 'Alle Behandlungen ansehen',
-    howEyebrow: 'Der Ablauf',
-    howTitle: 'So funktioniert es',
-    howText: 'Wir haben jeden Schritt vereinfacht, damit Sie sich ganz auf Ihr neues Lächeln konzentrieren können.',
-    steps: [
-      { title: 'Kostenlose Online-Beratung', text: 'Senden Sie uns Fotos und ein Panorama-Röntgenbild. Innerhalb von 24 Stunden erhalten Sie Behandlungsplan und Festpreisangebot.' },
-      { title: 'Wir organisieren Ihren Besuch', text: 'Wir helfen bei Terminen, Flughafentransfer und Unterkunft in Kliniknähe.' },
-      { title: 'Behandlung & Nachsorge', text: 'Die Behandlung folgt dem vereinbarten Plan, und wir bleiben auch nach Ihrer Rückkehr an Ihrer Seite.' },
-    ],
-    clinicEyebrow: 'Unsere Klinik',
-    clinicTitle: 'Einblick in die Veneer Clinic',
-    clinicText: 'Moderne Räume in Tirana, gestaltet für Ihren Komfort und für präzise Arbeit in jedem Schritt.',
-    intlEyebrow: 'Für internationale Patienten',
-    intlTitle: 'Eine Klinik in Tirana, Patienten aus ganz Europa',
-    intlText: 'Ein Team, das sich um jedes Detail Ihres Besuchs kümmert – vom Flughafen bis zur Abschlusskontrolle.',
-    arrivalTag: 'Ankunft',
-    arrivalTitle: 'Unsere Betreuung beginnt am Flughafen',
-    arrivalText:
-      'Ein Teammitglied holt Sie am Flughafen ab und bringt Sie ins Hotel oder in die Klinik, damit Ihr erster Tag entspannt beginnt.',
-    stats: [
-      { value: '24 h', label: 'Behandlungsplan nach Ihren Fotos' },
-      { value: '2', label: 'Reisen für Implantate, 6 Monate Abstand' },
-      { value: '4', label: 'Sprachen: Albanisch, Englisch, Deutsch, Italienisch' },
-    ],
-    stayTag: 'Unterkunft',
-    stayTitle: 'Komfortabel wohnen, nah an der Klinik',
-    stayText: [
-      'Wir helfen Ihnen, für die gesamte Behandlungsdauer eine komfortable Unterkunft in Kliniknähe zu finden.',
-      'So ist jeder Termin nur wenige Minuten entfernt, und der Rest des Tages gehört Ihnen.',
-    ],
     destTag: 'Das Reiseziel',
     destTitle: 'Nicht nur ein Zahnarztbesuch.',
     destAccent: 'Eine Reise nach Tirana.',
@@ -328,15 +189,6 @@ const copy: Record<Lang, Copy> = {
       { icon: 'beach_access', title: 'Das Meer ganz nah', text: 'Die Strände von Durrës sind etwa 40 Autominuten entfernt.' },
     ],
     photoSoon: 'Foto von Tirana',
-    coordinatorTag: 'Betreuung',
-    coordinatorTitle: 'Ihr persönlicher Koordinator',
-    coordinatorText:
-      'Von der ersten WhatsApp-Nachricht bis zur Abschlusskontrolle spricht ein Koordinator Ihre Sprache und beantwortet jede Frage.',
-    languages: ['🇦🇱 Albanisch', '🇬🇧 Englisch', '🇩🇪 Deutsch', '🇮🇹 Italienisch'],
-    planTag: 'Individuelle Planung',
-    planTitle: 'Ein Plan für jedes Lächeln',
-    planText:
-      'Ihre Zeit ist wertvoll. Wir planen die Termine nach Ihren Flügen und verfügbaren Tagen, damit Sie so wenig wie möglich reisen. Die meisten ästhetischen Behandlungen brauchen eine Reise; Implantate zwei, im Abstand von etwa sechs Monaten.',
     storiesEyebrow: 'Ergebnisse',
     storiesTitle: 'Lächel-Geschichten',
     storiesText: 'Echte Fälle aus unserer Klinik. Ziehen Sie den Regler, um den Unterschied zu sehen.',
@@ -358,7 +210,7 @@ const copy: Record<Lang, Copy> = {
       { code: 'ISO 13485', title: 'Prodotti certificati ISO 13485', text: 'Lo standard internazionale di qualità per i dispositivi medici.' },
       { code: 'CE', title: 'Prodotti certificati CE / EU MDR', text: 'Conformi al Regolamento europeo sui dispositivi medici.' },
     ],
-    whyEyebrow: 'Perché Veneer Clinic',
+    whyEyebrow: 'Veneer Clinic',
     whyTitle: 'Qualità europea.',
     whyAccent: 'Prezzi onesti.',
     whyText:
@@ -369,43 +221,11 @@ const copy: Record<Lang, Copy> = {
       { icon: 'event_available', title: 'Nessuna lista d’attesa', text: 'Il trattamento inizia dal primo giorno della visita, secondo il piano ricevuto in anticipo.' },
       { icon: 'travel_explore', title: 'Sorriso e viaggio', text: 'Tra un appuntamento e l’altro, scopri Tirana: la cucina, le strade vivaci e l’ospitalità albanese.' },
     ],
-    locationTitle: 'Tirana, Albania',
-    locationText: 'Circa due ore di volo dalla maggior parte delle capitali europee.',
-    treatmentsEyebrow: 'I nostri servizi',
     treatmentsTitle: 'I trattamenti che offriamo',
     treatmentsText: 'Dagli impianti all’estetica del sorriso, ogni trattamento è pianificato con precisione ed eseguito con cura.',
     from: 'Da',
     learnMore: 'Scopri di più',
     allTreatments: 'Vedi tutti i trattamenti',
-    howEyebrow: 'Il percorso',
-    howTitle: 'Come funziona',
-    howText: 'Abbiamo semplificato ogni passaggio, così puoi pensare solo al tuo nuovo sorriso.',
-    steps: [
-      { title: 'Consulenza online gratuita', text: 'Inviaci foto e una radiografia panoramica. Entro 24 ore ricevi piano di trattamento e preventivo fisso.' },
-      { title: 'Organizziamo la tua visita', text: 'Ti aiutiamo con le date, il transfer dall’aeroporto e l’alloggio vicino alla clinica.' },
-      { title: 'Trattamento e assistenza', text: 'Il trattamento segue il piano concordato, e restiamo al tuo fianco anche dopo il rientro a casa.' },
-    ],
-    clinicEyebrow: 'La nostra clinica',
-    clinicTitle: 'Dentro Veneer Clinic',
-    clinicText: 'Uno spazio moderno a Tirana, pensato per il tuo comfort e per un lavoro preciso in ogni fase.',
-    intlEyebrow: 'Per i pazienti internazionali',
-    intlTitle: 'Una clinica a Tirana, pazienti da tutta Europa',
-    intlText: 'Un team che si occupa di ogni dettaglio della tua visita, dall’aeroporto al controllo finale.',
-    arrivalTag: 'Arrivo',
-    arrivalTitle: 'Ci prendiamo cura di te dall’aeroporto',
-    arrivalText:
-      'Un membro del team ti accoglie in aeroporto e ti accompagna in hotel o in clinica, perché il primo giorno inizi con calma e senza pensieri.',
-    stats: [
-      { value: '24h', label: 'Piano di trattamento dopo le foto' },
-      { value: '2', label: 'Viaggi per gli impianti, a 6 mesi di distanza' },
-      { value: '4', label: 'Lingue: albanese, inglese, tedesco, italiano' },
-    ],
-    stayTag: 'Alloggio',
-    stayTitle: 'Un soggiorno comodo vicino alla clinica',
-    stayText: [
-      'Ti aiutiamo a trovare un alloggio confortevole vicino alla clinica per tutta la durata del trattamento.',
-      'Così ogni appuntamento è a pochi minuti, e il resto della giornata è tutto tuo.',
-    ],
     destTag: 'La destinazione',
     destTitle: 'Non solo una visita dal dentista.',
     destAccent: 'Un viaggio a Tirana.',
@@ -418,15 +238,6 @@ const copy: Record<Lang, Copy> = {
       { icon: 'beach_access', title: 'Il mare vicino', text: 'Le spiagge di Durazzo sono a circa 40 minuti in auto.' },
     ],
     photoSoon: 'Foto di Tirana',
-    coordinatorTag: 'Assistenza',
-    coordinatorTitle: 'Il tuo coordinatore personale',
-    coordinatorText:
-      'Dal primo messaggio su WhatsApp al controllo finale, un coordinatore parla la tua lingua e risponde a ogni domanda.',
-    languages: ['🇦🇱 Albanese', '🇬🇧 Inglese', '🇩🇪 Tedesco', '🇮🇹 Italiano'],
-    planTag: 'Pianificazione personalizzata',
-    planTitle: 'Un piano per ogni sorriso',
-    planText:
-      'Il tuo tempo è prezioso. Organizziamo gli appuntamenti in base ai voli e ai giorni a disposizione, così viaggi il meno possibile. La maggior parte dei trattamenti estetici richiede un viaggio; gli impianti due, a circa sei mesi di distanza.',
     storiesEyebrow: 'Risultati',
     storiesTitle: 'Storie di sorrisi',
     storiesText: 'Casi reali della nostra clinica. Trascina il cursore per vedere la differenza.',
@@ -509,19 +320,24 @@ const featured: { id: string; image: string; text: Localized }[] = [
 const allItems = priceGroups.flatMap((group) => group.items);
 
 
-const whyPhotos = [photo(2), photo(3), photo(4), photo(5)];
-const clinicPhotos = [images.clinicGallery[0], images.clinicGallery[1], photo(6), photo(7), photo(8)].map(
+const clinicPhotos = [images.clinicGallery[1], photo(6), photo(7), photo(8)].map(
   (src) => src ?? images.heroAfter,
 );
 
-function SectionHeading({ eyebrow, title, text, light }: { eyebrow: string; title: string; text: string; light?: boolean }) {
+function SectionHeading({ eyebrow, title, text, light, compact }: { eyebrow?: string; title: string; text: string; light?: boolean; compact?: boolean }) {
   return (
-    <div className="text-center max-w-2xl mx-auto mb-14">
-      <span className={`font-label-md text-label-md uppercase tracking-[0.14em] ${light ? 'text-aqua' : 'text-on-surface-variant'}`}>
-        {eyebrow}
-      </span>
-      <h2 className={`font-display-lg text-display-lg mt-3 mb-4 ${light ? 'text-white' : 'text-primary'}`}>{title}</h2>
-      <p className={`font-body-lg text-body-lg ${light ? 'text-white/75' : 'text-on-surface-variant'}`}>{text}</p>
+    <div className={`text-center max-w-2xl mx-auto ${compact ? 'mb-10' : 'mb-14'}`}>
+      {eyebrow && (
+        <span className={`font-label-md text-label-md uppercase tracking-[0.14em] ${light ? 'text-aqua' : 'text-on-surface-variant'}`}>
+          {eyebrow}
+        </span>
+      )}
+      <h2
+        className={`${compact ? 'text-[32px] md:text-[38px] font-bold tracking-[-0.02em] mb-3' : 'font-display-lg text-display-lg mt-3 mb-4'} ${light ? 'text-white' : 'text-primary'}`}
+      >
+        {title}
+      </h2>
+      <p className={`${compact ? 'text-[16px]' : 'font-body-lg text-body-lg'} ${light ? 'text-white/75' : 'text-on-surface-variant'}`}>{text}</p>
     </div>
   );
 }
@@ -532,83 +348,12 @@ export default function HomePage() {
 
   return (
     <>
-      <VideoHero />
-
-      {/* Certifications */}
-      <section className="py-16 bg-surface border-b border-outline-variant">
-        <div className="max-w-[1200px] mx-auto px-gutter">
-          <div className="text-center mb-10">
-            <h2 className="font-headline-md text-headline-md text-primary">{c.certsTitle}</h2>
-            <p className="text-on-surface-variant mt-2">{c.certsText}</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {c.certs.map((cert) => (
-              <div key={cert.code} className="flex flex-col items-center gap-4 bg-white border border-outline-variant rounded-lg p-6 text-center">
-                <img
-                  src={cert.code === 'CE' ? '/images/certs/ce.webp' : '/images/certs/iso-13485.webp'}
-                  alt={cert.title}
-                  className="w-36 h-36 sm:w-40 sm:h-40 object-contain"
-                  loading="lazy"
-                />
-                <div>
-                  <p className="font-semibold text-primary">{cert.title}</p>
-                  <p className="text-[14px] text-on-surface-variant mt-1">{cert.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why us */}
-      <section className="py-section-padding bg-surface">
-        <div className="max-w-[1200px] mx-auto px-gutter grid lg:grid-cols-2 gap-14 items-center">
-          <div>
-            <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-on-surface-variant">{c.whyEyebrow}</span>
-            <h2 className="font-display-lg text-display-lg text-primary mt-3 mb-6">
-              {c.whyTitle}
-              <br />
-              <span className="text-secondary">{c.whyAccent}</span>
-            </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">{c.whyText}</p>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {c.whyPoints.map((point) => (
-                <div key={point.title}>
-                  <span className="grid place-items-center w-11 h-11 rounded-md bg-aqua-soft text-primary mb-3">
-                    <span className="material-symbols-outlined text-[22px]">{point.icon}</span>
-                  </span>
-                  <p className="font-semibold text-primary mb-1">{point.title}</p>
-                  <p className="text-[15px] text-on-surface-variant leading-relaxed">{point.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {whyPhotos.map((src, index) => (
-              <div
-                key={src + index}
-                className={`relative rounded-lg overflow-hidden bg-surface-container ${index % 2 === 1 ? 'translate-y-8' : ''} aspect-[4/5]`}
-              >
-                <img src={src} alt="" loading="lazy" className="w-full h-full object-cover" />
-                {index === 1 && (
-                  <div className="absolute inset-x-3 bottom-3 bg-white/95 backdrop-blur rounded-md p-3">
-                    <p className="flex items-center gap-1 font-semibold text-primary text-[14px]">
-                      <span className="material-symbols-outlined text-[18px]">location_on</span>
-                      {c.locationTitle}
-                    </p>
-                    <p className="text-[12px] text-on-surface-variant mt-1">{c.locationText}</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       {/* Treatments */}
       <section className="py-section-padding bg-surface-container-low">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <SectionHeading eyebrow={c.treatmentsEyebrow} title={c.treatmentsTitle} text={c.treatmentsText} />
+          <SectionHeading title={c.treatmentsTitle} text={c.treatmentsText} compact />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featured.map((entry) => {
               const item = allItems.find((i) => i.id === entry.id);
@@ -661,92 +406,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-section-padding bg-surface">
+      {/* Certifications */}
+      <section className="py-10 bg-surface">
         <div className="max-w-[1200px] mx-auto px-gutter">
-          <SectionHeading eyebrow={c.howEyebrow} title={c.howTitle} text={c.howText} />
-          <div className="grid md:grid-cols-3 gap-6">
-            {c.steps.map((step, index) => (
-              <div key={step.title} className="relative bg-surface-container-low border border-outline-variant rounded-lg p-8">
-                <span className="font-display-lg text-[56px] leading-none text-aqua">{String(index + 1).padStart(2, '0')}</span>
-                <h3 className="font-headline-sm text-headline-sm text-primary mt-6 mb-3">{step.title}</h3>
-                <p className="text-on-surface-variant leading-relaxed">{step.text}</p>
+          <div className="text-center mb-6">
+            <h2 className="text-[24px] md:text-[28px] font-bold tracking-[-0.02em] text-primary">{c.certsTitle}</h2>
+            <p className="text-[14px] text-on-surface-variant mt-1">{c.certsText}</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {c.certs.map((cert) => (
+              <div key={cert.code} className="flex items-center gap-4 bg-white border border-outline-variant rounded-lg p-4">
+                <img
+                  src={cert.code === 'CE' ? '/images/certs/ce.webp' : '/images/certs/iso-13485.webp'}
+                  alt={cert.title}
+                  className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0"
+                  loading="lazy"
+                />
+                <div>
+                  <p className="font-semibold text-primary text-[15px]">{cert.title}</p>
+                  <p className="text-[13px] text-on-surface-variant mt-0.5">{cert.text}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Inside the clinic */}
+      <ClinicLocation />
+
+      <CareSteps />
+
+      {/* Veneer Clinic: quality, prices and the clinic inside */}
       <section className="py-section-padding bg-surface-container-low">
-        <div className="max-w-[1200px] mx-auto px-gutter">
-          <SectionHeading eyebrow={c.clinicEyebrow} title={c.clinicTitle} text={c.clinicText} />
-          <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-4 md:h-[520px]">
-            {clinicPhotos.map((src, index) => (
-              <div
-                key={src + index}
-                className={`rounded-lg overflow-hidden bg-surface-container ${index === 0 ? 'col-span-2 md:row-span-2 aspect-[4/3] md:aspect-auto' : 'aspect-square md:aspect-auto'}`}
-              >
-                <img src={src} alt="" loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* International patients */}
-      <section className="py-section-padding bg-surface">
-        <div className="max-w-[1200px] mx-auto px-gutter space-y-20">
-          <SectionHeading eyebrow={c.intlEyebrow} title={c.intlTitle} text={c.intlText} />
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-[4/3] rounded-lg overflow-hidden bg-surface-container">
-              <img src={images.journey} alt="" loading="lazy" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-secondary">{c.arrivalTag}</span>
-              <h3 className="font-headline-md text-headline-md text-primary mt-3 mb-4">{c.arrivalTitle}</h3>
-              <p className="text-on-surface-variant leading-relaxed mb-8">{c.arrivalText}</p>
-              <div className="grid grid-cols-3 gap-4">
-                {c.stats.map((stat) => (
-                  <div key={stat.label} className="border-l-2 border-aqua pl-4">
-                    <p className="font-headline-md text-[30px] leading-none text-primary">{stat.value}</p>
-                    <p className="text-[13px] text-on-surface-variant mt-2">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <PlaceholderPhoto src={tiranaPhotos[4]} label={c.photoSoon} className="lg:order-2 aspect-[4/3] rounded-lg" />
-            <div>
-              <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-secondary">{c.stayTag}</span>
-              <h3 className="font-headline-md text-headline-md text-primary mt-3 mb-4">{c.stayTitle}</h3>
-              {c.stayText.map((p) => (
-                <p key={p} className="text-on-surface-variant leading-relaxed mb-4">{p}</p>
+        <div className="max-w-[1200px] mx-auto px-gutter grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-on-surface-variant">{c.whyEyebrow}</span>
+            <h2 className="font-display-lg text-display-lg text-primary mt-3 mb-6">
+              {c.whyTitle}
+              <br />
+              <span className="text-secondary">{c.whyAccent}</span>
+            </h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">{c.whyText}</p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {c.whyPoints.map((point) => (
+                <div key={point.title}>
+                  <span className="grid place-items-center w-11 h-11 rounded-md bg-aqua-soft text-primary mb-3">
+                    <span className="material-symbols-outlined text-[22px]">{point.icon}</span>
+                  </span>
+                  <p className="font-semibold text-primary mb-1">{point.title}</p>
+                  <p className="text-[15px] text-on-surface-variant leading-relaxed">{point.text}</p>
+                </div>
               ))}
             </div>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-primary text-on-primary rounded-lg p-8 md:p-10">
-              <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-aqua">{c.coordinatorTag}</span>
-              <h3 className="font-headline-md text-headline-md mt-3 mb-4">{c.coordinatorTitle}</h3>
-              <p className="text-white/75 leading-relaxed mb-6">{c.coordinatorText}</p>
-              <div className="flex flex-wrap gap-2">
-                {c.languages.map((language) => (
-                  <span key={language} className="rounded-full bg-white/10 border border-white/20 px-3 py-1 text-[13px]">
-                    {language}
-                  </span>
-                ))}
+          <div className="grid grid-cols-2 gap-4">
+            {clinicPhotos.map((src, index) => (
+              <div
+                key={src + index}
+                className={`relative rounded-lg overflow-hidden bg-surface-container ${index % 2 === 1 ? 'translate-y-8' : ''} aspect-[4/5]`}
+              >
+                <img src={src} alt="" loading="lazy" className="w-full h-full object-cover" />
               </div>
-            </div>
-            <div className="bg-surface-container-low border border-outline-variant rounded-lg p-8 md:p-10">
-              <span className="font-label-md text-label-md uppercase tracking-[0.14em] text-secondary">{c.planTag}</span>
-              <h3 className="font-headline-md text-headline-md text-primary mt-3 mb-4">{c.planTitle}</h3>
-              <p className="text-on-surface-variant leading-relaxed">{c.planText}</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>

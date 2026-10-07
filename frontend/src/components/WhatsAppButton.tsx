@@ -7,11 +7,12 @@ export default function WhatsAppButton() {
       href="https://wa.me/355690000000?text=Hello%2C%20I%20would%20like%20a%20consultation%20for%20veneers."
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+      className="group fixed bottom-6 right-6 z-50 w-[68px] h-[68px] md:w-[76px] md:h-[76px] rounded-full bg-[#25D366] shadow-[0_12px_32px_-8px_rgba(37,211,102,0.7)] flex items-center justify-center hover:scale-110 transition-transform"
       aria-label={t('Chat on WhatsApp')}
     >
+      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 motion-reduce:hidden" />
       <svg
-        className="w-7 h-7 text-white"
+        className="relative w-9 h-9 md:w-10 md:h-10 text-white"
         fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"

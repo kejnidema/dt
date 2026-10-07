@@ -59,7 +59,6 @@ export default function Header() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const overlay = location.pathname === '/' && !scrolled && !menuOpen && !languageOpen;
   const { lang, setLang, t } = useI18n();
 
   const currentLanguage =
@@ -91,7 +90,7 @@ export default function Header() {
 
   return (
     <header
-      className={`site-header w-full sticky top-0 z-50 h-20 ${scrolled ? 'scrolled' : ''} ${overlay ? 'is-overlay' : ''}`}
+      className={`site-header w-full sticky top-0 z-50 h-20 ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex justify-between items-center h-full">
         <Link to="/" className="flex items-center gap-3">
@@ -264,7 +263,7 @@ export default function Header() {
 
           <Link
             to="/contact"
-            className="header-cta bg-primary text-on-primary px-5 py-2.5 font-label-md text-label-md rounded-md active:scale-[0.98]"
+            className="header-cta bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-5 py-2.5 font-label-md text-label-md rounded-md active:scale-[0.98]"
           >
             {t('Book Now')}
           </Link>
@@ -369,7 +368,7 @@ export default function Header() {
               <Link
                 to="/contact"
                 onClick={closeMenu}
-                className="bg-primary text-on-primary px-6 py-3 font-label-md rounded-md w-full text-center"
+                className="bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-6 py-3 font-label-md rounded-md w-full text-center"
               >
                 {t('Book Now')}
               </Link>

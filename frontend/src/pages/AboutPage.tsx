@@ -138,7 +138,7 @@ export default function AboutPage() {
           <h2 className="font-display-lg text-display-lg text-primary mt-3 mb-4">{c.ctaTitle}</h2>
           <p className="font-body-lg text-body-lg text-on-surface-variant mb-10">{c.ctaText}</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-label-md">
+            <Link to="/contact" className="inline-flex items-center gap-2 bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-8 py-4 rounded-md font-label-md">
               {c.cta}
               <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
             </Link>

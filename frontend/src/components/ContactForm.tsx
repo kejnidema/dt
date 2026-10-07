@@ -164,7 +164,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className="bg-primary text-on-primary px-8 py-4 font-label-md text-label-md rounded-sm hover:opacity-95 shadow-md flex items-center gap-2 disabled:opacity-50 transition-all"
+        className="bg-secondary-fixed text-on-secondary-fixed font-bold shadow-aqua px-8 py-4 font-label-md text-label-md rounded-sm hover:opacity-95 shadow-md flex items-center gap-2 disabled:opacity-50 transition-all"
       >
         {loading ? (
           <>

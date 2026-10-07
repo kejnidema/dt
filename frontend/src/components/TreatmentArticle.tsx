@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n, type Lang } from '@/lib/i18n';
 import { images, galleryPairs } from '@/lib/images';
@@ -163,7 +163,7 @@ function ItemPrice({ item, lang }: { item: PriceItem | undefined; lang: Lang }) 
   );
 }
 
-function PriceComparison({ item, lang }: { item: PriceItem; lang: Lang }) {
+function PriceComparison({ item, lang, children }: { item: PriceItem; lang: Lang; children?: ReactNode }) {
   const market = localMarkets[lang];
   const local = market?.prices[item.id];
   if (!market || local === undefined) return null;
@@ -207,6 +207,7 @@ function PriceComparison({ item, lang }: { item: PriceItem; lang: Lang }) {
           )}
         </div>
       )}
+      {children && <div className="relative mt-5">{children}</div>}
     </div>
   );
 }
@@ -258,6 +259,18 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
   const [caseIndex, setCaseIndex] = useState(0);
   const pair = galleryPairs[caseIndex] ?? galleryPairs[0];
   const goTo = (index: number) => setCaseIndex((index + galleryPairs.length) % galleryPairs.length);
+  const hasComparison = item !== undefined && localMarkets[lang]?.prices[item.id] !== undefined;
+  const heroCta = (
+    <span className="cta-spin flex w-full rounded-[16px]">
+      <Link
+        to="/contact"
+        className="w-full bg-secondary-fixed text-on-secondary-fixed px-6 py-4 rounded-md font-bold text-[17px] inline-flex items-center justify-center gap-2"
+      >
+        {ui.cta}
+        <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+      </Link>
+    </span>
+  );
 
   return (
     <>
@@ -276,15 +289,14 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
             <h1 className="font-display-lg text-[32px] md:text-[40px] leading-tight font-semibold tracking-tight text-primary mt-2 mb-3">{c.name}</h1>
             <p className="text-[17px] leading-relaxed text-on-surface-variant mb-2">{c.subtitle}</p>
             <p className="text-[15px] leading-relaxed text-on-surface-variant mb-6">{c.lead}</p>
-            {item && <PriceComparison item={item} lang={lang} />}
+            {hasComparison && item ? (
+              <PriceComparison item={item} lang={lang}>
+                {heroCta}
+              </PriceComparison>
+            ) : (
+              <div className="mb-4 max-w-sm">{heroCta}</div>
+            )}
             <div className="flex flex-col items-start gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-label-md"
-              >
-                {ui.cta}
-                <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-              </Link>
               <p className="text-[14px] text-on-surface-variant">
                 {ui.travel}{' '}
                 <a href={WHATSAPP} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">
@@ -365,13 +377,15 @@ export default function TreatmentArticle({ content, itemId, heroImage, whatImage
                 <span className="material-symbols-outlined text-[18px]">check_circle</span>
                 {c.priceNote}
               </p>
-              <Link
-                to="/contact"
-                className="mt-6 w-full bg-secondary-fixed text-on-secondary-fixed px-6 py-3 rounded-md font-label-md inline-flex items-center justify-center gap-2"
-              >
-                {ui.cta}
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </Link>
+              <span className="cta-spin mt-6 flex w-full rounded-[16px]">
+                <Link
+                  to="/contact"
+                  className="w-full bg-secondary-fixed text-on-secondary-fixed px-6 py-3.5 rounded-md font-bold text-[16px] inline-flex items-center justify-center gap-2"
+                >
+                  {ui.cta}
+                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </Link>
+              </span>
             </div>
           </aside>
         </div>
