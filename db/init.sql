@@ -13,11 +13,18 @@ CREATE TABLE leads (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Optional reference to an externally hosted image/document. Never fetch this URL
--- on the server; avoid duplicating sensitive patient imagery in this database.
+-- One optional HTTPS link OR one private uploaded file per lead. File bytes never
+-- pass through a public download endpoint. Do not fetch externally hosted URLs.
 CREATE TABLE lead_xrays (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     lead_id UUID NOT NULL UNIQUE REFERENCES leads(id) ON DELETE CASCADE,
-    url TEXT NOT NULL CHECK (length(url) BETWEEN 1 AND 2048),
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    url TEXT CHECK (url IS NULL OR length(url) BETWEEN 1 AND 2048),
+    filename TEXT,
+    media_type TEXT,
+    data BYTEA,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT lead_xrays_source CHECK (
+        (url IS NOT NULL AND filename IS NULL AND media_type IS NULL AND data IS NULL)
+        OR (url IS NULL AND filename IS NOT NULL AND media_type IS NOT NULL AND data IS NOT NULL)
+    )
 );

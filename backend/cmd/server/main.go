@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io"
 	"log"
+	"mime"
 	"net/http"
 	"net/mail"
 	"net/url"
@@ -19,13 +20,14 @@ import (
 )
 
 type lead struct {
-	FullName         string `json:"full_name"`
-	Email            string `json:"email"`
-	Phone            string `json:"phone"`
-	City             string `json:"city"`
-	Treatment        string `json:"treatment"`
-	Message          string `json:"message"`
-	PanoramicXrayURL string `json:"panoramic_xray_url"`
+	FullName         string        `json:"full_name"`
+	Email            string        `json:"email"`
+	Phone            string        `json:"phone"`
+	City             string        `json:"city"`
+	Treatment        string        `json:"treatment"`
+	Message          string        `json:"message"`
+	PanoramicXrayURL string        `json:"panoramic_xray_url"`
+	Xray             *uploadedXray `json:"-"`
 }
 
 type leadStore interface {
@@ -47,7 +49,12 @@ func (s postgresStore) Save(ctx context.Context, l lead) error {
 	if err != nil {
 		return err
 	}
-	if l.PanoramicXrayURL != "" {
+	if l.Xray != nil {
+		_, err = tx.Exec(ctx, `INSERT INTO lead_xrays (lead_id, filename, media_type, data) VALUES ($1, $2, $3, $4)`, id, l.Xray.Filename, l.Xray.MediaType, l.Xray.Data)
+		if err != nil {
+			return err
+		}
+	} else if l.PanoramicXrayURL != "" {
 		_, err = tx.Exec(ctx, `INSERT INTO lead_xrays (lead_id, url) VALUES ($1, $2)`, id, l.PanoramicXrayURL)
 		if err != nil {
 			return err
@@ -67,23 +74,41 @@ func handler(store leadStore) http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /api/leads", func(w http.ResponseWriter, r *http.Request) {
 		// JSON is not a cross-site simple request. No CORS middleware is installed.
-		if r.Header.Get("Content-Type") != "application/json" {
-			writeJSON(w, http.StatusUnsupportedMediaType, map[string]string{"error": "expected application/json"})
+		mediaType, _, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+		if err != nil || (mediaType != "application/json" && mediaType != "multipart/form-data") {
+			writeJSON(w, http.StatusUnsupportedMediaType, map[string]string{"error": "expected JSON or multipart form"})
 			return
 		}
-		if r.ContentLength > 16*1024 {
+		limit := int64(16 * 1024)
+		if mediaType == "multipart/form-data" {
+			limit = maxUploadSize + 32*1024
+		}
+		if r.ContentLength > limit {
 			writeJSON(w, http.StatusRequestEntityTooLarge, map[string]string{"error": "request too large"})
 			return
 		}
-		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 16*1024))
-		dec.DisallowUnknownFields()
+		r.Body = http.MaxBytesReader(w, r.Body, limit)
 		var l lead
-		if err := dec.Decode(&l); err != nil {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request"})
-			return
+		if mediaType == "multipart/form-data" {
+			l, err = parseLeadMultipart(r)
+		} else {
+			dec := json.NewDecoder(r.Body)
+			dec.DisallowUnknownFields()
+			if err = dec.Decode(&l); err == nil {
+				if err = dec.Decode(new(any)); errors.Is(err, io.EOF) {
+					err = nil
+				} else if err == nil {
+					err = errors.New("trailing data")
+				}
+			}
 		}
-		if err := dec.Decode(new(any)); !errors.Is(err, io.EOF) {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request"})
+		if err != nil {
+			var tooLarge *http.MaxBytesError
+			status := http.StatusBadRequest
+			if errors.As(err, &tooLarge) || errors.Is(err, errFileTooLarge) {
+				status = http.StatusRequestEntityTooLarge
+			}
+			writeJSON(w, status, map[string]string{"error": "invalid request or file"})
 			return
 		}
 		l.FullName = strings.TrimSpace(l.FullName)
@@ -97,7 +122,7 @@ func handler(store leadStore) http.Handler {
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid form fields"})
 			return
 		}
-		ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+		ctx, cancel := context.WithTimeout(r.Context(), 20*time.Second)
 		defer cancel()
 		if err := store.Save(ctx, l); err != nil {
 			log.Printf("lead insert failed: %T", err) // never log lead data, SQL or URL
@@ -115,6 +140,9 @@ func valid(l lead) bool {
 	}
 	addr, err := mail.ParseAddress(l.Email)
 	if err != nil || addr.Address != l.Email || len(l.Email) < 3 {
+		return false
+	}
+	if l.Xray != nil && l.PanoramicXrayURL != "" {
 		return false
 	}
 	if l.PanoramicXrayURL == "" {
@@ -150,8 +178,8 @@ func main() {
 		Addr:              ":" + port,
 		Handler:           handler(postgresStore{pool}),
 		ReadHeaderTimeout: 5 * time.Second,
-		ReadTimeout:       10 * time.Second,
-		WriteTimeout:      10 * time.Second,
+		ReadTimeout:       90 * time.Second,
+		WriteTimeout:      90 * time.Second,
 		IdleTimeout:       60 * time.Second,
 	}
 	log.Fatal(srv.ListenAndServe())

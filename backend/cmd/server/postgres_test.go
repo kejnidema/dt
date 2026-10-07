@@ -31,6 +31,17 @@ func TestPostgresSave(t *testing.T) {
 	if err := store.Save(ctx, lead{FullName: "Test Lead 2", Email: "test2@example.invalid", PanoramicXrayURL: "https://example.invalid/scan.pdf"}); err != nil {
 		t.Fatal(err)
 	}
+	file := []byte("%PDF-1.7 test")
+	if err := store.Save(ctx, lead{FullName: "Test Lead 3", Email: "test3@example.invalid", Xray: &uploadedXray{Filename: "scan.pdf", MediaType: "application/pdf", Data: file}}); err != nil {
+		t.Fatal(err)
+	}
+	var savedFile []byte
+	if err := pool.QueryRow(ctx, `SELECT x.data FROM lead_xrays x JOIN leads l ON x.lead_id=l.id WHERE l.email='test3@example.invalid' AND x.url IS NULL AND x.media_type='application/pdf'`).Scan(&savedFile); err != nil {
+		t.Fatal(err)
+	}
+	if string(savedFile) != string(file) {
+		t.Fatal("upload bytes differ")
+	}
 	var leads, xrays int
 	err = pool.QueryRow(ctx, `SELECT count(*) FROM leads WHERE email IN ('test@example.invalid','test2@example.invalid')`).Scan(&leads)
 	if err != nil {

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -55,6 +56,74 @@ func TestCreateLead(t *testing.T) {
 			}
 			if tc.name == "without xray" && f.saved[0].FullName != "Ana" {
 				t.Fatal("name not trimmed")
+			}
+		})
+	}
+}
+
+func multipartRequest(t *testing.T, filename string, data []byte, url string) *http.Request {
+	t.Helper()
+	var buf bytes.Buffer
+	w := multipart.NewWriter(&buf)
+	_ = w.WriteField("full_name", "Ana")
+	_ = w.WriteField("email", "ana@example.com")
+	_ = w.WriteField("panoramic_xray_url", url)
+	if filename != "" {
+		part, err := w.CreateFormFile("panoramic_xray", filename)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := part.Write(data); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := w.Close(); err != nil {
+		t.Fatal(err)
+	}
+	r := httptest.NewRequest(http.MethodPost, "/api/leads", &buf)
+	r.Header.Set("Content-Type", w.FormDataContentType())
+	return r
+}
+
+func TestMultipartUploads(t *testing.T) {
+	formats := []struct {
+		filename, mime string
+		data           []byte
+	}{
+		{"scan.jpg", "image/jpeg", []byte{0xff, 0xd8, 0xff, 0xd9}},
+		{"scan.png", "image/png", []byte{137, 80, 78, 71, 13, 10, 26, 10}},
+		{"scan.tiff", "image/tiff", []byte{'I', 'I', 42, 0}},
+		{"scan.bmp", "image/bmp", append([]byte{'B', 'M'}, make([]byte, 12)...)},
+		{"scan.pdf", "application/pdf", []byte("%PDF-1.7")},
+		{"scan.dcm", "application/dicom", append(make([]byte, 128), []byte("DICM")...)},
+	}
+	for _, tc := range formats {
+		t.Run(tc.filename, func(t *testing.T) {
+			f := &fakeStore{}
+			w := httptest.NewRecorder()
+			handler(f).ServeHTTP(w, multipartRequest(t, tc.filename, tc.data, ""))
+			if w.Code != 201 || len(f.saved) != 1 || f.saved[0].Xray == nil || f.saved[0].Xray.MediaType != tc.mime || !bytes.Equal(f.saved[0].Xray.Data, tc.data) {
+				t.Fatalf("unexpected upload result: %d", w.Code)
+			}
+		})
+	}
+	for _, tc := range []struct {
+		name, filename string
+		data           []byte
+		url            string
+		status         int
+	}{
+		{"bad magic", "fake.pdf", []byte("<script>"), "", 400},
+		{"unsupported", "evil.svg", []byte("<svg>"), "", 400},
+		{"link plus file", "scan.pdf", []byte("%PDF-1.7"), "https://example.com/xray.pdf", 400},
+		{"too large", "scan.pdf", append([]byte("%PDF-"), make([]byte, maxUploadSize)...), "", 413},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			f := &fakeStore{}
+			w := httptest.NewRecorder()
+			handler(f).ServeHTTP(w, multipartRequest(t, tc.filename, tc.data, tc.url))
+			if w.Code != tc.status || len(f.saved) != 0 {
+				t.Fatalf("got %d saves=%d", w.Code, len(f.saved))
 			}
 		})
 	}
