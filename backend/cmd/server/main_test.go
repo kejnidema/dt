@@ -4,6 +4,10 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"image"
+	"image/color"
+	"image/jpeg"
+	"image/png"
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
@@ -85,17 +89,32 @@ func multipartRequest(t *testing.T, filename string, data []byte, url string) *h
 	return r
 }
 
+func imageFixture(t *testing.T, kind string) []byte {
+	t.Helper()
+	var buf bytes.Buffer
+	img := image.NewNRGBA(image.Rect(0, 0, 2, 2))
+	img.Set(0, 0, color.NRGBA{R: 255, A: 255})
+	var err error
+	if kind == "jpeg" {
+		err = jpeg.Encode(&buf, img, nil)
+	} else {
+		err = png.Encode(&buf, img)
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	return buf.Bytes()
+}
+
 func TestMultipartUploads(t *testing.T) {
 	formats := []struct {
 		filename, mime string
 		data           []byte
 	}{
-		{"scan.jpg", "image/jpeg", []byte{0xff, 0xd8, 0xff, 0xd9}},
-		{"scan.png", "image/png", []byte{137, 80, 78, 71, 13, 10, 26, 10}},
-		{"scan.tiff", "image/tiff", []byte{'I', 'I', 42, 0}},
-		{"scan.bmp", "image/bmp", append([]byte{'B', 'M'}, make([]byte, 12)...)},
+		{"scan.jpg", "image/jpeg", imageFixture(t, "jpeg")},
+		{"scan.JPEG", "image/jpeg", imageFixture(t, "jpeg")},
+		{"scan.png", "image/png", imageFixture(t, "png")},
 		{"scan.pdf", "application/pdf", []byte("%PDF-1.7")},
-		{"scan.dcm", "application/dicom", append(make([]byte, 128), []byte("DICM")...)},
 	}
 	for _, tc := range formats {
 		t.Run(tc.filename, func(t *testing.T) {
@@ -115,6 +134,13 @@ func TestMultipartUploads(t *testing.T) {
 	}{
 		{"bad magic", "fake.pdf", []byte("<script>"), "", 400},
 		{"unsupported", "evil.svg", []byte("<svg>"), "", 400},
+		{"TIFF", "scan.tiff", []byte{'I', 'I', 42, 0}, "", 400},
+		{"BMP", "scan.bmp", append([]byte{'B', 'M'}, make([]byte, 12)...), "", 400},
+		{"DICOM", "scan.dcm", append(make([]byte, 128), []byte("DICM")...), "", 400},
+		{"ZIP", "scan.zip", []byte{'P', 'K', 3, 4}, "", 400},
+		{"truncated JPEG", "scan.jpg", []byte{0xff, 0xd8, 0xff, 0xd9}, "", 400},
+		{"truncated PNG", "scan.png", []byte{137, 80, 78, 71, 13, 10, 26, 10}, "", 400},
+		{"oversize image", "scan.jpg", append(imageFixture(t, "jpeg"), make([]byte, maxImageSize)...), "", 400},
 		{"link plus file", "scan.pdf", []byte("%PDF-1.7"), "https://example.com/xray.pdf", 400},
 		{"too large", "scan.pdf", append([]byte("%PDF-"), make([]byte, maxUploadSize)...), "", 413},
 	} {

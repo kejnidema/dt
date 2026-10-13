@@ -108,7 +108,11 @@ func handler(store leadStore) http.Handler {
 			if errors.As(err, &tooLarge) || errors.Is(err, errFileTooLarge) {
 				status = http.StatusRequestEntityTooLarge
 			}
-			writeJSON(w, status, map[string]string{"error": "invalid request or file"})
+			message := "invalid request or file"
+			if errors.Is(err, errUnsupportedXray) || errors.Is(err, errFileTooLarge) {
+				message = errUnsupportedXray.Error()
+			}
+			writeJSON(w, status, map[string]string{"error": message})
 			return
 		}
 		l.FullName = strings.TrimSpace(l.FullName)

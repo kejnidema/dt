@@ -27,7 +27,8 @@ export default function ContactForm() {
     e.preventDefault();
     if (loading) return;
     setFileError(false);
-    if (xray && (xray.size > 20 * 1024 * 1024 || !/\.(jpe?g|png|tiff?|bmp|pdf|dcm)$/i.test(xray.name))) {
+    const imageFile = xray && /\.(jpe?g|png)$/i.test(xray.name);
+    if (xray && (xray.size === 0 || xray.size > (imageFile ? 5_000_000 : 20 * 1024 * 1024) || !/\.(jpe?g|png|pdf)$/i.test(xray.name))) {
       setFileError(true);
       return;
     }
@@ -44,7 +45,13 @@ export default function ContactForm() {
         ...(xray ? {} : { headers: { 'Content-Type': 'application/json' } }),
         body,
       });
-      if (!response.ok) throw new Error('save failed');
+      if (!response.ok) {
+        if (xray && (response.status === 400 || response.status === 413)) {
+          setFileError(true);
+          return;
+        }
+        throw new Error('save failed');
+      }
       setSubmitted(true);
     } catch {
       setError(true);
@@ -167,13 +174,13 @@ export default function ContactForm() {
         <input
           id="panoramic-xray-file"
           type="file"
-          accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.pdf,.dcm"
+          accept=".jpg,.jpeg,.png,.pdf"
           disabled={Boolean(form.panoramic_xray_url)}
           onChange={(event) => { setXray(event.target.files?.[0] ?? null); setFileError(false); }}
           className="block w-full mb-4 text-on-surface-variant disabled:opacity-50"
         />
-        <p className="text-sm text-on-surface-variant mb-3">{tr('Upload a JPG, PNG, TIFF, BMP, PDF or DICOM (.dcm) file, up to 20 MB; or provide an HTTPS link below.')}</p>
-        {fileError && <p role="alert" className="text-red-700">{tr('Choose a supported file no larger than 20 MB.')}</p>}
+        <p className="text-sm text-on-surface-variant mb-3">{tr('Upload a JPG or PNG (8-bit RGB/RGBA, up to 5 MB), or PDF (up to 20 MiB); or provide an HTTPS link below.')}</p>
+        {fileError && <p role="alert" className="text-red-700">{tr('Check your form and choose a valid JPG/PNG (8-bit RGB/RGBA, up to 5 MB) or PDF (up to 20 MiB).')}</p>}
         <input
           type="url"
           name="panoramic_xray_url"

@@ -3,6 +3,9 @@ package main
 import (
 	"bytes"
 	"errors"
+	"image/color"
+	"image/jpeg"
+	"image/png"
 	"io"
 	"net/http"
 	"path"
@@ -10,7 +13,9 @@ import (
 	"unicode"
 )
 
-const maxUploadSize int64 = 20 << 20 // 20 MiB for a single 2D panoramic image/export
+const maxUploadSize int64 = 20 << 20 // Website PDF cap; below Cloud API's 100 MB limit
+const maxImageSize = 5_000_000       // Conservative decimal 5 MB Cloud API image limit
+var errUnsupportedXray = errors.New("use JPG/PNG (8-bit RGB/RGBA, up to 5 MB) or PDF (up to 20 MiB)")
 var errFileTooLarge = errors.New("file too large")
 var errInvalidMultipart = errors.New("invalid multipart form")
 
@@ -26,28 +31,20 @@ func xrayType(filename string, data []byte) string {
 	ext := strings.ToLower(path.Ext(filename))
 	switch ext {
 	case ".jpg", ".jpeg":
-		if len(data) >= 3 && bytes.Equal(data[:3], []byte{0xff, 0xd8, 0xff}) {
+		// DecodeConfig validates the 8-bit JPEG header without allocating pixel data.
+		cfg, err := jpeg.DecodeConfig(bytes.NewReader(data))
+		if len(data) <= maxImageSize && err == nil && cfg.ColorModel == color.YCbCrModel {
 			return "image/jpeg"
 		}
 	case ".png":
-		if len(data) >= 8 && bytes.Equal(data[:8], []byte{137, 80, 78, 71, 13, 10, 26, 10}) {
+		// IHDR: only 8-bit truecolor (2) or truecolor with alpha (6).
+		_, err := png.DecodeConfig(bytes.NewReader(data))
+		if len(data) <= maxImageSize && err == nil && len(data) >= 26 && data[24] == 8 && (data[25] == 2 || data[25] == 6) {
 			return "image/png"
-		}
-	case ".bmp":
-		if len(data) >= 14 && bytes.Equal(data[:2], []byte{'B', 'M'}) {
-			return "image/bmp"
-		}
-	case ".tif", ".tiff":
-		if len(data) >= 4 && (bytes.Equal(data[:4], []byte{'I', 'I', 42, 0}) || bytes.Equal(data[:4], []byte{'M', 'M', 0, 42})) {
-			return "image/tiff"
 		}
 	case ".pdf":
 		if len(data) >= 5 && bytes.Equal(data[:5], []byte("%PDF-")) {
 			return "application/pdf"
-		}
-	case ".dcm":
-		if len(data) >= 132 && bytes.Equal(data[128:132], []byte("DICM")) {
-			return "application/dicom"
 		}
 	}
 	return ""
@@ -98,7 +95,7 @@ func parseLeadMultipart(r *http.Request) (lead, error) {
 			}
 			mediaType := xrayType(name, data)
 			if mediaType == "" {
-				return l, errInvalidMultipart
+				return l, errUnsupportedXray
 			}
 			l.Xray = &uploadedXray{Filename: name, MediaType: mediaType, Data: data}
 		} else {
