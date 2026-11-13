@@ -17,4 +17,8 @@
    docker compose -f docker-compose.yml -f docker-compose.dev.yml down
    ```
 
-Development mode runs over HTTP and is **not** suitable for production or real patient submissions. Do not use `down -v` unless you intend to delete the database volume. For production setup, data migration, and privacy notes, see [leads_setup.md](leads_setup.md). For WhatsApp configuration, see [integrate_whatsapp.md](integrate_whatsapp.md).
+Development mode runs over HTTP and is **not** suitable for production or real patient submissions. Do not use `down -v` unless you intend to delete the database volume. For production setup, data migration, and privacy notes, see [leads_setup.md](leads_setup.md).
+
+## Automated Telegram lead delivery
+
+The backend sends new saved leads and original panoramic X-ray files (or submitted links) to your configured private Telegram group when `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are set. See [Telegram setup](bot/README.md) for the required existing-database migration, retries and privacy requirements. Telegram bot chats are not end-to-end encrypted. Website WhatsApp contact links remain independent.

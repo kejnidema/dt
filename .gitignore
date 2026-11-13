@@ -43,3 +43,4 @@ frontend/.vite/
 AGENTS.md
 IMPLEMENTATION_PLAN.md
 
+__pycache__

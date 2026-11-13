@@ -174,6 +174,14 @@ func main() {
 	if err := pool.Ping(ctx); err != nil {
 		log.Fatal("database unavailable")
 	}
+	token, chat := strings.TrimSpace(os.Getenv("TELEGRAM_BOT_TOKEN")), strings.TrimSpace(os.Getenv("TELEGRAM_CHAT_ID"))
+	if token != "" && chat != "" {
+		worker := &telegramWorker{pool: pool, token: token, chat: chat, baseURL: "https://api.telegram.org", client: &http.Client{Timeout: 60 * time.Second, CheckRedirect: func(_ *http.Request, _ []*http.Request) error { return http.ErrUseLastResponse }}}
+		go worker.run(context.Background())
+		log.Print("telegram background delivery enabled")
+	} else {
+		log.Print("telegram delivery disabled: configure both TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID")
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
