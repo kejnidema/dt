@@ -29,9 +29,9 @@ type telegramPart struct{ field, body, kind string }
 
 // Stay below Telegram's 4096-character limit even when counting UTF-16 units.
 func telegramParts(id string, l lead) []telegramPart {
-	fields := [][2]string{{"Lead ID", id}, {"Name", l.FullName}, {"Email", l.Email}, {"Phone", l.Phone}, {"City", l.City}, {"Treatment", l.Treatment}, {"Message", l.Message}, {"Panoramic X-ray link", l.PanoramicXrayURL}}
+	fields := [][2]string{{"Name", l.FullName}, {"Email", l.Email}, {"Phone", l.Phone}, {"City", l.City}, {"Treatment", l.Treatment}, {"Message", l.Message}, {"Panoramic X-ray link", l.PanoramicXrayURL}}
 	var text strings.Builder
-	text.WriteString("New contact form lead\n")
+	text.WriteString("New contact form lead\n\n")
 	for _, f := range fields {
 		text.WriteString(f[0])
 		text.WriteString(": ")
@@ -58,7 +58,7 @@ func telegramParts(id string, l lead) []telegramPart {
 		parts = append(parts, telegramPart{"contact", chunk.String(), "text"})
 	}
 	for i := range parts {
-		parts[i].body = fmt.Sprintf("Lead %s — part %d\n%s", id, i+1, parts[i].body)
+		parts[i].body = fmt.Sprintf("Lead %s — part %d\n\n%s", id, i+1, parts[i].body)
 	}
 	if l.Xray != nil {
 		parts = append(parts, telegramPart{"panoramic_xray", "Panoramic X-ray for lead " + id, "document"})

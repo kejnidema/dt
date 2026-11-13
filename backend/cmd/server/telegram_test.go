@@ -30,10 +30,13 @@ func TestTelegramParts(t *testing.T) {
 			if !strings.HasPrefix(p.body, "Lead lead-id — part ") {
 				t.Fatal("missing lead correlation")
 			}
-			joined.WriteString(strings.SplitN(p.body, "\n", 2)[1])
+			if strings.Count(p.body, "lead-id") != 1 {
+				t.Fatal("duplicate lead ID")
+			}
+			joined.WriteString(strings.SplitN(p.body, "\n\n", 2)[1])
 		}
 	}
-	for _, value := range []string{"lead-id", l.FullName, l.Email, l.Phone, l.City, l.Treatment, l.Message, l.PanoramicXrayURL} {
+	for _, value := range []string{l.FullName, l.Email, l.Phone, l.City, l.Treatment, l.Message, l.PanoramicXrayURL} {
 		if !strings.Contains(joined.String(), value) {
 			t.Fatal("missing field")
 		}
@@ -43,6 +46,14 @@ func TestTelegramParts(t *testing.T) {
 	}
 	if len(telegramParts("id", lead{})) != 1 {
 		t.Fatal("unexpected empty attachment")
+	}
+}
+
+func TestTelegramMessageSpacing(t *testing.T) {
+	parts := telegramParts("test-id", lead{FullName: "Test Name", Email: "test@example.invalid", Message: "Please contact me."})
+	want := "Lead test-id — part 1\n\nNew contact form lead\n\nName: Test Name\nEmail: test@example.invalid\nPhone: \nCity: \nTreatment: \nMessage: Please contact me.\nPanoramic X-ray link: \n"
+	if len(parts) != 1 || parts[0].body != want {
+		t.Fatalf("unexpected message: %+v", parts)
 	}
 }
 
